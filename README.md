@@ -1,3 +1,5 @@
+**The English text is located below the Japanese.**
+
 # AppBuySell
 AppBuySell_Repository for Flutter
 
@@ -27,7 +29,6 @@ flutter pub get
 flutter run
 ```
 
-
 ## 貢献
 貢献を希望する方は、プルリクエストをお送りください。詳細はCONTRIBUTING.mdをご覧ください。
 
@@ -38,15 +39,15 @@ flutter run
 AilaB inc.
 r.sato@ailab-corp.com
 
-# [Project Name]
+# AppBuySell
 
 ## Overview
-[Project Name] is a Flutter application designed for [a brief description of the application].
+AppBuySell is a Flutter application designed to easily buy and sell individual development products within the app..
 
 ## Features
-- Feature 1
-- Feature 2
-- Feature 3
+- Easy buying and selling within the app.
+- Transfer of ownership rights upon purchase.
+- Simple to list products.
 
 ## Getting Started
 This section describes how to set up the project.
