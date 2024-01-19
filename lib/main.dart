@@ -1,8 +1,18 @@
+import 'package:app_buy_sell/app_module/app_module.dart';
 import 'package:app_buy_sell/screen/start/start_page.dart';
 import 'package:app_buy_sell/utils/theme/app_theme.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:koin/koin.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  startKoin((app) {
+    app.modules(List.of([
+      Modules.viewModelModule,
+    ]));
+  });
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
