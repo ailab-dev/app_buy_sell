@@ -24,7 +24,7 @@ class _StartPageState extends State<StartPage> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Assets.images.logo.svg(),
+                  Assets.images.logoPng.image(width: 290),
                   const SizedBox(
                     height: 15,
                   ),
