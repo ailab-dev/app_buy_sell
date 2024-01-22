@@ -1,8 +1,6 @@
 import 'package:app_buy_sell/base/base_screen.dart';
 import 'package:app_buy_sell/screen/home/home_page.dart';
-import 'package:app_buy_sell/screen/login/login_view_model.dart';
-import 'package:app_buy_sell/screen/register_profile/register_profile_page.dart';
-import 'package:app_buy_sell/service/login_service.dart';
+import 'package:app_buy_sell/screen/register_profile/register_profile_view_model.dart';
 import 'package:app_buy_sell/utils/loading_view.dart';
 import 'package:app_buy_sell/utils/navigation.dart';
 import 'package:app_buy_sell/utils/theme/color_constant.dart';
@@ -10,29 +8,26 @@ import 'package:app_buy_sell/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class RegisterProfilePage extends StatefulWidget {
+  const RegisterProfilePage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<RegisterProfilePage> createState() => _RegisterProfilePageState();
 }
 
-class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
+class _RegisterProfilePageState
+    extends BaseScreen<RegisterProfilePage, RegisterProfileViewModel> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => viewModel,
-      child: Consumer<LoginViewModel>(
+      child: Consumer<RegisterProfileViewModel>(
         builder: (context, value, child) {
-          return LoadingView(
-            isLoading: viewModel.isLoading,
-            child: Scaffold(
-              resizeToAvoidBottomInset: false,
-              appBar: AppBar(),
-              body: GestureDetector(
+          return Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: LoadingView(
+              isLoading: viewModel.isLoading,
+              child: GestureDetector(
                 behavior: HitTestBehavior.translucent,
                 onTap: () {
                   Utils.dismisKeyboard(context);
@@ -46,22 +41,35 @@ class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
                       children: [
                         Center(
                           child: Text(
-                            'ログイン',
+                            'プロフィール登録',
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                         ),
                         const SizedBox(
                           height: 37,
                         ),
+                        const Center(
+                          child: Text(
+                            '新規会員登録していただきありがとうございます。\nプロフィールを入力してAppBuySellを始めましょう！\n※登録後もプロフィール編集は可能です。',
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontWeight: FontWeight.w400,
+                              color: ColorsConstant.text,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 37,
+                        ),
                         Text(
-                          'メールアドレス',
+                          'ユーザーネーム',
                           style: Theme.of(context).textTheme.titleSmall,
                         ),
                         const SizedBox(
                           height: 10,
                         ),
                         TextField(
-                          controller: _emailController,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4.0),
@@ -78,55 +86,14 @@ class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
                             ),
                             fillColor: ColorsConstant.gray,
                             filled: true,
-                            hintText: 'your-email@prodhub.com',
+                            hintText: '田中太郎',
                             hintStyle: const TextStyle(
                               fontSize: 12,
                               color: ColorsConstant.gray2,
                             ),
-                            errorText: viewModel.emailErr,
                           ),
                           onChanged: (value) {
-                            viewModel.email = value;
-                          },
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          'パスワード',
-                          style: Theme.of(context).textTheme.titleSmall,
-                        ),
-                        const SizedBox(
-                          height: 10,
-                        ),
-                        TextField(
-                          controller: _passwordController,
-                          obscureText: true,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4.0),
-                              borderSide: const BorderSide(
-                                  color: Colors.transparent, width: 0.0),
-                            ),
-                            enabledBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.transparent, width: 0.0),
-                            ),
-                            focusedBorder: const OutlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.transparent, width: 0.0),
-                            ),
-                            fillColor: ColorsConstant.gray,
-                            filled: true,
-                            hintText: '小文字・大文字・数字を含めた8桁以上',
-                            hintStyle: const TextStyle(
-                              fontSize: 12,
-                              color: ColorsConstant.gray2,
-                            ),
-                            errorText: viewModel.passErr,
-                          ),
-                          onChanged: (value) {
-                            viewModel.password = value;
+                            viewModel.setName(value);
                           },
                         ),
                         const Spacer(),
@@ -134,22 +101,17 @@ class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
                           width: double.infinity,
                           height: 54,
                           child: TextButton(
-                            onPressed: () async {
-                              Utils.dismisKeyboard(context);
-                              final result = await viewModel.loginAccount(
-                                  _emailController.text,
-                                  _passwordController.text);
-                              if (mounted && result != null) {
-                                if (result ==
-                                    AccountStatus.profileUnRegistered) {
-                                  Navigation.pushAndRemoveUntil(
-                                      context, const RegisterProfilePage());
-                                } else if (result == AccountStatus.logined) {
-                                  Navigation.pushAndRemoveUntil(
-                                      context, const HomePage());
-                                }
-                              }
-                            },
+                            onPressed: viewModel.enable
+                                ? () async {
+                                    Utils.dismisKeyboard(context);
+                                    final result =
+                                        await viewModel.registerProfile();
+                                    if (mounted && result) {
+                                      Navigation.pushAndRemoveUntil(
+                                          context, const HomePage());
+                                    }
+                                  }
+                                : null,
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all(
                                 RoundedRectangleBorder(
@@ -157,10 +119,12 @@ class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
                                 ),
                               ),
                               backgroundColor: MaterialStateProperty.all(
-                                  ColorsConstant.text),
+                                  viewModel.enable
+                                      ? ColorsConstant.text
+                                      : ColorsConstant.purpleGray),
                             ),
                             child: const Text(
-                              'ログインする',
+                              'プロフィールを保存する',
                               style: TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.w500,
@@ -179,12 +143,5 @@ class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
         },
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

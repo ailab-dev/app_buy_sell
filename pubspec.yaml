@@ -17,6 +17,8 @@ dependencies:
   koin: ^0.15.0-nullsafety.0
   koin_flutter: ^0.11.0-nullsafety.0
   provider: ^6.0.5
+  json_annotation: ^4.8.1
+  cached_network_image: ^3.2.3
 dev_dependencies:
   flutter_test:
     sdk: flutter

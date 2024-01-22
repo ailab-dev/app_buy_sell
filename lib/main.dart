@@ -1,5 +1,5 @@
 import 'package:app_buy_sell/app_module/app_module.dart';
-import 'package:app_buy_sell/screen/start/start_page.dart';
+import 'package:app_buy_sell/screen/splash/splash_page.dart';
 import 'package:app_buy_sell/utils/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme().theme,
       debugShowCheckedModeBanner: false,
-      home: const StartPage(),
+      home: const SplashPage(),
     );
   }
 }

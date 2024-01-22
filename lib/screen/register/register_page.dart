@@ -1,6 +1,6 @@
 import 'package:app_buy_sell/base/base_screen.dart';
 import 'package:app_buy_sell/screen/register/register_view_model.dart';
-import 'package:app_buy_sell/screen/register_profile/register_profile.dart';
+import 'package:app_buy_sell/screen/register_profile/register_profile_page.dart';
 import 'package:app_buy_sell/utils/loading_view.dart';
 import 'package:app_buy_sell/utils/navigation.dart';
 import 'package:app_buy_sell/utils/theme/color_constant.dart';
@@ -81,7 +81,11 @@ class _RegisterPageState extends BaseScreen<RegisterPage, RegisterViewModel> {
                               fontSize: 12,
                               color: ColorsConstant.gray2,
                             ),
+                            errorText: viewModel.emailErr,
                           ),
+                          onChanged: (value) {
+                            viewModel.email = value;
+                          },
                         ),
                         const SizedBox(
                           height: 20,
@@ -117,7 +121,11 @@ class _RegisterPageState extends BaseScreen<RegisterPage, RegisterViewModel> {
                               fontSize: 12,
                               color: ColorsConstant.gray2,
                             ),
+                            errorText: viewModel.passErr,
                           ),
+                          onChanged: (value) {
+                            viewModel.password = value;
+                          },
                         ),
                         const Spacer(),
                         Center(
