@@ -30,7 +30,9 @@ class _SplashPageState extends BaseScreen<SplashPage, SplashViewModel> {
     final status = await viewModel.checkAccount();
     if (mounted) {
       if (status == AccountStatus.profileUnRegistered) {
-        Navigation.pushAndRemoveUntil(context, const StartPage());
+        Navigation.pushAndRemoveUntil(context, const RegisterProfilePage());
+      } else if (status == AccountStatus.logined) {
+        Navigation.pushAndRemoveUntil(context, const HomePage());
       } else {
         Navigation.pushAndRemoveUntil(context, const StartPage());
       }
