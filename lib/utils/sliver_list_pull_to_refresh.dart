@@ -12,7 +12,7 @@ class SliverListPullToRefresh extends StatefulWidget {
     this.bottomInset = 0,
     this.scrollController,
     this.onLoadMore,
-    this.indicatorColor = Colors.white,
+    this.indicatorColor = Colors.black,
   });
 
   final Future<void> Function() onRefresh;
