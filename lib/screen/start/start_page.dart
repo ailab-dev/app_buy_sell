@@ -91,6 +91,9 @@ class _StartPageState extends State<StartPage> {
               ),
             ),
           ),
+          const SizedBox(
+            height: 30,
+          ),
         ],
       )),
     );

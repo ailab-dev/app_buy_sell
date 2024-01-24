@@ -205,6 +205,9 @@ class _RegisterPageState extends BaseScreen<RegisterPage, RegisterViewModel> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 30,
+                        ),
                       ],
                     ),
                   ),
