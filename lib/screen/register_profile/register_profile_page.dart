@@ -133,6 +133,9 @@ class _RegisterProfilePageState
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 30,
+                        ),
                       ],
                     ),
                   ),

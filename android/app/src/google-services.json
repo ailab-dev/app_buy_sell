@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "491643756008",
+    "project_id": "app-buy-sell-prod",
+    "storage_bucket": "app-buy-sell-prod.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:491643756008:android:d3db2b9698f981910f985d",
+        "android_client_info": {
+          "package_name": "com.ailab.appBuySell"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzj_B9SBcJLGUpMTaLi7Y8ItNH62UnUOU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -3,17 +3,17 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyBDuylFOCQVJgQee_rlqCZqAMTUhhrA-Eo</string>
+	<string>AIzaSyDo18I0HIbijwkzOzXxXrjuXi0rwFuhlgk</string>
 	<key>GCM_SENDER_ID</key>
-	<string>342613389735</string>
+	<string>491643756008</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.example.appBuySell</string>
+	<string>com.ailab.appBuySell</string>
 	<key>PROJECT_ID</key>
-	<string>app-buy-sell</string>
+	<string>app-buy-sell-prod</string>
 	<key>STORAGE_BUCKET</key>
-	<string>app-buy-sell.appspot.com</string>
+	<string>app-buy-sell-prod.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:342613389735:ios:f05902ba15e650883a4682</string>
+	<string>1:491643756008:ios:74c2a36a14fe31fa0f985d</string>
 </dict>
 </plist>

@@ -169,6 +169,9 @@ class _LoginPageState extends BaseScreen<LoginPage, LoginViewModel> {
                             ),
                           ),
                         ),
+                        const SizedBox(
+                          height: 30,
+                        ),
                       ],
                     ),
                   ),
