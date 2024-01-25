@@ -1,6 +1,7 @@
 import 'package:app_buy_sell/base/base_screen.dart';
-import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/screen/home/home_view_model.dart';
+import 'package:app_buy_sell/screen/product/product_page.dart';
+import 'package:app_buy_sell/utils/navigation.dart';
 import 'package:app_buy_sell/utils/theme/color_constant.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -65,7 +66,14 @@ class _HomePageState extends BaseScreen<HomePage, HomeViewModel> {
                       itemBuilder: (context, index) {
                         final item = viewModel.appList[index];
                         return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigation.push(
+                              context,
+                              ProductPage(
+                                appModel: item,
+                              ),
+                            );
+                          },
                           child: Padding(
                             padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
                             child: Row(
@@ -75,7 +83,8 @@ class _HomePageState extends BaseScreen<HomePage, HomeViewModel> {
                                   height: 60,
                                   decoration: BoxDecoration(
                                       image: DecorationImage(
-                                        image: Assets.images.app.provider(),
+                                        image: CachedNetworkImageProvider(
+                                            item.iconUrl),
                                         fit: BoxFit.cover,
                                       ),
                                       borderRadius: const BorderRadius.all(

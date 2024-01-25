@@ -9,6 +9,8 @@ class AppModel {
   String name;
   String description;
   String iconUrl;
+  String? iosId;
+  String? androidId;
 
   @JsonKey(
     fromJson: Utils.fromTimestamp,

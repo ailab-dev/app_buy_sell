@@ -10,11 +10,16 @@ AppModel _$AppModelFromJson(Map<String, dynamic> json) => AppModel(
       json['name'] as String,
       json['description'] as String,
       json['iconUrl'] as String,
-    )..createdAt = Utils.fromTimestamp(json['createdAt'] as Timestamp?);
+    )
+      ..iosId = json['iosId'] as String?
+      ..androidId = json['androidId'] as String?
+      ..createdAt = Utils.fromTimestamp(json['createdAt'] as Timestamp?);
 
 Map<String, dynamic> _$AppModelToJson(AppModel instance) => <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'iconUrl': instance.iconUrl,
+      'iosId': instance.iosId,
+      'androidId': instance.androidId,
       'createdAt': Utils.toTimestamp(instance.createdAt),
     };
