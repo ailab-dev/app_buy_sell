@@ -11,4 +11,18 @@ class Utils {
   static DateTime? fromTimestamp(Timestamp? timestamp) => timestamp?.toDate();
   static dynamic toTimestamp(DateTime? time) =>
       time != null ? Timestamp.fromDate(time) : FieldValue.serverTimestamp();
+
+  static String appstoreUrl(String? appId) {
+    if (appId != null) {
+      return 'https://apps.apple.com/jp/app/facebook/id$appId';
+    }
+    return '';
+  }
+
+  static String googlePlayUrl(String? appId) {
+    if (appId != null) {
+      return 'https://play.google.com/store/apps/details?id=$appId';
+    }
+    return '';
+  }
 }

@@ -20,6 +20,10 @@ dependencies:
   json_annotation: ^4.8.1
   cached_network_image: ^3.2.3
   flutter_rating_bar: ^4.0.1
+  readmore: ^2.2.0
+  dio: ^5.3.3
+  intl: ^0.19.0
+  url_launcher: ^6.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

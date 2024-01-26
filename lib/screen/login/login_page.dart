@@ -3,7 +3,7 @@ import 'package:app_buy_sell/screen/home/home_page.dart';
 import 'package:app_buy_sell/screen/login/login_view_model.dart';
 import 'package:app_buy_sell/screen/register_profile/register_profile_page.dart';
 import 'package:app_buy_sell/service/login_service.dart';
-import 'package:app_buy_sell/utils/loading_view.dart';
+import 'package:app_buy_sell/utils/widget/loading_view.dart';
 import 'package:app_buy_sell/utils/navigation.dart';
 import 'package:app_buy_sell/utils/theme/color_constant.dart';
 import 'package:app_buy_sell/utils/utils.dart';

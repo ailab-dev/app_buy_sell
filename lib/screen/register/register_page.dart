@@ -1,7 +1,7 @@
 import 'package:app_buy_sell/base/base_screen.dart';
 import 'package:app_buy_sell/screen/register/register_view_model.dart';
 import 'package:app_buy_sell/screen/register_profile/register_profile_page.dart';
-import 'package:app_buy_sell/utils/loading_view.dart';
+import 'package:app_buy_sell/utils/widget/loading_view.dart';
 import 'package:app_buy_sell/utils/navigation.dart';
 import 'package:app_buy_sell/utils/theme/color_constant.dart';
 import 'package:app_buy_sell/utils/utils.dart';
