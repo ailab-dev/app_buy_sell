@@ -1,23 +1,23 @@
-import 'package:app_buy_sell/base/base_screen.dart';
 import 'package:app_buy_sell/screen/home/home_page.dart';
 import 'package:app_buy_sell/screen/register_profile/register_profile_page.dart';
-import 'package:app_buy_sell/screen/splash/splash_view_model.dart';
+import 'package:app_buy_sell/screen/splash/splash_provider.dart';
 import 'package:app_buy_sell/screen/start/start_page.dart';
 import 'package:app_buy_sell/service/login_service.dart';
 import 'package:app_buy_sell/utils/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  SplashPageState createState() => SplashPageState();
 }
 
-class _SplashPageState extends BaseScreen<SplashPage, SplashViewModel> {
+class SplashPageState extends ConsumerState<SplashPage> {
   @override
-  void onViewReady() {
-    super.onViewReady();
+  void initState() {
+    super.initState();
     checkStatus();
   }
 
@@ -26,8 +26,9 @@ class _SplashPageState extends BaseScreen<SplashPage, SplashViewModel> {
     return const Scaffold();
   }
 
-  Future<void> checkStatus() async {
-    final status = await viewModel.checkAccount();
+  void checkStatus() async {
+    await Future.delayed(const Duration(seconds: 0));
+    final status = await ref.watch(checkAccountProvider.future);
     if (mounted) {
       if (status == AccountStatus.profileUnRegistered) {
         Navigation.pushAndRemoveUntil(context, const RegisterProfilePage());

@@ -1,17 +1,16 @@
-import 'package:app_buy_sell/base/base_screen.dart';
-import 'package:app_buy_sell/screen/home/home_view_model.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  HomePageState createState() => HomePageState();
 }
 
-class _HomePageState extends BaseScreen<HomePage, HomeViewModel> {
+class HomePageState extends ConsumerState<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,10 +24,13 @@ class _HomePageState extends BaseScreen<HomePage, HomeViewModel> {
                     padding: const EdgeInsets.fromLTRB(15, 8, 15, 8),
                     child: Row(
                       children: [
-                        CircleAvatar(
-                            backgroundImage: CachedNetworkImageProvider(
-                                FirebaseAuth.instance.currentUser?.photoURL ??
-                                    ''))
+                        InkWell(
+                          onTap: () {},
+                          child: CircleAvatar(
+                              backgroundImage: CachedNetworkImageProvider(
+                                  FirebaseAuth.instance.currentUser?.photoURL ??
+                                      '')),
+                        )
                       ],
                     ),
                   ),

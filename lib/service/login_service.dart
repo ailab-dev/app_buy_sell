@@ -21,6 +21,10 @@ class LoginService {
     }
     return AccountStatus.unlogined;
   }
+
+  Future<void> onLogout() async {
+    await FirebaseAuth.instance.signOut();
+  }
 }
 
 enum AccountStatus {

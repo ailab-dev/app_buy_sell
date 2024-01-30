@@ -1,8 +1,9 @@
+import 'package:app_buy_sell/utils/sliver_list_touch_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:rxdart/rxdart.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class SliverListPullToRefresh extends StatefulWidget {
+class SliverListPullToRefresh extends ConsumerStatefulWidget {
   const SliverListPullToRefresh({
     super.key,
     required this.onRefresh,
@@ -27,18 +28,18 @@ class SliverListPullToRefresh extends StatefulWidget {
   final List<Widget> children;
 
   @override
-  State<SliverListPullToRefresh> createState() =>
-      _SliverListPullToRefreshState();
+  SliverListPullToRefreshState createState() => SliverListPullToRefreshState();
 }
 
-class _SliverListPullToRefreshState extends State<SliverListPullToRefresh> {
+class SliverListPullToRefreshState
+    extends ConsumerState<SliverListPullToRefresh> {
   late ScrollController _scrollController;
 
   LoadMoreState _state = LoadMoreState.idle;
 
-  final touchListenerSubject = PublishSubject<bool>();
-
   bool _isTouch = false;
+
+  ProviderSubscription<bool>? touchListener;
 
   @override
   void initState() {
@@ -50,7 +51,7 @@ class _SliverListPullToRefreshState extends State<SliverListPullToRefresh> {
     }
     _scrollController.addListener(_onScroll);
 
-    touchListenerSubject.listen((isTouch) async {
+    touchListener = ref.listenManual(sliverListTouchProvider, (previous, isTouch) async {
       if (!isTouch && widget.onLoadMore != null && mounted) {
         if (_state == LoadMoreState.willLoadmore) {
           _state = LoadMoreState.loading;
@@ -100,17 +101,11 @@ class _SliverListPullToRefreshState extends State<SliverListPullToRefresh> {
     return Listener(
       onPointerDown: (event) {
         _isTouch = true;
-        if (touchListenerSubject.isClosed) {
-          return;
-        }
-        touchListenerSubject.add(true);
+        ref.watch(sliverListTouchProvider.notifier).setTouch(true);
       },
       onPointerUp: (event) {
         _isTouch = false;
-        if (touchListenerSubject.isClosed) {
-          return;
-        }
-        touchListenerSubject.add(false);
+        ref.watch(sliverListTouchProvider.notifier).setTouch(false);
       },
       child: CustomScrollView(
         controller: _scrollController,
@@ -166,7 +161,7 @@ class _SliverListPullToRefreshState extends State<SliverListPullToRefresh> {
   @override
   void dispose() {
     super.dispose();
-    touchListenerSubject.close();
+    touchListener?.close();
     _scrollController.removeListener(_onScroll);
   }
 }
