@@ -1,10 +1,10 @@
-import 'package:app_buy_sell/screen/home/home_page.dart';
-import 'package:app_buy_sell/screen/register_profile/register_profile_provider.dart';
-import 'package:app_buy_sell/screen/register_profile/register_validate_provider.dart';
-import 'package:app_buy_sell/utils/loading_view.dart';
-import 'package:app_buy_sell/utils/navigation.dart';
-import 'package:app_buy_sell/utils/theme/color_constant.dart';
-import 'package:app_buy_sell/utils/utils.dart';
+import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
+import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/home_page.dart';
+import 'package:app_buy_sell/src/features/register_profile/register_profile_provider.dart';
+import 'package:app_buy_sell/src/features/register_profile/register_validate_provider.dart';
+import 'package:app_buy_sell/src/utils/navigation.dart';
+import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

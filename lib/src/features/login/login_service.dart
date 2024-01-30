@@ -1,4 +1,4 @@
-import 'package:app_buy_sell/service/user_service.dart';
+import 'package:app_buy_sell/src/features/register_profile/application/user_service.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginService {

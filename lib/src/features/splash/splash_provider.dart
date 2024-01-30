@@ -1,4 +1,4 @@
-import 'package:app_buy_sell/service/login_service.dart';
+import 'package:app_buy_sell/src/features/login/login_service.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'splash_provider.g.dart';

@@ -1,6 +1,5 @@
-
-import 'package:app_buy_sell/screen/splash/splash_page.dart';
-import 'package:app_buy_sell/utils/theme/app_theme.dart';
+import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
+import 'package:app_buy_sell/src/utils/theme/app_theme.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

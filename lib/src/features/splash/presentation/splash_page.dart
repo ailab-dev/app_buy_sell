@@ -1,9 +1,10 @@
-import 'package:app_buy_sell/screen/home/home_page.dart';
-import 'package:app_buy_sell/screen/register_profile/register_profile_page.dart';
-import 'package:app_buy_sell/screen/splash/splash_provider.dart';
-import 'package:app_buy_sell/screen/start/start_page.dart';
-import 'package:app_buy_sell/service/login_service.dart';
-import 'package:app_buy_sell/utils/navigation.dart';
+
+import 'package:app_buy_sell/src/features/home/home_page.dart';
+import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
+import 'package:app_buy_sell/src/features/login/login_service.dart';
+import 'package:app_buy_sell/src/features/splash/splash_provider.dart';
+import 'package:app_buy_sell/src/features/start/start_page.dart';
+import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

@@ -1,8 +1,8 @@
 import 'package:app_buy_sell/gen/assets.gen.dart';
-import 'package:app_buy_sell/screen/login/login_page.dart';
-import 'package:app_buy_sell/screen/register/register_page.dart';
-import 'package:app_buy_sell/utils/navigation.dart';
-import 'package:app_buy_sell/utils/theme/color_constant.dart';
+import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
+import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
+import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:flutter/material.dart';
 
 class StartPage extends StatefulWidget {

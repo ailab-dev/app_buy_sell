@@ -1,4 +1,5 @@
-import 'package:app_buy_sell/utils/sliver_list_touch_provider.dart';
+
+import 'package:app_buy_sell/src/common_widgets/sliver_list_pull_to_refresh/sliver_list_touch_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
