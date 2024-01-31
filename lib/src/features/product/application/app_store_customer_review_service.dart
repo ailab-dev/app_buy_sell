@@ -6,7 +6,6 @@ class AppstoreCustomerReviewService with BaseApi {
     return await request<AppstoreReviewModel>(
       'https://itunes.apple.com/jp/rss/customerreviews/id=$appId/sortBy=mostRecent/json',
       (json) => AppstoreReviewModel.fromJson(json),
-      showLog: false,
       method: MethodHTTP.get,
     );
   }

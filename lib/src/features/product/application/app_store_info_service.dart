@@ -8,7 +8,6 @@ class AppStoreInfoService with BaseApi {
     return await request<AppStoreInfoModel>(
       'https://itunes.apple.com/jp/lookup?id=$appId',
       (json) => AppStoreInfoModel.fromJson(json),
-      showLog: false,
       method: MethodHTTP.get,
     );
   }

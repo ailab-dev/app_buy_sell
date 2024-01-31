@@ -1,33 +1,22 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/home/app_list_provider.dart';
-import 'package:app_buy_sell/src/features/home/app_model.dart';
-import 'package:app_buy_sell/src/features/product/presentation/product_page.dart';
-import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
-class HomePage extends ConsumerStatefulWidget {
+class HomePage extends ConsumerWidget {
   const HomePage({super.key});
 
   @override
-  HomePageState createState() => HomePageState();
-}
-
-class HomePageState extends ConsumerState<HomePage> {
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final appProvider = ref.watch(appListProvider);
-
-    List<AppModel> list = [];
     appProvider.when(
-      data: (data) {
-        list = data;
-      },
+      data: (data) {},
       error: (Object error, StackTrace stackTrace) {
-        Utils.showAlert(context: context);
+        Utils.showAlertError(context: context, error: error);
       },
       loading: () {},
     );
@@ -67,10 +56,10 @@ class HomePageState extends ConsumerState<HomePage> {
               child: ListView.builder(
                 padding: EdgeInsets.zero,
                 itemBuilder: (context, index) {
-                  final item = list[index];
+                  final item = appProvider.value?[index];
                   return InkWell(
                     onTap: () {
-                      Navigation.push(context, ProductPage(appModel: item));
+                      context.push('/product', extra: item);
                     },
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
@@ -81,8 +70,8 @@ class HomePageState extends ConsumerState<HomePage> {
                             height: 60,
                             decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image:
-                                      CachedNetworkImageProvider(item.iconUrl),
+                                  image: CachedNetworkImageProvider(
+                                      item?.iconUrl ?? ''),
                                   fit: BoxFit.cover,
                                 ),
                                 borderRadius: const BorderRadius.all(
@@ -96,7 +85,7 @@ class HomePageState extends ConsumerState<HomePage> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                item.name,
+                                item?.name ?? '',
                                 style: const TextStyle(
                                   color: ColorsConstant.text,
                                   fontSize: 14,
@@ -109,7 +98,7 @@ class HomePageState extends ConsumerState<HomePage> {
                                 height: 4,
                               ),
                               Text(
-                                item.description,
+                                item?.description ?? '',
                                 style: const TextStyle(
                                   color: ColorsConstant.text,
                                   fontSize: 12,
@@ -125,7 +114,7 @@ class HomePageState extends ConsumerState<HomePage> {
                     ),
                   );
                 },
-                itemCount: list.length,
+                itemCount: appProvider.value?.length ?? 0,
               ),
             )
           ],

@@ -2,7 +2,7 @@ import 'dart:io';
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
-import 'package:app_buy_sell/src/features/home/app_model.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/product/app_info_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -12,26 +12,18 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
-class ProductPage extends ConsumerStatefulWidget {
-  const ProductPage({
-    super.key,
-    required this.appModel,
-  });
+class ProductPage extends ConsumerWidget {
+  const ProductPage({super.key, required this.appModel});
 
   final AppModel appModel;
 
   @override
-  ConsumerState<ProductPage> createState() => _ProductPageState();
-}
-
-class _ProductPageState extends ConsumerState<ProductPage> {
-  @override
-  Widget build(BuildContext context) {
-    final appInfo = ref.watch(appInfoProvider(widget.appModel.iosId));
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appInfo = ref.watch(appInfoProvider(appModel.iosId));
     appInfo.when(
       data: (data) {},
       error: (error, stackTrace) {
-        Utils.showAlert(context: context);
+        Utils.showAlertError(context: context, error: error);
       },
       loading: () {},
     );
@@ -58,8 +50,7 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                       height: 100,
                       decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: CachedNetworkImageProvider(
-                                widget.appModel.iconUrl),
+                            image: CachedNetworkImageProvider(appModel.iconUrl),
                             fit: BoxFit.cover,
                           ),
                           borderRadius:
@@ -73,7 +64,7 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            widget.appModel.name,
+                            appModel.name,
                             style: const TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
@@ -82,18 +73,10 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                           const SizedBox(
                             height: 5,
                           ),
-                          ReadMoreText(
-                            widget.appModel.description,
-                            trimLines: 3,
-                            trimMode: TrimMode.Line,
-                            trimCollapsedText: 'もっと見る',
-                            trimExpandedText: '',
-                            moreStyle: const TextStyle(
-                              color: Color.fromRGBO(123, 106, 224, 1),
-                              fontSize: 12,
-                              fontWeight: FontWeight.w400,
-                              decoration: TextDecoration.underline,
-                            ),
+                          Text(
+                            appModel.description,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -138,7 +121,7 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                   children: [
                     const Spacer(),
                     Text(
-                      widget.appModel.priceText,
+                      appModel.priceText,
                       style: const TextStyle(
                         color: ColorsConstant.text,
                         fontSize: 18,
@@ -161,8 +144,8 @@ class _ProductPageState extends ConsumerState<ProductPage> {
                 InkWell(
                   onTap: () {
                     final url = Platform.isIOS
-                        ? Utils.appstoreUrl(widget.appModel.iosId)
-                        : Utils.googlePlayUrl(widget.appModel.androidId);
+                        ? Utils.appstoreUrl(appModel.iosId)
+                        : Utils.googlePlayUrl(appModel.androidId);
                     launchUrlString(url);
                   },
                   child: Row(

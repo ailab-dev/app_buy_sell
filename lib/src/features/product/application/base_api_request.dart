@@ -1,7 +1,5 @@
 import 'dart:convert';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'dart:developer' as developer;
 
 enum MethodHTTP { get, post, put, patch }
 
@@ -21,7 +19,6 @@ mixin BaseApi {
     Map<String, dynamic>? headers,
     Map<String, dynamic>? body,
     Map<String, dynamic>? queryParameters,
-    bool showLog = false,
     ContentType contentType = ContentType.none,
     FormData? formData,
   }) async {
@@ -56,17 +53,8 @@ mixin BaseApi {
       requestOptions.data = formData;
     }
     requestOptions.queryParameters = queryParameters ?? {};
-
-    developer.log(mapHeader.toString(), name: 'header');
     final dio = Dio();
     final response = await dio.fetch(requestOptions);
-    if (showLog) {
-      debugPrint(response.realUri.toString());
-      if (body != null) {
-        debugPrint(json.encode(body.removeNull));
-      }
-      developer.log(json.encode(response.data), name: method.methodName);
-    }
     var data = fromJson(json.decode(response.data));
     return data;
   }
