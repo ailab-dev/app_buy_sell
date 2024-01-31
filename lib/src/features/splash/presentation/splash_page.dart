@@ -13,7 +13,7 @@ class SplashPage extends ConsumerWidget {
       next.when(
         data: (status) {
           if (status == AccountStatus.profileUnRegistered) {
-            context.go('registerProfile');
+            context.go('/registerProfile');
           } else if (status == AccountStatus.logined) {
             context.go('/home');
           } else {
