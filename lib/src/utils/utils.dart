@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -8,9 +9,22 @@ class Utils {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static void showAlert(
-      {Object? error, required BuildContext context, String? content}) {
+  static void showAlertError({Object? error, required BuildContext context}) {
+    String? content;
+    if (error is FirebaseAuthException) {
+      if (error.code == 'INVALID_LOGIN_CREDENTIALS'|| error.code == 'wrong-password') {
+        content = 'メールアドレスまたはパスワードが間違っています。';
+      } else if (error.code == 'email-already-in-use') {
+        content = 'メールが使用されました。';
+      } else if (error.code == 'invalid-email') {
+        content = 'メール アドレスの形式が正しくありません。';
+      }
+    }
     final message = content ?? '原因不明のエラーです。時間をおいて再試行してください。';
+    showAlert(context, message);
+  }
+
+  static void showAlert(BuildContext context, String message) {
     showDialog(
       context: context,
       barrierColor: Colors.transparent,
