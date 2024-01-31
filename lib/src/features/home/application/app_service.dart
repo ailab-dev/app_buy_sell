@@ -1,5 +1,5 @@
 import 'package:app_buy_sell/src/constants/constant.dart';
-import 'package:app_buy_sell/src/features/home/app_model.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class AppService {

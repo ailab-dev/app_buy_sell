@@ -1,30 +1,23 @@
-
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
-import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/email_validate_provider.dart';
 import 'package:app_buy_sell/src/features/login/login_provider.dart';
 import 'package:app_buy_sell/src/features/login/pass_validate_provider.dart';
-import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
 import 'package:app_buy_sell/src/features/login/login_service.dart';
-import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class LoginPage extends ConsumerStatefulWidget {
+class LoginPage extends HookConsumerWidget {
   const LoginPage({super.key});
 
   @override
-  LoginPageState createState() => LoginPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
-class LoginPageState extends ConsumerState<LoginPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-
-  @override
-  Widget build(BuildContext context) {
     final emailError = ref.watch(emailValidateProvider);
     final passError = ref.watch(passValidateProvider);
     final loginStatus = ref.watch(loginProvider);
@@ -33,13 +26,13 @@ class LoginPageState extends ConsumerState<LoginPage> {
       next.when(
         data: (result) {
           if (result == AccountStatus.profileUnRegistered) {
-            Navigation.pushAndRemoveUntil(context, const RegisterProfilePage());
+            context.go('/registerProfile');
           } else if (result == AccountStatus.logined) {
-            Navigation.pushAndRemoveUntil(context, const HomePage());
+            context.go('/home');
           }
         },
         error: (e, stackTrace) {
-          Utils.showAlert(error: e, context: context);
+          Utils.showAlertError(error: e, context: context);
         },
         loading: () {},
       );
@@ -78,7 +71,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                     height: 10,
                   ),
                   TextField(
-                    controller: _emailController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
@@ -117,7 +110,7 @@ class LoginPageState extends ConsumerState<LoginPage> {
                     height: 10,
                   ),
                   TextField(
-                    controller: _passwordController,
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -155,15 +148,15 @@ class LoginPageState extends ConsumerState<LoginPage> {
                         Utils.dismisKeyboard(context);
                         ref
                             .read(passValidateProvider.notifier)
-                            .validate(_passwordController.text);
+                            .validate(passwordController.text);
                         ref
                             .read(emailValidateProvider.notifier)
-                            .validate(_emailController.text);
+                            .validate(emailController.text);
                         final emailV = ref.read(emailValidateProvider);
                         final passV = ref.read(passValidateProvider);
                         if (emailV == null && passV == null) {
                           ref.read(loginProvider.notifier).login(
-                              _emailController.text, _passwordController.text);
+                              emailController.text, passwordController.text);
                         }
                       },
                       style: ButtonStyle(
@@ -195,12 +188,5 @@ class LoginPageState extends ConsumerState<LoginPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }

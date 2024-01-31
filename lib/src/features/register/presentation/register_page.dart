@@ -3,25 +3,21 @@ import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/login/email_validate_provider.dart';
 import 'package:app_buy_sell/src/features/login/pass_validate_provider.dart';
 import 'package:app_buy_sell/src/features/register/register_acc_provider.dart';
-import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
-import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RegisterPage extends ConsumerStatefulWidget {
+class RegisterPage extends HookConsumerWidget {
   const RegisterPage({super.key});
 
   @override
-  RegisterPageState createState() => RegisterPageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
 
-class RegisterPageState extends ConsumerState<RegisterPage> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
     final emailError = ref.watch(emailValidateProvider);
     final passError = ref.watch(passValidateProvider);
     final registerStatus = ref.watch(registerAccountProvider);
@@ -30,11 +26,11 @@ class RegisterPageState extends ConsumerState<RegisterPage> {
       next.when(
         data: (result) {
           if (result) {
-            Navigation.push(context, const RegisterProfilePage());
+            context.push('/registerProfile');
           }
         },
         error: (e, stackTrace) {
-          Utils.showAlert(error: e, context: context);
+          Utils.showAlertError(error: e, context: context);
         },
         loading: () {},
       );
@@ -73,7 +69,7 @@ class RegisterPageState extends ConsumerState<RegisterPage> {
                     height: 10,
                   ),
                   TextField(
-                    controller: _emailController,
+                    controller: emailController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
@@ -112,7 +108,7 @@ class RegisterPageState extends ConsumerState<RegisterPage> {
                     height: 10,
                   ),
                   TextField(
-                    controller: _passwordController,
+                    controller: passwordController,
                     obscureText: true,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
@@ -194,15 +190,15 @@ class RegisterPageState extends ConsumerState<RegisterPage> {
                         Utils.dismisKeyboard(context);
                         ref
                             .read(passValidateProvider.notifier)
-                            .validate(_passwordController.text);
+                            .validate(passwordController.text);
                         ref
                             .read(emailValidateProvider.notifier)
-                            .validate(_emailController.text);
+                            .validate(emailController.text);
                         final emailV = ref.read(emailValidateProvider);
                         final passV = ref.read(passValidateProvider);
                         if (emailV == null && passV == null) {
                           ref.read(registerAccountProvider.notifier).register(
-                              _emailController.text, _passwordController.text);
+                              emailController.text, passwordController.text);
                         }
                       },
                       style: ButtonStyle(
@@ -234,12 +230,5 @@ class RegisterPageState extends ConsumerState<RegisterPage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _emailController.dispose();
-    _passwordController.dispose();
-    super.dispose();
   }
 }
