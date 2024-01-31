@@ -1,18 +1,11 @@
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
-import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
-import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
-import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
-class StartPage extends StatefulWidget {
+class StartPage extends StatelessWidget {
   const StartPage({super.key});
 
-  @override
-  State<StartPage> createState() => _StartPageState();
-}
-
-class _StartPageState extends State<StartPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,7 +32,7 @@ class _StartPageState extends State<StartPage> {
             height: 54,
             child: TextButton(
               onPressed: () {
-                Navigation.push(context, const RegisterPage());
+                context.push('/register');
               },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(
@@ -68,7 +61,7 @@ class _StartPageState extends State<StartPage> {
             height: 54,
             child: TextButton(
               onPressed: () {
-                Navigation.push(context, const LoginPage());
+                context.push('/login');
               },
               style: ButtonStyle(
                 shape: MaterialStateProperty.all(

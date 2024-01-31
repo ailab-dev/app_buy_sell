@@ -1,35 +1,31 @@
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
-import 'package:app_buy_sell/src/features/home/home_page.dart';
 import 'package:app_buy_sell/src/features/register_profile/register_profile_provider.dart';
 import 'package:app_buy_sell/src/features/register_profile/register_validate_provider.dart';
-import 'package:app_buy_sell/src/utils/navigation.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class RegisterProfilePage extends ConsumerStatefulWidget {
+class RegisterProfilePage extends HookConsumerWidget {
   const RegisterProfilePage({super.key});
 
   @override
-  RegisterProfilePageState createState() => RegisterProfilePageState();
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final nameController = useTextEditingController();
 
-class RegisterProfilePageState extends ConsumerState<RegisterProfilePage> {
-  final _nameController = TextEditingController();
-  @override
-  Widget build(BuildContext context) {
     final validate = ref.watch(registerValidateProvider);
     final register = ref.watch(registerProfileProvider);
     ref.listen(registerProfileProvider, (previous, next) {
       next.when(
-        data: (data) {
-          if (data) {
-            Navigation.pushAndRemoveUntil(context, const HomePage());
+        data: (result) {
+          if (result) {
+            context.go('/home');
           }
         },
         error: (error, stackTrace) {
-          Utils.showAlert(context: context, error: error);
+          Utils.showAlertError(context: context, error: error);
         },
         loading: () {},
       );
@@ -82,7 +78,7 @@ class RegisterProfilePageState extends ConsumerState<RegisterProfilePage> {
                     height: 10,
                   ),
                   TextField(
-                    controller: _nameController,
+                    controller: nameController,
                     decoration: InputDecoration(
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
@@ -121,7 +117,7 @@ class RegisterProfilePageState extends ConsumerState<RegisterProfilePage> {
                               Utils.dismisKeyboard(context);
                               ref
                                   .read(registerProfileProvider.notifier)
-                                  .register(_nameController.text.trim());
+                                  .register(nameController.text.trim());
                             }
                           : null,
                       style: ButtonStyle(
@@ -154,11 +150,5 @@ class RegisterProfilePageState extends ConsumerState<RegisterProfilePage> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _nameController.dispose();
-    super.dispose();
   }
 }
