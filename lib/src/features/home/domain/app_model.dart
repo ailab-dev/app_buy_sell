@@ -12,6 +12,7 @@ class AppModel {
   String iconUrl;
   String? iosId;
   String? androidId;
+  String id;
 
   @JsonKey(defaultValue: 0)
   double price;
@@ -21,7 +22,11 @@ class AppModel {
     toJson: Utils.toTimestamp,
   )
   DateTime? createdAt;
-  AppModel(this.name, this.description, this.iconUrl, this.price);
+
+  @JsonKey(defaultValue: [])
+  List<String> banner = [];
+
+  AppModel(this.name, this.description, this.iconUrl, this.price, this.id);
 
   factory AppModel.fromJson(Map<String, dynamic> json) =>
       _$AppModelFromJson(json);

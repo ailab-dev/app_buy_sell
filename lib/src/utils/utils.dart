@@ -13,8 +13,9 @@ class Utils {
   static DateTime? fromTimestamp(Timestamp? timestamp) => timestamp?.toDate();
   static dynamic toTimestamp(DateTime? time) =>
       time != null ? Timestamp.fromDate(time) : FieldValue.serverTimestamp();
-      
-  static void showAlertError({Object? error, required BuildContext context}) {
+
+  static void showAlertError(
+      {required Object error, required BuildContext context}) {
     String? content;
     if (error is FirebaseAuthException) {
       if (error.code == 'INVALID_LOGIN_CREDENTIALS' ||

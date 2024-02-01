@@ -3,7 +3,8 @@ import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
-import 'package:app_buy_sell/src/features/product/app_info_provider.dart';
+import 'package:app_buy_sell/src/features/product/provider/app_info_provider.dart';
+import 'package:app_buy_sell/src/features/product/provider/app_state_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -20,13 +21,18 @@ class ProductPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appInfo = ref.watch(appInfoProvider(appModel.iosId));
-    appInfo.when(
-      data: (data) {},
-      error: (error, stackTrace) {
-        Utils.showAlertError(context: context, error: error);
-      },
-      loading: () {},
-    );
+    final appState = ref.watch(appStateProvider(appModel));
+    final didPay = appState.value ?? false;
+
+    ref.listen(appInfoProvider(appModel.iosId), (previous, next) {
+      next.when(
+        data: (data) {},
+        error: (Object error, StackTrace stackTrace) {
+          Utils.showAlertError(context: context, error: error);
+        },
+        loading: () {},
+      );
+    });
 
     return Scaffold(
       appBar: AppBar(
@@ -168,31 +174,54 @@ class ProductPage extends ConsumerWidget {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: !didPay ? () {} : null,
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(100.0),
                         ),
                       ),
-                      backgroundColor:
-                          MaterialStateProperty.all(ColorsConstant.purple),
+                      backgroundColor: MaterialStateProperty.all(!didPay
+                          ? ColorsConstant.purple
+                          : ColorsConstant.gray),
                     ),
-                    child: const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 5),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 5),
                       child: Text(
-                        '購入する',
+                        !didPay ? '購入する' : '買った',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white,
+                          color: !didPay ? Colors.white : ColorsConstant.gray2,
                         ),
                       ),
                     ),
                   ),
                 ),
                 const SizedBox(
-                  height: 15,
+                  height: 25,
+                ),
+                SizedBox(
+                  height: 170,
+                  child: ListView.builder(
+                    shrinkWrap: true,
+                    itemBuilder: (context, index) {
+                      final url = appModel.banner[index];
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: CachedNetworkImage(
+                          imageUrl: url,
+                          fit: BoxFit.cover,
+                          width: 290,
+                        ),
+                      );
+                    },
+                    itemCount: appModel.banner.length,
+                    scrollDirection: Axis.horizontal,
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
                 ),
                 const Text(
                   '評価とレビュー',
