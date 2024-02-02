@@ -14,6 +14,16 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Apple_Pay.svg
+  SvgGenImage get applePay => const SvgGenImage('assets/images/Apple_Pay.svg');
+
+  /// File path: assets/images/GPay.png
+  AssetGenImage get gPay => const AssetGenImage('assets/images/GPay.png');
+
+  /// File path: assets/images/Google_Pay.svg
+  SvgGenImage get googlePay =>
+      const SvgGenImage('assets/images/Google_Pay.svg');
+
   /// File path: assets/images/ad_group.svg
   SvgGenImage get adGroup => const SvgGenImage('assets/images/ad_group.svg');
 
@@ -27,7 +37,8 @@ class $AssetsImagesGen {
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
 
   /// List of all assets
-  List<dynamic> get values => [adGroup, app, logoPng, logoSvg];
+  List<dynamic> get values =>
+      [applePay, gPay, googlePay, adGroup, app, logoPng, logoSvg];
 }
 
 class Assets {
