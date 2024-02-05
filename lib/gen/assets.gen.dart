@@ -44,7 +44,12 @@ class $AssetsImagesGen {
 class Assets {
   Assets._();
 
+  static const String applePayConfig = 'assets/apple_pay_config.json';
+  static const String googlePayConfig = 'assets/google_pay_config.json';
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [applePayConfig, googlePayConfig];
 }
 
 class AssetGenImage {
