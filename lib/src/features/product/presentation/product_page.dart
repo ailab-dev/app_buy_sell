@@ -3,14 +3,12 @@ import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
-import 'package:app_buy_sell/src/features/product/provider/app_info_provider.dart';
 import 'package:app_buy_sell/src/features/product/provider/app_state_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class ProductPage extends ConsumerWidget {
@@ -20,19 +18,8 @@ class ProductPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appInfo = ref.watch(appInfoProvider(appModel.iosId));
     final appState = ref.watch(appStateProvider(appModel));
     final didPay = appState.value ?? false;
-
-    ref.listen(appInfoProvider(appModel.iosId), (previous, next) {
-      next.when(
-        data: (data) {},
-        error: (Object error, StackTrace stackTrace) {
-          Utils.showAlertError(context: context, error: error);
-        },
-        loading: () {},
-      );
-    });
 
     return Scaffold(
       appBar: AppBar(
@@ -41,7 +28,7 @@ class ProductPage extends ConsumerWidget {
         ],
       ),
       body: LoadingView(
-        isLoading: appInfo.isLoading,
+        isLoading: appState.isLoading,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -95,9 +82,9 @@ class ProductPage extends ConsumerWidget {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              Text(
-                                appInfo.value?.rateString ?? '',
-                                style: const TextStyle(
+                              const Text(
+                                '0.0',
+                                style: TextStyle(
                                   color: ColorsConstant.text,
                                   fontSize: 16,
                                   fontWeight: FontWeight.w600,
@@ -107,7 +94,7 @@ class ProductPage extends ConsumerWidget {
                                 width: 4,
                               ),
                               RatingBarIndicator(
-                                rating: appInfo.value?.rate ?? 0,
+                                rating: 0,
                                 itemBuilder: (context, index) => const Icon(
                                   Icons.star,
                                   color: Color.fromRGBO(76, 92, 123, 1),
@@ -237,9 +224,9 @@ class ProductPage extends ConsumerWidget {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(
-                      appInfo.value?.rateString ?? '',
-                      style: const TextStyle(
+                    const Text(
+                      '0.0',
+                      style: TextStyle(
                         color: ColorsConstant.text,
                         fontSize: 34,
                         fontWeight: FontWeight.w600,
@@ -249,7 +236,7 @@ class ProductPage extends ConsumerWidget {
                       width: 4,
                     ),
                     RatingBarIndicator(
-                      rating: appInfo.value?.rate ?? 0,
+                      rating: 0,
                       itemBuilder: (context, index) => const Icon(
                         Icons.star,
                         color: ColorsConstant.purple,
@@ -260,117 +247,6 @@ class ProductPage extends ConsumerWidget {
                     )
                   ],
                 ),
-                ListView.builder(
-                  itemBuilder: (context, index) {
-                    final item = appInfo.value?.reviewList[index];
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          color: ColorsConstant.gray,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(
-                              4,
-                            ),
-                          ),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(15.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                children: [
-                                  RatingBarIndicator(
-                                    rating: double.parse(
-                                        item?.rating?.label ?? '0'),
-                                    itemBuilder: (context, index) => const Icon(
-                                      Icons.star,
-                                      color: ColorsConstant.purple,
-                                    ),
-                                    unratedColor: ColorsConstant.purpleGray,
-                                    itemCount: 5,
-                                    itemSize: 18,
-                                  ),
-                                  const SizedBox(
-                                    width: 5,
-                                  ),
-                                  Expanded(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          item?.dateText ?? '',
-                                          style: const TextStyle(
-                                            color: ColorsConstant.gray3,
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                        ),
-                                        const SizedBox(
-                                          width: 5,
-                                        ),
-                                        Flexible(
-                                          child: Text(
-                                            item?.author?.name?.label ?? '',
-                                            style: const TextStyle(
-                                              color: ColorsConstant.gray3,
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                  )
-                                ],
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              Text(
-                                item?.title?.label ?? '',
-                                style: const TextStyle(
-                                  fontSize: 13,
-                                  fontWeight: FontWeight.w500,
-                                  color: ColorsConstant.text,
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              ReadMoreText(
-                                item?.content?.label ?? '',
-                                trimLines: 4,
-                                trimMode: TrimMode.Line,
-                                trimCollapsedText: 'もっと見る',
-                                trimExpandedText: '',
-                                moreStyle: const TextStyle(
-                                  color: Color.fromRGBO(123, 106, 224, 1),
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  decoration: TextDecoration.underline,
-                                ),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                  color: ColorsConstant.dark,
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  },
-                  itemCount: appInfo.value?.reviewList.length ?? 0,
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                )
               ],
             ),
           ),
