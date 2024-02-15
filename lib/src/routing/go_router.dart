@@ -6,6 +6,7 @@ import 'package:app_buy_sell/src/features/register/presentation/register_page.da
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
 import 'package:app_buy_sell/src/features/start/start_page.dart';
+import 'package:app_buy_sell/src/features/up_app/up_app_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -54,6 +55,12 @@ final router = GoRouter(
         return ProductPage(
           appModel: appModel,
         );
+      },
+    ),
+    GoRoute(
+      path: '/up-app',
+      builder: (BuildContext context, GoRouterState state) {
+        return const UpAppPage();
       },
     ),
   ],

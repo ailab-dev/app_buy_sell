@@ -121,7 +121,9 @@ class HomePage extends ConsumerWidget {
         ),
       ),
       floatingActionButton: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          context.push('/up-app');
+        },
         icon: const Icon(
           Icons.add,
           color: Colors.white,
