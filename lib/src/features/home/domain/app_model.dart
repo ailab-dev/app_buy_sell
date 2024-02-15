@@ -1,37 +1,29 @@
-import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:app_buy_sell/src/utils/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:intl/intl.dart';
-import 'package:json_annotation/json_annotation.dart';
 
 part 'app_model.g.dart';
 
-@JsonSerializable()
-class AppModel {
-  String name;
-  String description;
-  String iconUrl;
-  String? iosId;
-  String? androidId;
-  String id;
+part 'app_model.freezed.dart';
 
-  @JsonKey(defaultValue: 0)
-  double price;
-
-  @JsonKey(
-    fromJson: Utils.fromTimestamp,
-    toJson: Utils.toTimestamp,
-  )
-  DateTime? createdAt;
-
-  @JsonKey(defaultValue: [])
-  List<String> banner = [];
-
-  AppModel(this.name, this.description, this.iconUrl, this.price, this.id);
+@freezed
+class AppModel with _$AppModel {
+  const AppModel._();
+  factory AppModel({
+    required String name,
+    required String description,
+    required String iconUrl,
+    required double price,
+    required String id,
+    String? iosId,
+    String? androidId,
+    required List<String> banner,
+    @TimestampConverter() required DateTime createdAt,
+  }) = _AppModel;
 
   factory AppModel.fromJson(Map<String, dynamic> json) =>
       _$AppModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$AppModelToJson(this);
 
   String get priceText {
     final formatter = NumberFormat.decimalPatternDigits(
