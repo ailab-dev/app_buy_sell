@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -41,7 +42,9 @@ class HomePage extends ConsumerWidget {
                           FirebaseAuth.instance.currentUser?.photoURL ?? ''),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push('/notification');
+                        },
                         icon: const Icon(Icons.notifications_outlined))
                   ],
                 ),
