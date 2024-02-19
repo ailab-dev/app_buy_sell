@@ -15,14 +15,9 @@ class AppList extends _$AppList {
   }
 
   Future<void> getApps() async {
-    state = const AsyncValue.loading();
-    try {
-      final response = await _requestApps();
-      final data = response.$1;
-      state = AsyncValue.data(data);
-    } catch (err, stack) {
-      state = AsyncValue.error(err, stack);
-    }
+    final response = await _requestApps();
+    final data = response.$1;
+    state = AsyncValue.data(data);
   }
 
   CollectionReference<AppModel> get _rootRef {
