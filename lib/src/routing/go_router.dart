@@ -1,10 +1,10 @@
-
 import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
 import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
 import 'package:app_buy_sell/src/features/start/start_page.dart';
+import 'package:app_buy_sell/src/features/user_profile/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
@@ -44,6 +44,14 @@ final router = GoRouter(
       path: '/home',
       builder: (BuildContext context, GoRouterState state) {
         return const HomePage();
+      },
+    ),
+    GoRoute(
+      path: '/user-profile',
+      builder: (BuildContext context, GoRouterState state) {
+        return const UserProfilePage(
+          userId: 'IqDItSiksWSXjJRMNVuaUdrgRmD3',
+        );
       },
     ),
   ],
