@@ -16,7 +16,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) => UserModel(
       ..twitter = json['twitter'] as String? ?? ''
       ..facebook = json['facebook'] as String? ?? ''
       ..github = json['github'] as String? ?? ''
-      ..portfolio = json['portfolio'] as String? ?? '';
+      ..portfolio = json['portfolio'] as String? ?? ''
+      ..instagram = json['instagram'] as String? ?? '';
 
 Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'id': instance.id,
@@ -28,4 +29,5 @@ Map<String, dynamic> _$UserModelToJson(UserModel instance) => <String, dynamic>{
       'facebook': instance.facebook,
       'github': instance.github,
       'portfolio': instance.portfolio,
+      'instagram': instance.instagram,
     };

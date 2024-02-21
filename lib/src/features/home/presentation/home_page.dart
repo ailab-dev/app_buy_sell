@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class HomePage extends ConsumerWidget {
   const HomePage({super.key});
@@ -36,9 +37,15 @@ class HomePage extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(
-                          FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                    InkWell(
+                      onTap: () {
+                        context.push('/user-profile',
+                            extra: 'KEqukBm5wzX6MYUI1bzbUUAd4z52');
+                      },
+                      child: CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(
+                            FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                      ),
                     ),
                     IconButton(
                         onPressed: () {},

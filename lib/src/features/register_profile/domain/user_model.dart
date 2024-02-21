@@ -30,6 +30,9 @@ class UserModel {
   @JsonKey(defaultValue: '')
   String portfolio = '';
 
+  @JsonKey(defaultValue: '')
+  String instagram = '';
+
   UserModel(
     this.id,
     this.userName,
