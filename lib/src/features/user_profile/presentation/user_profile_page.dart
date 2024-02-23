@@ -117,7 +117,9 @@ class UserProfilePage extends HookConsumerWidget {
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
-                    '@${userProvider.value?.nickName ?? ''}',
+                    _checkEmpty(userProvider.value?.nickName)
+                        ? ''
+                        : '@${userProvider.value?.nickName ?? ''}',
                     style: const TextStyle(
                       color: ColorsConstant.text,
                       fontSize: 11,
@@ -173,7 +175,9 @@ class UserProfilePage extends HookConsumerWidget {
                         width: 8,
                       ),
                       Text(
-                        '@${userProvider.value?.twitter ?? ''}',
+                        _checkEmpty(userProvider.value?.twitter)
+                            ? ''
+                            : '@${userProvider.value?.twitter ?? ''}',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -195,7 +199,9 @@ class UserProfilePage extends HookConsumerWidget {
                         width: 8,
                       ),
                       Text(
-                        '@${userProvider.value?.facebook ?? ''}',
+                        _checkEmpty(userProvider.value?.facebook)
+                            ? ''
+                            : '@${userProvider.value?.facebook ?? ''}',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -217,7 +223,9 @@ class UserProfilePage extends HookConsumerWidget {
                         width: 8,
                       ),
                       Text(
-                        '@${userProvider.value?.instagram ?? ''}',
+                        _checkEmpty(userProvider.value?.instagram)
+                            ? ''
+                            : '@${userProvider.value?.instagram ?? ''}',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -239,7 +247,9 @@ class UserProfilePage extends HookConsumerWidget {
                         width: 8,
                       ),
                       Text(
-                        '@${userProvider.value?.github ?? ''}',
+                        _checkEmpty(userProvider.value?.github)
+                            ? ''
+                            : '@${userProvider.value?.github ?? ''}',
                         style: const TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w400,
@@ -277,5 +287,12 @@ class UserProfilePage extends HookConsumerWidget {
         ),
       );
     }
+  }
+
+  bool _checkEmpty(String? text) {
+    if (text != null && text.trim().isNotEmpty) {
+      return false;
+    }
+    return true;
   }
 }
