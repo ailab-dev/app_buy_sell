@@ -39,6 +39,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/report.svg
   SvgGenImage get report => const SvgGenImage('assets/images/report.svg');
 
+  /// File path: assets/images/report_finish.svg
+  SvgGenImage get reportFinish =>
+      const SvgGenImage('assets/images/report_finish.svg');
+
   /// File path: assets/images/x.svg
   SvgGenImage get x => const SvgGenImage('assets/images/x.svg');
 
@@ -52,6 +56,7 @@ class $AssetsImagesGen {
         logoSvg,
         portfolio,
         report,
+        reportFinish,
         x
       ];
 }

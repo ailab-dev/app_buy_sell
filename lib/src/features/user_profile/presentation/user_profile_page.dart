@@ -2,6 +2,7 @@ import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/user_profile/presentation/my_profile_page.dart';
+import 'package:app_buy_sell/src/features/user_profile/presentation/report_user_view.dart';
 import 'package:app_buy_sell/src/features/user_profile/provider/user_profile_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -54,7 +55,26 @@ class UserProfilePage extends HookConsumerWidget {
                       )
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      useSafeArea: true,
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                          top: Radius.circular(10),
+                        ),
+                      ),
+                      clipBehavior: Clip.antiAlias,
+                      backgroundColor: Colors.white,
+                      context: context,
+                      builder: (context) {
+                        return ReportUserView(
+                          userName: userProvider.value?.userName ?? '',
+                          userId: userId,
+                        );
+                      },
+                    );
+                  },
                 )
               ],
               builder: (context, controller, child) {
