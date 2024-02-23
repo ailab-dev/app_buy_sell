@@ -40,7 +40,7 @@ class HomePage extends ConsumerWidget {
                     InkWell(
                       onTap: () {
                         context.push('/user-profile',
-                            extra: 'KEqukBm5wzX6MYUI1bzbUUAd4z52');
+                            extra: FirebaseAuth.instance.currentUser?.uid);
                       },
                       child: CircleAvatar(
                         backgroundImage: CachedNetworkImageProvider(
