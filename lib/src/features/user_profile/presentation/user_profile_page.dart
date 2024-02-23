@@ -1,7 +1,7 @@
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
-import 'package:app_buy_sell/src/features/user_profile/presentation/my_profile_page.dart';
+import 'package:app_buy_sell/src/features/my_profile/presentation/my_profile_page.dart';
 import 'package:app_buy_sell/src/features/user_profile/presentation/report_user_view.dart';
 import 'package:app_buy_sell/src/features/user_profile/provider/user_profile_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
