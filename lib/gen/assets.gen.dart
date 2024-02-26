@@ -17,6 +17,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/app.png
   AssetGenImage get app => const AssetGenImage('assets/images/app.png');
 
+  /// File path: assets/images/edit_square.svg
+  SvgGenImage get editSquare =>
+      const SvgGenImage('assets/images/edit_square.svg');
+
   /// File path: assets/images/facebook.svg
   SvgGenImage get facebook => const SvgGenImage('assets/images/facebook.svg');
 
@@ -33,6 +37,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.svg
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
 
+  /// File path: assets/images/logout.svg
+  SvgGenImage get logout => const SvgGenImage('assets/images/logout.svg');
+
   /// File path: assets/images/portfolio.svg
   SvgGenImage get portfolio => const SvgGenImage('assets/images/portfolio.svg');
 
@@ -43,20 +50,26 @@ class $AssetsImagesGen {
   SvgGenImage get reportFinish =>
       const SvgGenImage('assets/images/report_finish.svg');
 
+  /// File path: assets/images/settings.svg
+  SvgGenImage get settings => const SvgGenImage('assets/images/settings.svg');
+
   /// File path: assets/images/x.svg
   SvgGenImage get x => const SvgGenImage('assets/images/x.svg');
 
   /// List of all assets
   List<dynamic> get values => [
         app,
+        editSquare,
         facebook,
         github,
         instagram,
         logoPng,
         logoSvg,
+        logout,
         portfolio,
         report,
         reportFinish,
+        settings,
         x
       ];
 }

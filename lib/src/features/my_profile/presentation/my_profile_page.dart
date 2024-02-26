@@ -3,7 +3,9 @@ import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/my_profile/provider/my_profile_privder.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class MyProfilePage extends HookConsumerWidget {
@@ -19,53 +21,7 @@ class MyProfilePage extends HookConsumerWidget {
       loading: () {},
     );
     return Scaffold(
-      appBar: AppBar(
-        actions: [
-          MenuAnchor(
-            alignmentOffset: const Offset(-115, 0),
-            style: const MenuStyle(
-                backgroundColor: MaterialStatePropertyAll(Colors.white),
-                padding: MaterialStatePropertyAll(EdgeInsets.zero)),
-            menuChildren: [
-              MenuItemButton(
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
-                child: Row(
-                  children: [
-                    Assets.images.report.svg(),
-                    const SizedBox(
-                      width: 7,
-                    ),
-                    const Text(
-                      'ユーザーを通報する',
-                      style: TextStyle(
-                        color: ColorsConstant.redStrong,
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                      ),
-                    )
-                  ],
-                ),
-                onPressed: () {},
-              )
-            ],
-            builder: (context, controller, child) {
-              return IconButton(
-                onPressed: () {
-                  if (controller.isOpen) {
-                    controller.close();
-                  } else {
-                    controller.open();
-                  }
-                },
-                icon: const Icon(
-                  Icons.more_horiz,
-                ),
-              );
-            },
-          )
-        ],
-      ),
+      appBar: AppBar(),
       body: LoadingView(
         isLoading: userProvider.isLoading,
         child: SingleChildScrollView(
@@ -74,13 +30,50 @@ class MyProfilePage extends HookConsumerWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Text(
-                  userProvider.value?.userName ?? '',
-                  style: const TextStyle(
-                    color: ColorsConstant.text,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w500,
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      userProvider.value?.userName ?? '',
+                      style: const TextStyle(
+                        color: ColorsConstant.text,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () {},
+                      style: ButtonStyle(
+                        shape: MaterialStateProperty.all(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(100.0),
+                            side: const BorderSide(
+                              color: ColorsConstant.text,
+                            ),
+                          ),
+                        ),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Assets.images.editSquare.svg(),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          const Text(
+                            '編集',
+                            style: TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w400,
+                              color: ColorsConstant.text,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
                 ),
               ),
               const SizedBox(
@@ -89,7 +82,9 @@ class MyProfilePage extends HookConsumerWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Text(
-                  '@${userProvider.value?.nickName ?? ''}',
+                  _checkEmpty(userProvider.value?.nickName)
+                      ? ''
+                      : '@${userProvider.value?.nickName ?? ''}',
                   style: const TextStyle(
                     color: ColorsConstant.text,
                     fontSize: 11,
@@ -145,7 +140,9 @@ class MyProfilePage extends HookConsumerWidget {
                       width: 8,
                     ),
                     Text(
-                      '@${userProvider.value?.twitter ?? ''}',
+                      _checkEmpty(userProvider.value?.twitter)
+                          ? ''
+                          : '@${userProvider.value?.twitter ?? ''}',
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -167,7 +164,9 @@ class MyProfilePage extends HookConsumerWidget {
                       width: 8,
                     ),
                     Text(
-                      '@${userProvider.value?.facebook ?? ''}',
+                      _checkEmpty(userProvider.value?.facebook)
+                          ? ''
+                          : '@${userProvider.value?.facebook ?? ''}',
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -189,7 +188,9 @@ class MyProfilePage extends HookConsumerWidget {
                       width: 8,
                     ),
                     Text(
-                      '@${userProvider.value?.instagram ?? ''}',
+                      _checkEmpty(userProvider.value?.instagram)
+                          ? ''
+                          : '@${userProvider.value?.instagram ?? ''}',
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -211,7 +212,9 @@ class MyProfilePage extends HookConsumerWidget {
                       width: 8,
                     ),
                     Text(
-                      '@${userProvider.value?.github ?? ''}',
+                      _checkEmpty(userProvider.value?.github)
+                          ? ''
+                          : '@${userProvider.value?.github ?? ''}',
                       style: const TextStyle(
                         fontSize: 12,
                         fontWeight: FontWeight.w400,
@@ -248,5 +251,12 @@ class MyProfilePage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  bool _checkEmpty(String? text) {
+    if (text != null && text.trim().isNotEmpty) {
+      return false;
+    }
+    return true;
   }
 }
