@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 class Utils {
   const Utils._();
 
-  static void dismisKeyboard(BuildContext context) {
+  static void dismissKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
@@ -56,7 +56,7 @@ class Utils {
     );
   }
 
-  static String appstoreUrl(String? appId) {
+  static String appStoreUrl(String? appId) {
     if (appId != null) {
       return 'https://apps.apple.com/jp/app/id$appId';
     }

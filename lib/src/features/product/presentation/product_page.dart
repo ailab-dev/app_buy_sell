@@ -130,7 +130,7 @@ class ProductPage extends ConsumerWidget {
                 InkWell(
                   onTap: () {
                     final url = Platform.isIOS
-                        ? Utils.appstoreUrl(appModel.iosId)
+                        ? Utils.appStoreUrl(appModel.iosId)
                         : Utils.googlePlayUrl(appModel.androidId);
                     launchUrlString(url);
                   },
