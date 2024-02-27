@@ -21,7 +21,112 @@ class MyProfilePage extends HookConsumerWidget {
       loading: () {},
     );
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          MenuAnchor(
+            alignmentOffset: const Offset(-115, 0),
+            style: const MenuStyle(
+                backgroundColor: MaterialStatePropertyAll(Colors.white),
+                padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+            menuChildren: [
+              MenuItemButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                child: Row(
+                  children: [
+                    Assets.images.editSquare.svg(),
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    const Text(
+                      'プロフィール編集',
+                      style: TextStyle(
+                        color: ColorsConstant.text,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  ],
+                ),
+                onPressed: () {},
+              ),
+              const Divider(
+                indent: 0,
+                endIndent: 0,
+                height: 0,
+                thickness: 0.5,
+              ),
+              MenuItemButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                child: Row(
+                  children: [
+                    Assets.images.settings.svg(),
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    const Text(
+                      '設定',
+                      style: TextStyle(
+                        color: ColorsConstant.text,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  ],
+                ),
+                onPressed: () {},
+              ),
+              const Divider(
+                indent: 0,
+                endIndent: 0,
+                height: 0,
+                thickness: 0.5,
+              ),
+              MenuItemButton(
+                style: const ButtonStyle(
+                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                child: Row(
+                  children: [
+                    Assets.images.logout.svg(),
+                    const SizedBox(
+                      width: 7,
+                    ),
+                    const Text(
+                      'ログアウト',
+                      style: TextStyle(
+                        color: ColorsConstant.text,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    )
+                  ],
+                ),
+                onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  if (context.mounted) {
+                    context.go('/login');
+                  }
+                },
+              )
+            ],
+            builder: (context, controller, child) {
+              return IconButton(
+                onPressed: () {
+                  if (controller.isOpen) {
+                    controller.close();
+                  } else {
+                    controller.open();
+                  }
+                },
+                icon: const Icon(
+                  Icons.more_horiz,
+                ),
+              );
+            },
+          )
+        ],
+      ),
       body: LoadingView(
         isLoading: userProvider.isLoading,
         child: SingleChildScrollView(
