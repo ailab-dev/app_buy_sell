@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,10 +8,6 @@ class Utils {
   static void dismissKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
-
-  static DateTime? fromTimestamp(Timestamp? timestamp) => timestamp?.toDate();
-  static dynamic toTimestamp(DateTime? time) =>
-      time != null ? Timestamp.fromDate(time) : FieldValue.serverTimestamp();
 
   static void showAlertError(
       {required Object error, required BuildContext context}) {
