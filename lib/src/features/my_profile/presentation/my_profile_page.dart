@@ -48,7 +48,12 @@ class MyProfilePage extends HookConsumerWidget {
                     )
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  final result = await context.push('/edit-profile');
+                  if (result is bool && result) {
+                    ref.read(myProfileProvider.notifier).loadInfo();
+                  }
+                },
               ),
               const Divider(
                 indent: 0,
@@ -138,16 +143,25 @@ class MyProfilePage extends HookConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
-                      userProvider.value?.userName ?? '',
-                      style: const TextStyle(
-                        color: ColorsConstant.text,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w500,
+                    Expanded(
+                      child: Text(
+                        userProvider.value?.userName ?? '',
+                        style: const TextStyle(
+                          color: ColorsConstant.text,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () async {
+                        final result = await context.push('/edit-profile');
+                        if (result is bool && result) {
+                          ref.read(myProfileProvider.notifier).loadInfo();
+                        }
+                      },
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(

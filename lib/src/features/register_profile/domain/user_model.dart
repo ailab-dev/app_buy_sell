@@ -33,6 +33,8 @@ class UserModel {
   @JsonKey(defaultValue: '')
   String instagram = '';
 
+  String? country;
+
   UserModel(
     this.id,
     this.userName,
