@@ -453,26 +453,25 @@ class EditProfilePage extends HookConsumerWidget {
               ),
             ),
             actions: [
-              Column(
-                children: [
-                  CupertinoDialogAction(
-                    onPressed: () {
-                      context.pop();
-                    },
-                    child: const Text('編集を続ける'),
-                  ),
-                  const Divider(
-                    color: Color.fromRGBO(230, 230, 230, 1),
-                  ),
-                  CupertinoDialogAction(
-                    isDestructiveAction: true,
-                    onPressed: () {
-                      context.pop();
-                      context.pop();
-                    },
-                    child: const Text('破棄して戻る'),
-                  )
-                ],
+              SizedBox(
+                width: double.maxFinite,
+                child: CupertinoDialogAction(
+                  onPressed: () {
+                    context.pop();
+                  },
+                  child: const Text('編集を続ける'),
+                ),
+              ),
+              SizedBox(
+                width: double.maxFinite,
+                child: CupertinoDialogAction(
+                  isDestructiveAction: true,
+                  onPressed: () {
+                    context.pop();
+                    context.pop();
+                  },
+                  child: const Text('破棄して戻る'),
+                ),
               )
             ],
           ),
