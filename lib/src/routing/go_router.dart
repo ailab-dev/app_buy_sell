@@ -1,5 +1,7 @@
-import 'package:app_buy_sell/src/features/home/home_page.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
+import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
+import 'package:app_buy_sell/src/features/product/presentation/product_page.dart';
 import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
@@ -43,6 +45,15 @@ final router = GoRouter(
       path: '/home',
       builder: (BuildContext context, GoRouterState state) {
         return const HomePage();
+      },
+    ),
+    GoRoute(
+      path: '/product',
+      builder: (BuildContext context, GoRouterState state) {
+        final appModel = state.extra as AppModel;
+        return ProductPage(
+          appModel: appModel,
+        );
       },
     ),
   ],

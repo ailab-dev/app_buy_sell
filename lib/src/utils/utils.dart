@@ -5,14 +5,16 @@ import 'package:flutter/material.dart';
 class Utils {
   const Utils._();
 
-  static void dismisKeyboard(BuildContext context) {
+  static void dismissKeyboard(BuildContext context) {
     FocusScope.of(context).requestFocus(FocusNode());
   }
 
-  static void showAlertError({Object? error, required BuildContext context}) {
+  static void showAlertError(
+      {required Object error, required BuildContext context}) {
     String? content;
     if (error is FirebaseAuthException) {
-      if (error.code == 'INVALID_LOGIN_CREDENTIALS'|| error.code == 'wrong-password') {
+      if (error.code == 'INVALID_LOGIN_CREDENTIALS' ||
+          error.code == 'wrong-password') {
         content = 'メールアドレスまたはパスワードが間違っています。';
       } else if (error.code == 'email-already-in-use') {
         content = 'メールが使用されました。';
@@ -47,5 +49,19 @@ class Utils {
         ],
       ),
     );
+  }
+
+  static String appStoreUrl(String? appId) {
+    if (appId != null) {
+      return 'https://apps.apple.com/jp/app/id$appId';
+    }
+    return '';
+  }
+
+  static String googlePlayUrl(String? appId) {
+    if (appId != null) {
+      return 'https://play.google.com/store/apps/details?id=$appId';
+    }
+    return '';
   }
 }
