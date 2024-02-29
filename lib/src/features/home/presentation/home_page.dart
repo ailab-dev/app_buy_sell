@@ -121,7 +121,83 @@ class HomePage extends ConsumerWidget {
               color: const Color.fromRGBO(240, 240, 240, 1),
               height: 1,
             ),
-            if (body != null) Expanded(child: body),
+            Expanded(
+              child: appProvider.when(
+                data: (data) {
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      final item = data[index];
+                      return InkWell(
+                        onTap: () {
+                          context.push('/product', extra: item);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                          child: Row(
+                            children: [
+                              Ink(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          item.iconUrl),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
+                              ),
+                              const SizedBox(
+                                width: 12,
+                              ),
+                              Expanded(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.name,
+                                    style: const TextStyle(
+                                      color: ColorsConstant.text,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    item.description,
+                                    style: const TextStyle(
+                                      color: ColorsConstant.text,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ))
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: data.length,
+                  );
+                },
+                error: (error, stackTrace) {
+                  return Text('Error: $error');
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
+              ),
+            ),
           ],
         ),
       ),
