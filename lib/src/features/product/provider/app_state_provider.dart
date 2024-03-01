@@ -17,7 +17,6 @@ class AppState extends _$AppState {
     if (uid == null) {
       return false;
     }
-    state = const AsyncValue.loading();
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)

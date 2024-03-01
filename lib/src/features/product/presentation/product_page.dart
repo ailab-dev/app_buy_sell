@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
+import 'package:app_buy_sell/src/common_widgets/rating_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/product/provider/app_state_provider.dart';
@@ -9,7 +10,6 @@ import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:url_launcher/url_launcher_string.dart';
@@ -29,6 +29,7 @@ class ProductPage extends ConsumerWidget {
         data: (result) {
           if (result) {
             context.pop();
+            context.push('/purchase-complete');
           }
         },
         error: (Object error, StackTrace stackTrace) {
@@ -42,6 +43,7 @@ class ProductPage extends ConsumerWidget {
         loading: () {},
       );
     });
+
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -100,10 +102,10 @@ class ProductPage extends ConsumerWidget {
                           const SizedBox(
                             height: 5,
                           ),
-                          Row(
+                          const Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text(
+                              Text(
                                 '0.0',
                                 style: TextStyle(
                                   color: ColorsConstant.text,
@@ -111,19 +113,12 @@ class ProductPage extends ConsumerWidget {
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
-                              const SizedBox(
+                              SizedBox(
                                 width: 4,
                               ),
-                              RatingBarIndicator(
-                                rating: 0,
-                                itemBuilder: (context, index) => const Icon(
-                                  Icons.star,
-                                  color: Color.fromRGBO(76, 92, 123, 1),
-                                ),
-                                unratedColor: ColorsConstant.purpleGray,
-                                itemCount: 5,
-                                itemSize: 14,
-                              )
+                              RatingView(
+                                rate: 0,
+                              ),
                             ],
                           )
                         ],
@@ -158,7 +153,7 @@ class ProductPage extends ConsumerWidget {
                 InkWell(
                   onTap: () {
                     final url = Platform.isIOS
-                        ? Utils.appstoreUrl(appModel.iosId)
+                        ? Utils.appStoreUrl(appModel.iosId)
                         : Utils.googlePlayUrl(appModel.androidId);
                     launchUrlString(url);
                   },
@@ -562,10 +557,10 @@ class ProductPage extends ConsumerWidget {
                 const SizedBox(
                   height: 15,
                 ),
-                Row(
+                const Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    const Text(
+                    Text(
                       '0.0',
                       style: TextStyle(
                         color: ColorsConstant.text,
@@ -573,18 +568,14 @@ class ProductPage extends ConsumerWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 4,
                     ),
-                    RatingBarIndicator(
-                      rating: 0,
-                      itemBuilder: (context, index) => const Icon(
-                        Icons.star,
-                        color: ColorsConstant.purple,
-                      ),
+                    RatingView(
+                      rate: 0,
+                      rateColor: ColorsConstant.purple,
                       unratedColor: ColorsConstant.purpleGray,
-                      itemCount: 5,
-                      itemSize: 25,
+                      size: 25,
                     )
                   ],
                 ),
