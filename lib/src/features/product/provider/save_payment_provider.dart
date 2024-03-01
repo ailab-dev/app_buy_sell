@@ -19,19 +19,13 @@ class SavePayment extends _$SavePayment {
     if (uid == null) {
       state = const AsyncData(false);
     }
-    state = const AsyncValue.loading();
-    try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uid)
-          .collection('app')
-          .doc(appModel.id)
-          .set(payment);
-      state = const AsyncData(true);
-      ref.read(appStateProvider(appModel).notifier).state =
-          const AsyncData(true);
-    } catch (err, stack) {
-      state = AsyncValue.error(err, stack);
-    }
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('app')
+        .doc(appModel.id)
+        .set(payment);
+    state = const AsyncData(true);
+    ref.read(appStateProvider(appModel).notifier).state = const AsyncData(true);
   }
 }
