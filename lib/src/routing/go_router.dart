@@ -2,6 +2,7 @@ import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
 import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
+import 'package:app_buy_sell/src/features/setting/presentation/setting_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
 import 'package:app_buy_sell/src/features/start/start_page.dart';
 import 'package:app_buy_sell/src/features/user_profile/presentation/user_profile_page.dart';
@@ -52,6 +53,12 @@ final router = GoRouter(
         return UserProfilePage(
           userId: state.extra as String,
         );
+      },
+    ),
+    GoRoute(
+      path: '/setting',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SettingPage();
       },
     ),
   ],
