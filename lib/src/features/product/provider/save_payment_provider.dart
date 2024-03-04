@@ -19,6 +19,7 @@ class SavePayment extends _$SavePayment {
     if (uid == null) {
       state = const AsyncData(false);
     }
+    payment['createdAt'] = FieldValue.serverTimestamp();
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
