@@ -1,5 +1,6 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
@@ -212,25 +213,75 @@ class SettingPage extends HookConsumerWidget {
               const Divider(
                 color: ColorsConstant.gray,
               ),
-              Row(
-                children: [
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: Text(
-                        '退会手続き',
-                        style: _subTitleStyle(),
+              InkWell(
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    barrierColor: Colors.transparent,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) => CupertinoAlertDialog(
+                      title: const Text(
+                        '本当に退会しますか',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                      content: const Text(
+                        '退会すると、アカウントの復元はできません。本当に退会しますか？',
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      actions: [
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: CupertinoDialogAction(
+                            onPressed: () async {
+                              context.pop();
+                              await FirebaseAuth.instance.signOut();
+                              if (context.mounted) {
+                                context.go('/start');
+                              }
+                            },
+                            child: const Text('退会する'),
+                          ),
+                        ),
+                        SizedBox(
+                          width: double.maxFinite,
+                          child: CupertinoDialogAction(
+                            isDestructiveAction: true,
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: const Text('キャンセル'),
+                          ),
+                        )
+                      ],
+                    ),
+                  );
+                },
+                child: Row(
+                  children: [
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        child: Text(
+                          '退会手続き',
+                          style: _subTitleStyle(),
+                        ),
                       ),
                     ),
-                  ),
-                  const Icon(
-                    Icons.keyboard_arrow_right,
-                    color: ColorsConstant.gray2,
-                  ),
-                ],
+                    const Icon(
+                      Icons.keyboard_arrow_right,
+                      color: ColorsConstant.gray2,
+                    ),
+                  ],
+                ),
               ),
               const Divider(
                 color: ColorsConstant.gray,
