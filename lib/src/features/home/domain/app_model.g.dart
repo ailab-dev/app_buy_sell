@@ -17,6 +17,8 @@ _$AppModelImpl _$$AppModelImplFromJson(Map<String, dynamic> json) =>
       androidId: json['androidId'] as String?,
       banner:
           (json['banner'] as List<dynamic>).map((e) => e as String).toList(),
+      didPay: json['didPay'] as bool?,
+      paySuccess: json['paySuccess'] as bool?,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
     );
@@ -31,5 +33,7 @@ Map<String, dynamic> _$$AppModelImplToJson(_$AppModelImpl instance) =>
       'iosId': instance.iosId,
       'androidId': instance.androidId,
       'banner': instance.banner,
+      'didPay': instance.didPay,
+      'paySuccess': instance.paySuccess,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };

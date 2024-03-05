@@ -19,6 +19,8 @@ class AppModel with _$AppModel {
     String? iosId,
     String? androidId,
     required List<String> banner,
+    bool? didPay,
+    bool? paySuccess,
     @TimestampConverter() required DateTime createdAt,
   }) = _AppModel;
 

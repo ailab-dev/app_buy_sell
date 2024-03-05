@@ -4,8 +4,7 @@ import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/common_widgets/rating_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
-import 'package:app_buy_sell/src/features/product/provider/app_state_provider.dart';
-import 'package:app_buy_sell/src/features/product/provider/pay_app_provider.dart';
+import 'package:app_buy_sell/src/features/product/presentation/product_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +20,13 @@ class ProductPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final appState = ref.watch(appStateProvider(appModel));
-    final didPay = appState.value ?? false;
+    final productController = ref.watch(productControllerProvider(appModel));
+    final didPay = productController.value?.didPay ?? false;
 
-    ref.listen(payAppProvider, (previous, next) {
+    ref.listen(ProductControllerProvider(appModel), (previous, next) {
       next.when(
         data: (result) {
-          if (result) {
+          if (result.paySuccess == true) {
             context.pop();
             context.push('/purchase-complete');
           }
@@ -51,7 +50,7 @@ class ProductPage extends ConsumerWidget {
         ],
       ),
       body: LoadingView(
-        isLoading: appState.isLoading,
+        isLoading: productController.isLoading,
         child: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
@@ -461,8 +460,10 @@ class ProductPage extends ConsumerWidget {
                                               child: TextButton(
                                                 onPressed: () async {
                                                   ref
-                                                      .read(payAppProvider
-                                                          .notifier)
+                                                      .read(
+                                                          productControllerProvider(
+                                                                  appModel)
+                                                              .notifier)
                                                       .pay(appModel);
                                                 },
                                                 style: ButtonStyle(
