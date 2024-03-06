@@ -50,7 +50,7 @@ class ProductController extends _$ProductController {
         PayProvider.apple_pay,
         paymentItems,
       );
-      savePayment(result, appModel);
+      await savePayment(result, appModel);
     } else {
       final googlePayConfigFuture =
           await PaymentConfiguration.fromAsset('google_pay_config.json');
@@ -61,7 +61,7 @@ class ProductController extends _$ProductController {
         PayProvider.google_pay,
         paymentItems,
       );
-      savePayment(result, appModel);
+      await savePayment(result, appModel);
     }
   }
 
