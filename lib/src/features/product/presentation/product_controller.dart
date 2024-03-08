@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
+import 'package:app_buy_sell/src/features/product/domain/apple_payment_model.dart';
+import 'package:app_buy_sell/src/features/product/domain/google_payment_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pay/pay.dart';
@@ -50,7 +52,8 @@ class ProductController extends _$ProductController {
         PayProvider.apple_pay,
         paymentItems,
       );
-      await savePayment(result, appModel);
+      final applePayment = ApplePaymentModel.fromJson(result);
+      await saveApplePayment(applePayment, appModel);
     } else {
       final googlePayConfigFuture =
           await PaymentConfiguration.fromAsset('google_pay_config.json');
@@ -61,20 +64,32 @@ class ProductController extends _$ProductController {
         PayProvider.google_pay,
         paymentItems,
       );
-      await savePayment(result, appModel);
+      final goolePayment = GooglePaymentModel.fromJson(result);
+      await saveGooglePayment(goolePayment, appModel);
     }
   }
 
-  Future<void> savePayment(
-      Map<String, dynamic> payment, AppModel appModel) async {
+  Future<void> saveGooglePayment(
+      GooglePaymentModel payment, AppModel appModel) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
-    payment['createdAt'] = FieldValue.serverTimestamp();
     await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .collection('app')
         .doc(appModel.id)
-        .set(payment);
+        .set(payment.toJson());
+    state = AsyncData(appModel.copyWith(paySuccess: true, didPay: true));
+  }
+
+  Future<void> saveApplePayment(
+      ApplePaymentModel payment, AppModel appModel) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('app')
+        .doc(appModel.id)
+        .set(payment.toJson());
     state = AsyncData(appModel.copyWith(paySuccess: true, didPay: true));
   }
 }
