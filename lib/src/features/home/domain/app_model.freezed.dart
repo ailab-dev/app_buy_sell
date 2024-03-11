@@ -28,6 +28,8 @@ mixin _$AppModel {
   String? get iosId => throw _privateConstructorUsedError;
   String? get androidId => throw _privateConstructorUsedError;
   List<String> get banner => throw _privateConstructorUsedError;
+  bool? get didPay => throw _privateConstructorUsedError;
+  bool? get paySuccess => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -51,6 +53,8 @@ abstract class $AppModelCopyWith<$Res> {
       String? iosId,
       String? androidId,
       List<String> banner,
+      bool? didPay,
+      bool? paySuccess,
       @TimestampConverter() DateTime createdAt});
 }
 
@@ -75,6 +79,8 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
     Object? iosId = freezed,
     Object? androidId = freezed,
     Object? banner = null,
+    Object? didPay = freezed,
+    Object? paySuccess = freezed,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -110,6 +116,14 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.banner
           : banner // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      didPay: freezed == didPay
+          ? _value.didPay
+          : didPay // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      paySuccess: freezed == paySuccess
+          ? _value.paySuccess
+          : paySuccess // ignore: cast_nullable_to_non_nullable
+              as bool?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -135,6 +149,8 @@ abstract class _$$AppModelImplCopyWith<$Res>
       String? iosId,
       String? androidId,
       List<String> banner,
+      bool? didPay,
+      bool? paySuccess,
       @TimestampConverter() DateTime createdAt});
 }
 
@@ -157,6 +173,8 @@ class __$$AppModelImplCopyWithImpl<$Res>
     Object? iosId = freezed,
     Object? androidId = freezed,
     Object? banner = null,
+    Object? didPay = freezed,
+    Object? paySuccess = freezed,
     Object? createdAt = null,
   }) {
     return _then(_$AppModelImpl(
@@ -192,6 +210,14 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value._banner
           : banner // ignore: cast_nullable_to_non_nullable
               as List<String>,
+      didPay: freezed == didPay
+          ? _value.didPay
+          : didPay // ignore: cast_nullable_to_non_nullable
+              as bool?,
+      paySuccess: freezed == paySuccess
+          ? _value.paySuccess
+          : paySuccess // ignore: cast_nullable_to_non_nullable
+              as bool?,
       createdAt: null == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -212,6 +238,8 @@ class _$AppModelImpl extends _AppModel {
       this.iosId,
       this.androidId,
       required final List<String> banner,
+      this.didPay,
+      this.paySuccess,
       @TimestampConverter() required this.createdAt})
       : _banner = banner,
         super._();
@@ -242,12 +270,16 @@ class _$AppModelImpl extends _AppModel {
   }
 
   @override
+  final bool? didPay;
+  @override
+  final bool? paySuccess;
+  @override
   @TimestampConverter()
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, iosId: $iosId, androidId: $androidId, banner: $banner, createdAt: $createdAt)';
+    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, iosId: $iosId, androidId: $androidId, banner: $banner, didPay: $didPay, paySuccess: $paySuccess, createdAt: $createdAt)';
   }
 
   @override
@@ -265,6 +297,9 @@ class _$AppModelImpl extends _AppModel {
             (identical(other.androidId, androidId) ||
                 other.androidId == androidId) &&
             const DeepCollectionEquality().equals(other._banner, _banner) &&
+            (identical(other.didPay, didPay) || other.didPay == didPay) &&
+            (identical(other.paySuccess, paySuccess) ||
+                other.paySuccess == paySuccess) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
@@ -281,6 +316,8 @@ class _$AppModelImpl extends _AppModel {
       iosId,
       androidId,
       const DeepCollectionEquality().hash(_banner),
+      didPay,
+      paySuccess,
       createdAt);
 
   @JsonKey(ignore: true)
@@ -307,6 +344,8 @@ abstract class _AppModel extends AppModel {
           final String? iosId,
           final String? androidId,
           required final List<String> banner,
+          final bool? didPay,
+          final bool? paySuccess,
           @TimestampConverter() required final DateTime createdAt}) =
       _$AppModelImpl;
   _AppModel._() : super._();
@@ -330,6 +369,10 @@ abstract class _AppModel extends AppModel {
   String? get androidId;
   @override
   List<String> get banner;
+  @override
+  bool? get didPay;
+  @override
+  bool? get paySuccess;
   @override
   @TimestampConverter()
   DateTime get createdAt;
