@@ -1,6 +1,8 @@
 import 'dart:io';
 
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
+import 'package:app_buy_sell/src/features/product/data/pay_repository.dart';
+import 'package:app_buy_sell/src/features/product/data/pay_service.dart';
 import 'package:app_buy_sell/src/features/product/domain/apple_payment_model.dart';
 import 'package:app_buy_sell/src/features/product/domain/google_payment_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -43,27 +45,11 @@ class ProductController extends _$ProductController {
       )
     ];
     if (Platform.isIOS) {
-      final applePayConfigFuture =
-          await PaymentConfiguration.fromAsset('apple_pay_config.json');
-      final Pay payClient = Pay({
-        PayProvider.apple_pay: applePayConfigFuture,
-      });
-      final result = await payClient.showPaymentSelector(
-        PayProvider.apple_pay,
-        paymentItems,
-      );
+      final result = await PayService(ApplePayImpl()).pay(paymentItems);
       final applePayment = ApplePaymentModel.fromJson(result);
       await saveApplePayment(applePayment, appModel);
     } else {
-      final googlePayConfigFuture =
-          await PaymentConfiguration.fromAsset('google_pay_config.json');
-      final Pay payClient = Pay({
-        PayProvider.google_pay: googlePayConfigFuture,
-      });
-      final result = await payClient.showPaymentSelector(
-        PayProvider.google_pay,
-        paymentItems,
-      );
+      final result = await PayService(GoolePayImpl()).pay(paymentItems);
       final goolePayment = GooglePaymentModel.fromJson(result);
       await saveGooglePayment(goolePayment, appModel);
     }
