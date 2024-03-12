@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'app_state_provider.dart';
+part of 'product_controller.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$appStateHash() => r'08eaaa7d53cee1cbf9411c63a166edab541571fc';
+String _$productControllerHash() => r'a9da4ea270bd350afecd803953fb92001b3c83f5';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -29,35 +29,36 @@ class _SystemHash {
   }
 }
 
-abstract class _$AppState extends BuildlessAutoDisposeAsyncNotifier<bool> {
+abstract class _$ProductController
+    extends BuildlessAutoDisposeAsyncNotifier<AppModel> {
   late final AppModel appModel;
 
-  FutureOr<bool> build(
+  FutureOr<AppModel> build(
     AppModel appModel,
   );
 }
 
-/// See also [AppState].
-@ProviderFor(AppState)
-const appStateProvider = AppStateFamily();
+/// See also [ProductController].
+@ProviderFor(ProductController)
+const productControllerProvider = ProductControllerFamily();
 
-/// See also [AppState].
-class AppStateFamily extends Family<AsyncValue<bool>> {
-  /// See also [AppState].
-  const AppStateFamily();
+/// See also [ProductController].
+class ProductControllerFamily extends Family<AsyncValue<AppModel>> {
+  /// See also [ProductController].
+  const ProductControllerFamily();
 
-  /// See also [AppState].
-  AppStateProvider call(
+  /// See also [ProductController].
+  ProductControllerProvider call(
     AppModel appModel,
   ) {
-    return AppStateProvider(
+    return ProductControllerProvider(
       appModel,
     );
   }
 
   @override
-  AppStateProvider getProviderOverride(
-    covariant AppStateProvider provider,
+  ProductControllerProvider getProviderOverride(
+    covariant ProductControllerProvider provider,
   ) {
     return call(
       provider.appModel,
@@ -76,29 +77,30 @@ class AppStateFamily extends Family<AsyncValue<bool>> {
       _allTransitiveDependencies;
 
   @override
-  String? get name => r'appStateProvider';
+  String? get name => r'productControllerProvider';
 }
 
-/// See also [AppState].
-class AppStateProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<AppState, bool> {
-  /// See also [AppState].
-  AppStateProvider(
+/// See also [ProductController].
+class ProductControllerProvider
+    extends AutoDisposeAsyncNotifierProviderImpl<ProductController, AppModel> {
+  /// See also [ProductController].
+  ProductControllerProvider(
     AppModel appModel,
   ) : this._internal(
-          () => AppState()..appModel = appModel,
-          from: appStateProvider,
-          name: r'appStateProvider',
+          () => ProductController()..appModel = appModel,
+          from: productControllerProvider,
+          name: r'productControllerProvider',
           debugGetCreateSourceHash:
               const bool.fromEnvironment('dart.vm.product')
                   ? null
-                  : _$appStateHash,
-          dependencies: AppStateFamily._dependencies,
-          allTransitiveDependencies: AppStateFamily._allTransitiveDependencies,
+                  : _$productControllerHash,
+          dependencies: ProductControllerFamily._dependencies,
+          allTransitiveDependencies:
+              ProductControllerFamily._allTransitiveDependencies,
           appModel: appModel,
         );
 
-  AppStateProvider._internal(
+  ProductControllerProvider._internal(
     super._createNotifier, {
     required super.name,
     required super.dependencies,
@@ -111,8 +113,8 @@ class AppStateProvider
   final AppModel appModel;
 
   @override
-  FutureOr<bool> runNotifierBuild(
-    covariant AppState notifier,
+  FutureOr<AppModel> runNotifierBuild(
+    covariant ProductController notifier,
   ) {
     return notifier.build(
       appModel,
@@ -120,10 +122,10 @@ class AppStateProvider
   }
 
   @override
-  Override overrideWith(AppState Function() create) {
+  Override overrideWith(ProductController Function() create) {
     return ProviderOverride(
       origin: this,
-      override: AppStateProvider._internal(
+      override: ProductControllerProvider._internal(
         () => create()..appModel = appModel,
         from: from,
         name: null,
@@ -136,13 +138,14 @@ class AppStateProvider
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<AppState, bool> createElement() {
-    return _AppStateProviderElement(this);
+  AutoDisposeAsyncNotifierProviderElement<ProductController, AppModel>
+      createElement() {
+    return _ProductControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is AppStateProvider && other.appModel == appModel;
+    return other is ProductControllerProvider && other.appModel == appModel;
   }
 
   @override
@@ -154,18 +157,18 @@ class AppStateProvider
   }
 }
 
-mixin AppStateRef on AutoDisposeAsyncNotifierProviderRef<bool> {
+mixin ProductControllerRef on AutoDisposeAsyncNotifierProviderRef<AppModel> {
   /// The parameter `appModel` of this provider.
   AppModel get appModel;
 }
 
-class _AppStateProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<AppState, bool>
-    with AppStateRef {
-  _AppStateProviderElement(super.provider);
+class _ProductControllerProviderElement
+    extends AutoDisposeAsyncNotifierProviderElement<ProductController, AppModel>
+    with ProductControllerRef {
+  _ProductControllerProviderElement(super.provider);
 
   @override
-  AppModel get appModel => (origin as AppStateProvider).appModel;
+  AppModel get appModel => (origin as ProductControllerProvider).appModel;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

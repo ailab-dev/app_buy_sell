@@ -36,9 +36,12 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.svg
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
 
+  /// File path: assets/images/purchase.svg
+  SvgGenImage get purchase => const SvgGenImage('assets/images/purchase.svg');
+
   /// List of all assets
   List<dynamic> get values =>
-      [applePay, gPay, googlePay, adGroup, app, logoPng, logoSvg];
+      [applePay, gPay, googlePay, adGroup, app, logoPng, logoSvg, purchase];
 }
 
 class Assets {

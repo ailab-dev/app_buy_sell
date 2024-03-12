@@ -44,7 +44,7 @@ class RegisterPage extends HookConsumerWidget {
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            Utils.dismisKeyboard(context);
+            Utils.dismissKeyboard(context);
           },
           child: SafeArea(
             child: Padding(
@@ -187,7 +187,7 @@ class RegisterPage extends HookConsumerWidget {
                     height: 54,
                     child: TextButton(
                       onPressed: () async {
-                        Utils.dismisKeyboard(context);
+                        Utils.dismissKeyboard(context);
                         ref
                             .read(passValidateProvider.notifier)
                             .validate(passwordController.text);
