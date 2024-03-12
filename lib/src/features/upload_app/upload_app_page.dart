@@ -1,11 +1,11 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:flutter/material.dart';
-import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class UpAppPage extends HookConsumerWidget {
-  const UpAppPage({super.key});
+class UploadAppPage extends StatelessWidget {
+  const UploadAppPage({super.key});
+
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('アプリを掲載する'),
