@@ -1,9 +1,13 @@
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
+import 'package:app_buy_sell/src/features/product/presentation/product_page.dart';
+import 'package:app_buy_sell/src/features/product/presentation/purchase_complete_page.dart';
 import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
 import 'package:app_buy_sell/src/features/start/start_page.dart';
+import 'package:app_buy_sell/src/features/upload_app/upload_app_page.dart';
 import 'package:app_buy_sell/src/features/user_profile/presentation/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
@@ -44,6 +48,27 @@ final router = GoRouter(
       path: '/home',
       builder: (BuildContext context, GoRouterState state) {
         return const HomePage();
+      },
+    ),
+    GoRoute(
+      path: '/product',
+      builder: (BuildContext context, GoRouterState state) {
+        final appModel = state.extra as AppModel;
+        return ProductPage(
+          appModel: appModel,
+        );
+      },
+    ),
+    GoRoute(
+      path: '/purchase-complete',
+      builder: (BuildContext context, GoRouterState state) {
+        return const PurchaseCompletePage();
+      },
+    ),
+    GoRoute(
+      path: '/upload-app',
+      builder: (BuildContext context, GoRouterState state) {
+        return const UploadAppPage();
       },
     ),
     GoRoute(

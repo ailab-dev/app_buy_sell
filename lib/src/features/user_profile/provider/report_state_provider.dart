@@ -1,3 +1,6 @@
+import 'package:app_buy_sell/src/features/user_profile/domain/report_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'report_state_provider.g.dart';
@@ -18,6 +21,25 @@ class ReportState extends _$ReportState {
           if (type != reportUserType) type,
       ];
     }
+  }
+
+  CollectionReference<ReportModel> get rootRef {
+    return FirebaseFirestore.instance.collection('reports').withConverter(
+          fromFirestore: (snapshot, _) =>
+              ReportModel.fromJson(snapshot.data()!),
+          toFirestore: (model, _) => model.toJson(),
+        );
+  }
+
+  Future<void> reportUser(String targetUserId, List<ReportUserType> reportList,
+      String content) async {
+    final reportModel = ReportModel(
+        user: FirebaseAuth.instance.currentUser?.uid ?? '',
+        targetUser: targetUserId,
+        reportType: reportList.map((e) => e.param).toList(),
+        content: content,
+        createdAt: DateTime.now());
+    await rootRef.add(reportModel);
   }
 }
 
