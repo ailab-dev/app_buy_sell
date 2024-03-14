@@ -13,7 +13,11 @@ _$NotificationModelImpl _$$NotificationModelImplFromJson(
       type: $enumDecode(_$NotificationTypeEnumMap, json['type']),
       content: json['content'] as String,
       title: json['title'] as String,
+      iconUrl: json['iconUrl'] as String?,
+      appId: json['appId'] as String?,
+      appName: json['appName'] as String?,
       userId: json['userId'] as String?,
+      userName: json['userName'] as String?,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
     );
@@ -25,7 +29,11 @@ Map<String, dynamic> _$$NotificationModelImplToJson(
       'type': _$NotificationTypeEnumMap[instance.type]!,
       'content': instance.content,
       'title': instance.title,
+      'iconUrl': instance.iconUrl,
+      'appId': instance.appId,
+      'appName': instance.appName,
       'userId': instance.userId,
+      'userName': instance.userName,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };
 

@@ -13,7 +13,11 @@ class NotificationModel with _$NotificationModel {
     required NotificationType type,
     required String content,
     required String title,
-    required String? userId,
+    String? iconUrl,
+    String? appId,
+    String? appName,
+    String? userId,
+    String? userName,
     @TimestampConverter() required DateTime createdAt,
   }) = _NotificationModel;
 

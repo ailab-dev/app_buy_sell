@@ -24,7 +24,11 @@ mixin _$NotificationModel {
   NotificationType get type => throw _privateConstructorUsedError;
   String get content => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
+  String? get iconUrl => throw _privateConstructorUsedError;
+  String? get appId => throw _privateConstructorUsedError;
+  String? get appName => throw _privateConstructorUsedError;
   String? get userId => throw _privateConstructorUsedError;
+  String? get userName => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
 
@@ -45,7 +49,11 @@ abstract class $NotificationModelCopyWith<$Res> {
       NotificationType type,
       String content,
       String title,
+      String? iconUrl,
+      String? appId,
+      String? appName,
       String? userId,
+      String? userName,
       @TimestampConverter() DateTime createdAt});
 }
 
@@ -66,7 +74,11 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
     Object? type = null,
     Object? content = null,
     Object? title = null,
+    Object? iconUrl = freezed,
+    Object? appId = freezed,
+    Object? appName = freezed,
     Object? userId = freezed,
+    Object? userName = freezed,
     Object? createdAt = null,
   }) {
     return _then(_value.copyWith(
@@ -86,9 +98,25 @@ class _$NotificationModelCopyWithImpl<$Res, $Val extends NotificationModel>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      iconUrl: freezed == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appId: freezed == appId
+          ? _value.appId
+          : appId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appName: freezed == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -111,7 +139,11 @@ abstract class _$$NotificationModelImplCopyWith<$Res>
       NotificationType type,
       String content,
       String title,
+      String? iconUrl,
+      String? appId,
+      String? appName,
       String? userId,
+      String? userName,
       @TimestampConverter() DateTime createdAt});
 }
 
@@ -130,7 +162,11 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
     Object? type = null,
     Object? content = null,
     Object? title = null,
+    Object? iconUrl = freezed,
+    Object? appId = freezed,
+    Object? appName = freezed,
     Object? userId = freezed,
+    Object? userName = freezed,
     Object? createdAt = null,
   }) {
     return _then(_$NotificationModelImpl(
@@ -150,9 +186,25 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
               as String,
+      iconUrl: freezed == iconUrl
+          ? _value.iconUrl
+          : iconUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appId: freezed == appId
+          ? _value.appId
+          : appId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      appName: freezed == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String?,
       userId: freezed == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String?,
+      userName: freezed == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String?,
       createdAt: null == createdAt
           ? _value.createdAt
@@ -170,7 +222,11 @@ class _$NotificationModelImpl implements _NotificationModel {
       required this.type,
       required this.content,
       required this.title,
-      required this.userId,
+      this.iconUrl,
+      this.appId,
+      this.appName,
+      this.userId,
+      this.userName,
       @TimestampConverter() required this.createdAt});
 
   factory _$NotificationModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -185,14 +241,22 @@ class _$NotificationModelImpl implements _NotificationModel {
   @override
   final String title;
   @override
+  final String? iconUrl;
+  @override
+  final String? appId;
+  @override
+  final String? appName;
+  @override
   final String? userId;
+  @override
+  final String? userName;
   @override
   @TimestampConverter()
   final DateTime createdAt;
 
   @override
   String toString() {
-    return 'NotificationModel(id: $id, type: $type, content: $content, title: $title, userId: $userId, createdAt: $createdAt)';
+    return 'NotificationModel(id: $id, type: $type, content: $content, title: $title, iconUrl: $iconUrl, appId: $appId, appName: $appName, userId: $userId, userName: $userName, createdAt: $createdAt)';
   }
 
   @override
@@ -204,15 +268,20 @@ class _$NotificationModelImpl implements _NotificationModel {
             (identical(other.type, type) || other.type == type) &&
             (identical(other.content, content) || other.content == content) &&
             (identical(other.title, title) || other.title == title) &&
+            (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
+            (identical(other.appId, appId) || other.appId == appId) &&
+            (identical(other.appName, appName) || other.appName == appName) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, id, type, content, title, userId, createdAt);
+  int get hashCode => Object.hash(runtimeType, id, type, content, title,
+      iconUrl, appId, appName, userId, userName, createdAt);
 
   @JsonKey(ignore: true)
   @override
@@ -235,7 +304,11 @@ abstract class _NotificationModel implements NotificationModel {
           required final NotificationType type,
           required final String content,
           required final String title,
-          required final String? userId,
+          final String? iconUrl,
+          final String? appId,
+          final String? appName,
+          final String? userId,
+          final String? userName,
           @TimestampConverter() required final DateTime createdAt}) =
       _$NotificationModelImpl;
 
@@ -251,7 +324,15 @@ abstract class _NotificationModel implements NotificationModel {
   @override
   String get title;
   @override
+  String? get iconUrl;
+  @override
+  String? get appId;
+  @override
+  String? get appName;
+  @override
   String? get userId;
+  @override
+  String? get userName;
   @override
   @TimestampConverter()
   DateTime get createdAt;
