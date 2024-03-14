@@ -1,38 +1,24 @@
-import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:app_buy_sell/src/utils/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'notification_model.g.dart';
 
-@JsonSerializable()
-class NotificationModel {
-  String id;
+part 'notification_model.freezed.dart';
 
-  NotificationType type;
-
-  String content;
-
-  String title;
-
-  String? userId;
-
-  @JsonKey(
-    fromJson: Utils.fromTimestamp,
-    toJson: Utils.toTimestamp,
-  )
-  DateTime? createdAt;
-
-  NotificationModel(
-    this.id,
-    this.type,
-    this.content,
-    this.title,
-  );
+@freezed
+class NotificationModel with _$NotificationModel {
+  factory NotificationModel({
+    required String id,
+    required NotificationType type,
+    required String content,
+    required String title,
+    required String? userId,
+    @TimestampConverter() required DateTime createdAt,
+  }) = _NotificationModel;
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) =>
       _$NotificationModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$NotificationModelToJson(this);
 }
 
 enum NotificationType {

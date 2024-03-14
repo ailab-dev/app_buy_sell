@@ -14,6 +14,19 @@ import 'package:flutter/services.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// File path: assets/images/Apple_Pay.svg
+  SvgGenImage get applePay => const SvgGenImage('assets/images/Apple_Pay.svg');
+
+  /// File path: assets/images/GPay.png
+  AssetGenImage get gPay => const AssetGenImage('assets/images/GPay.png');
+
+  /// File path: assets/images/Google_Pay.svg
+  SvgGenImage get googlePay =>
+      const SvgGenImage('assets/images/Google_Pay.svg');
+
+  /// File path: assets/images/ad_group.svg
+  SvgGenImage get adGroup => const SvgGenImage('assets/images/ad_group.svg');
+
   /// File path: assets/images/app.png
   AssetGenImage get app => const AssetGenImage('assets/images/app.png');
 
@@ -23,14 +36,23 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.svg
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
 
+  /// File path: assets/images/purchase.svg
+  SvgGenImage get purchase => const SvgGenImage('assets/images/purchase.svg');
+
   /// List of all assets
-  List<dynamic> get values => [app, logoPng, logoSvg];
+  List<dynamic> get values =>
+      [applePay, gPay, googlePay, adGroup, app, logoPng, logoSvg, purchase];
 }
 
 class Assets {
   Assets._();
 
+  static const String applePayConfig = 'assets/apple_pay_config.json';
+  static const String googlePayConfig = 'assets/google_pay_config.json';
   static const $AssetsImagesGen images = $AssetsImagesGen();
+
+  /// List of all assets
+  static List<String> get values => [applePayConfig, googlePayConfig];
 }
 
 class AssetGenImage {

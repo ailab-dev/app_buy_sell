@@ -9,14 +9,19 @@ part 'notification_provider.g.dart';
 @riverpod
 class NotificationList extends _$NotificationList {
   @override
-  FutureOr<(List<NotificationModel>, DocumentSnapshot<NotificationModel>?)>
-      build() async {
-    return await getNotifications();
+  FutureOr<List<NotificationModel>> build() async {
+    final response = await getNotifications();
+    final data = response.$1;
+    return data;
   }
 
   CollectionReference<NotificationModel> get _rootRef {
     final userId = FirebaseAuth.instance.currentUser?.uid ?? '';
-    return FirebaseFirestore.instance.collection('users').doc(userId).collection('notification').withConverter(
+    return FirebaseFirestore.instance
+        .collection('users')
+        .doc(userId)
+        .collection('notification')
+        .withConverter(
           fromFirestore: (snapshot, _) =>
               NotificationModel.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),

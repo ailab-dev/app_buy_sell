@@ -39,7 +39,7 @@ class RegisterProfilePage extends HookConsumerWidget {
         child: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            Utils.dismisKeyboard(context);
+            Utils.dismissKeyboard(context);
           },
           child: SafeArea(
             child: Padding(
@@ -114,7 +114,7 @@ class RegisterProfilePage extends HookConsumerWidget {
                     child: TextButton(
                       onPressed: validate
                           ? () async {
-                              Utils.dismisKeyboard(context);
+                              Utils.dismissKeyboard(context);
                               ref
                                   .read(registerProfileProvider.notifier)
                                   .register(nameController.text.trim());
