@@ -1,7 +1,7 @@
-import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/notification/provider/notification_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -10,7 +10,6 @@ class NotificationPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final notificationList = ref.watch(notificationListProvider);
-
     return Scaffold(
       appBar: AppBar(
         title: const Row(
@@ -45,45 +44,48 @@ class NotificationPage extends HookConsumerWidget {
                 final notification = data[index];
                 return Padding(
                   padding: const EdgeInsets.all(15.0),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              notification.title,
-                              style: const TextStyle(
-                                color: ColorsConstant.purple,
-                                fontSize: 12,
-                              ),
+                  child: Row(children: [
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            notification.title,
+                            style: const TextStyle(
+                              color: ColorsConstant.purple,
+                              fontSize: 12,
                             ),
-                            const SizedBox(
-                              height: 4,
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            notification.content,
+                            style: const TextStyle(
+                              color: ColorsConstant.text,
+                              fontSize: 12,
                             ),
-                            Text(
-                              notification.content,
-                              style: const TextStyle(
-                                color: ColorsConstant.text,
-                                fontSize: 12,
-                              ),
+                          ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text(
+                            notification.createText,
+                            style: const TextStyle(
+                              color: ColorsConstant.gray2,
+                              fontSize: 10,
                             ),
-                            const SizedBox(
-                              height: 4,
-                            ),
-                            Text(
-                              notification.createdAt.toString(),
-                              style: const TextStyle(
-                                color: ColorsConstant.gray2,
-                                fontSize: 10,
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                      Assets.images.app.image(),
-                    ],
-                  ),
+                    ),
+                    CachedNetworkImage(
+                      imageUrl: notification.iconUrl ?? '',
+                      width: 40,
+                      height: 40,
+                      fit: BoxFit.cover,
+                    ),
+                  ]),
                 );
               },
               itemCount: data.length,

@@ -216,7 +216,7 @@ class __$$NotificationModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$NotificationModelImpl implements _NotificationModel {
+class _$NotificationModelImpl extends _NotificationModel {
   _$NotificationModelImpl(
       {required this.id,
       required this.type,
@@ -227,7 +227,8 @@ class _$NotificationModelImpl implements _NotificationModel {
       this.appName,
       this.userId,
       this.userName,
-      @TimestampConverter() required this.createdAt});
+      @TimestampConverter() required this.createdAt})
+      : super._();
 
   factory _$NotificationModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$NotificationModelImplFromJson(json);
@@ -298,7 +299,7 @@ class _$NotificationModelImpl implements _NotificationModel {
   }
 }
 
-abstract class _NotificationModel implements NotificationModel {
+abstract class _NotificationModel extends NotificationModel {
   factory _NotificationModel(
           {required final String id,
           required final NotificationType type,
@@ -311,6 +312,7 @@ abstract class _NotificationModel implements NotificationModel {
           final String? userName,
           @TimestampConverter() required final DateTime createdAt}) =
       _$NotificationModelImpl;
+  _NotificationModel._() : super._();
 
   factory _NotificationModel.fromJson(Map<String, dynamic> json) =
       _$NotificationModelImpl.fromJson;
