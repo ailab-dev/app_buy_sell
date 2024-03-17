@@ -11,6 +11,13 @@ class UserModel with _$UserModel {
   factory UserModel({
     required String id,
     required String userName,
+    @Default('') String description,
+    @Default('') String nickName,
+    @Default('') String twitter,
+    @Default('') String facebook,
+    @Default('') String github,
+    @Default('') String portfolio,
+    @Default('') String instagram,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

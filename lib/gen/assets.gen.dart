@@ -30,18 +30,56 @@ class $AssetsImagesGen {
   /// File path: assets/images/app.png
   AssetGenImage get app => const AssetGenImage('assets/images/app.png');
 
+  /// File path: assets/images/facebook.svg
+  SvgGenImage get facebook => const SvgGenImage('assets/images/facebook.svg');
+
+  /// File path: assets/images/github.svg
+  SvgGenImage get github => const SvgGenImage('assets/images/github.svg');
+
+  /// File path: assets/images/instagram.png
+  AssetGenImage get instagram =>
+      const AssetGenImage('assets/images/instagram.png');
+
   /// File path: assets/images/logo.png
   AssetGenImage get logoPng => const AssetGenImage('assets/images/logo.png');
 
   /// File path: assets/images/logo.svg
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
 
+  /// File path: assets/images/portfolio.svg
+  SvgGenImage get portfolio => const SvgGenImage('assets/images/portfolio.svg');
+
   /// File path: assets/images/purchase.svg
   SvgGenImage get purchase => const SvgGenImage('assets/images/purchase.svg');
 
+  /// File path: assets/images/report.svg
+  SvgGenImage get report => const SvgGenImage('assets/images/report.svg');
+
+  /// File path: assets/images/report_finish.svg
+  SvgGenImage get reportFinish =>
+      const SvgGenImage('assets/images/report_finish.svg');
+
+  /// File path: assets/images/x.svg
+  SvgGenImage get x => const SvgGenImage('assets/images/x.svg');
+
   /// List of all assets
-  List<dynamic> get values =>
-      [applePay, gPay, googlePay, adGroup, app, logoPng, logoSvg, purchase];
+  List<dynamic> get values => [
+        applePay,
+        gPay,
+        googlePay,
+        adGroup,
+        app,
+        facebook,
+        github,
+        instagram,
+        logoPng,
+        logoSvg,
+        portfolio,
+        purchase,
+        report,
+        reportFinish,
+        x
+      ];
 }
 
 class Assets {

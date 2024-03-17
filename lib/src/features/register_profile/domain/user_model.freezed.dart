@@ -22,6 +22,13 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   String get id => throw _privateConstructorUsedError;
   String get userName => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get nickName => throw _privateConstructorUsedError;
+  String get twitter => throw _privateConstructorUsedError;
+  String get facebook => throw _privateConstructorUsedError;
+  String get github => throw _privateConstructorUsedError;
+  String get portfolio => throw _privateConstructorUsedError;
+  String get instagram => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +41,16 @@ abstract class $UserModelCopyWith<$Res> {
   factory $UserModelCopyWith(UserModel value, $Res Function(UserModel) then) =
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
-  $Res call({String id, String userName});
+  $Res call(
+      {String id,
+      String userName,
+      String description,
+      String nickName,
+      String twitter,
+      String facebook,
+      String github,
+      String portfolio,
+      String instagram});
 }
 
 /// @nodoc
@@ -52,6 +68,13 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   $Res call({
     Object? id = null,
     Object? userName = null,
+    Object? description = null,
+    Object? nickName = null,
+    Object? twitter = null,
+    Object? facebook = null,
+    Object? github = null,
+    Object? portfolio = null,
+    Object? instagram = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -61,6 +84,34 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       userName: null == userName
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      nickName: null == nickName
+          ? _value.nickName
+          : nickName // ignore: cast_nullable_to_non_nullable
+              as String,
+      twitter: null == twitter
+          ? _value.twitter
+          : twitter // ignore: cast_nullable_to_non_nullable
+              as String,
+      facebook: null == facebook
+          ? _value.facebook
+          : facebook // ignore: cast_nullable_to_non_nullable
+              as String,
+      github: null == github
+          ? _value.github
+          : github // ignore: cast_nullable_to_non_nullable
+              as String,
+      portfolio: null == portfolio
+          ? _value.portfolio
+          : portfolio // ignore: cast_nullable_to_non_nullable
+              as String,
+      instagram: null == instagram
+          ? _value.instagram
+          : instagram // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -74,7 +125,16 @@ abstract class _$$UserModelImplCopyWith<$Res>
       __$$UserModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String id, String userName});
+  $Res call(
+      {String id,
+      String userName,
+      String description,
+      String nickName,
+      String twitter,
+      String facebook,
+      String github,
+      String portfolio,
+      String instagram});
 }
 
 /// @nodoc
@@ -90,6 +150,13 @@ class __$$UserModelImplCopyWithImpl<$Res>
   $Res call({
     Object? id = null,
     Object? userName = null,
+    Object? description = null,
+    Object? nickName = null,
+    Object? twitter = null,
+    Object? facebook = null,
+    Object? github = null,
+    Object? portfolio = null,
+    Object? instagram = null,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -100,6 +167,34 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.userName
           : userName // ignore: cast_nullable_to_non_nullable
               as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      nickName: null == nickName
+          ? _value.nickName
+          : nickName // ignore: cast_nullable_to_non_nullable
+              as String,
+      twitter: null == twitter
+          ? _value.twitter
+          : twitter // ignore: cast_nullable_to_non_nullable
+              as String,
+      facebook: null == facebook
+          ? _value.facebook
+          : facebook // ignore: cast_nullable_to_non_nullable
+              as String,
+      github: null == github
+          ? _value.github
+          : github // ignore: cast_nullable_to_non_nullable
+              as String,
+      portfolio: null == portfolio
+          ? _value.portfolio
+          : portfolio // ignore: cast_nullable_to_non_nullable
+              as String,
+      instagram: null == instagram
+          ? _value.instagram
+          : instagram // ignore: cast_nullable_to_non_nullable
+              as String,
     ));
   }
 }
@@ -107,7 +202,17 @@ class __$$UserModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserModelImpl extends _UserModel {
-  _$UserModelImpl({required this.id, required this.userName}) : super._();
+  _$UserModelImpl(
+      {required this.id,
+      required this.userName,
+      this.description = '',
+      this.nickName = '',
+      this.twitter = '',
+      this.facebook = '',
+      this.github = '',
+      this.portfolio = '',
+      this.instagram = ''})
+      : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -116,10 +221,31 @@ class _$UserModelImpl extends _UserModel {
   final String id;
   @override
   final String userName;
+  @override
+  @JsonKey()
+  final String description;
+  @override
+  @JsonKey()
+  final String nickName;
+  @override
+  @JsonKey()
+  final String twitter;
+  @override
+  @JsonKey()
+  final String facebook;
+  @override
+  @JsonKey()
+  final String github;
+  @override
+  @JsonKey()
+  final String portfolio;
+  @override
+  @JsonKey()
+  final String instagram;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, userName: $userName)';
+    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram)';
   }
 
   @override
@@ -129,12 +255,25 @@ class _$UserModelImpl extends _UserModel {
             other is _$UserModelImpl &&
             (identical(other.id, id) || other.id == id) &&
             (identical(other.userName, userName) ||
-                other.userName == userName));
+                other.userName == userName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.nickName, nickName) ||
+                other.nickName == nickName) &&
+            (identical(other.twitter, twitter) || other.twitter == twitter) &&
+            (identical(other.facebook, facebook) ||
+                other.facebook == facebook) &&
+            (identical(other.github, github) || other.github == github) &&
+            (identical(other.portfolio, portfolio) ||
+                other.portfolio == portfolio) &&
+            (identical(other.instagram, instagram) ||
+                other.instagram == instagram));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userName);
+  int get hashCode => Object.hash(runtimeType, id, userName, description,
+      nickName, twitter, facebook, github, portfolio, instagram);
 
   @JsonKey(ignore: true)
   @override
@@ -153,7 +292,14 @@ class _$UserModelImpl extends _UserModel {
 abstract class _UserModel extends UserModel {
   factory _UserModel(
       {required final String id,
-      required final String userName}) = _$UserModelImpl;
+      required final String userName,
+      final String description,
+      final String nickName,
+      final String twitter,
+      final String facebook,
+      final String github,
+      final String portfolio,
+      final String instagram}) = _$UserModelImpl;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -163,6 +309,20 @@ abstract class _UserModel extends UserModel {
   String get id;
   @override
   String get userName;
+  @override
+  String get description;
+  @override
+  String get nickName;
+  @override
+  String get twitter;
+  @override
+  String get facebook;
+  @override
+  String get github;
+  @override
+  String get portfolio;
+  @override
+  String get instagram;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
