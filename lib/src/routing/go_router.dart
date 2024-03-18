@@ -7,7 +7,7 @@ import 'package:app_buy_sell/src/features/register/presentation/register_page.da
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
 import 'package:app_buy_sell/src/features/start/start_page.dart';
-import 'package:app_buy_sell/src/features/upload_app/upload_app_page.dart';
+import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_page.dart';
 import 'package:app_buy_sell/src/features/user_profile/presentation/user_profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
