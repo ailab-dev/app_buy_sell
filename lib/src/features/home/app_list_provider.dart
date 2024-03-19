@@ -1,6 +1,8 @@
 import 'package:app_buy_sell/src/constants/constant.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'app_list_provider.g.dart';
@@ -49,5 +51,14 @@ class AppList extends _$AppList {
     lateDocument = snapshot.docs.lastOrNull;
     var list = snapshot.docs.map((e) => e.data()).toList();
     return (list, lateDocument);
+  }
+
+  Future<void> updateFcmToken() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final token = await FirebaseMessaging.instance.getToken();
+    await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .update({'fcmToken': token});
   }
 }
