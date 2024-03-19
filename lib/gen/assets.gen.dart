@@ -46,6 +46,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/logo.svg
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
 
+  /// File path: assets/images/pick.svg
+  SvgGenImage get pick => const SvgGenImage('assets/images/pick.svg');
+
   /// File path: assets/images/portfolio.svg
   SvgGenImage get portfolio => const SvgGenImage('assets/images/portfolio.svg');
 
@@ -74,6 +77,7 @@ class $AssetsImagesGen {
         instagram,
         logoPng,
         logoSvg,
+        pick,
         portfolio,
         purchase,
         report,

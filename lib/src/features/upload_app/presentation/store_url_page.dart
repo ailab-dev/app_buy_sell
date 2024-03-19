@@ -52,7 +52,7 @@ class StoreUrlPage extends HookConsumerWidget {
               height: 8,
             ),
             const Text(
-              'AppleStore上でのURLを入力してください',
+              '※AppleStore上でのURLを入力してください',
               style: TextStyle(
                 fontSize: 10,
                 fontWeight: FontWeight.w400,
@@ -64,7 +64,7 @@ class StoreUrlPage extends HookConsumerWidget {
             ),
             Center(
               child: SizedBox(
-                width: 200,
+                width: 300,
                 height: 54,
                 child: TextButton(
                   onPressed: () {

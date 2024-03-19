@@ -1,4 +1,5 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/upload_app/presentation/app_image_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_info_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/store_url_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
@@ -14,9 +15,9 @@ class UploadAppPage extends HookConsumerWidget {
     final pageController = usePageController();
     final uploadController = ref.watch(uploadAppControllerProvider);
 
-    ref.listen(uploadAppControllerProvider, (previous, next) {
+    ref.listen(uploadAppControllerProvider, (previous, next) async {
       if (next.nextPage) {
-        pageController.nextPage(
+        await pageController.nextPage(
             duration: const Duration(milliseconds: 200), curve: Curves.linear);
       }
     });
@@ -47,8 +48,10 @@ class UploadAppPage extends HookConsumerWidget {
             children: const [
               StoreUrlPage(),
               AppInfoPage(),
+              AppImagePage(),
             ],
             onPageChanged: (value) {
+              print(value);
               ref
                   .read(uploadAppControllerProvider.notifier)
                   .setCurrentPage(value);

@@ -17,5 +17,6 @@ class UploadAppController extends _$UploadAppController {
 
   void nextPage() {
     state = state.copyWith(nextPage: true);
+    state = state.copyWith(nextPage: false);
   }
 }
