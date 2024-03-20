@@ -207,9 +207,10 @@ class AppInfoPage extends HookConsumerWidget {
                   alignment: Alignment.centerRight,
                   child: SizedBox(
                     width: 120,
-                    height: 54,
+                    height: 47,
                     child: TextButton(
                       onPressed: () {
+                        Utils.dismissKeyboard(context);
                         ref
                             .read(uploadAppControllerProvider.notifier)
                             .nextPage();

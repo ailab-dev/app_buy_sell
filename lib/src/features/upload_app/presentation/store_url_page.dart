@@ -68,6 +68,7 @@ class StoreUrlPage extends HookConsumerWidget {
                 height: 54,
                 child: TextButton(
                   onPressed: () {
+                    Utils.dismissKeyboard(context);
                     ref.read(uploadAppControllerProvider.notifier).nextPage();
                   },
                   style: ButtonStyle(

@@ -51,7 +51,6 @@ class UploadAppPage extends HookConsumerWidget {
               AppImagePage(),
             ],
             onPageChanged: (value) {
-              print(value);
               ref
                   .read(uploadAppControllerProvider.notifier)
                   .setCurrentPage(value);
