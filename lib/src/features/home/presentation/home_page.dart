@@ -12,6 +12,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appProvider = ref.watch(appListProvider);
+    ref.read(appListProvider.notifier).updateFcmToken();
 
     return Scaffold(
       body: SafeArea(
@@ -34,7 +35,9 @@ class HomePage extends ConsumerWidget {
                           FirebaseAuth.instance.currentUser?.photoURL ?? ''),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push('/notification');
+                        },
                         icon: const Icon(Icons.notifications_outlined))
                   ],
                 ),
