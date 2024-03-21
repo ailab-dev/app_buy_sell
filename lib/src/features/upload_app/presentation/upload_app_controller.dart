@@ -7,7 +7,8 @@ part 'upload_app_controller.g.dart';
 class UploadAppController extends _$UploadAppController {
   @override
   UploadAppModel build() {
-    final model = UploadAppModel(currentPage: 0, nextPage: false);
+    final model =
+        UploadAppModel(currentPage: 0, nextPage: false, backPage: false);
     return model;
   }
 
@@ -18,5 +19,10 @@ class UploadAppController extends _$UploadAppController {
   void nextPage() {
     state = state.copyWith(nextPage: true);
     state = state.copyWith(nextPage: false);
+  }
+
+  void backPage() {
+    state = state.copyWith(backPage: true);
+    state = state.copyWith(backPage: false);
   }
 }

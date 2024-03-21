@@ -8,9 +8,10 @@ class UploadAppModel with _$UploadAppModel {
   factory UploadAppModel({
     required int currentPage,
     required bool nextPage,
+    required bool backPage,
   }) = _UploadAppModel;
 
   double get getProgress {
-    return currentPage / 4;
+    return currentPage / 3;
   }
 }

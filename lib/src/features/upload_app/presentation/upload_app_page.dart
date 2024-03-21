@@ -1,6 +1,7 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_image_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_info_page.dart';
+import 'package:app_buy_sell/src/features/upload_app/presentation/app_price_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/store_url_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,11 @@ class UploadAppPage extends HookConsumerWidget {
     ref.listen(uploadAppControllerProvider, (previous, next) async {
       if (next.nextPage) {
         await pageController.nextPage(
+            duration: const Duration(milliseconds: 200), curve: Curves.linear);
+      }
+
+      if (next.backPage) {
+        await pageController.previousPage(
             duration: const Duration(milliseconds: 200), curve: Curves.linear);
       }
     });
@@ -49,6 +55,7 @@ class UploadAppPage extends HookConsumerWidget {
               StoreUrlPage(),
               AppInfoPage(),
               AppImagePage(),
+              AppPricePage(),
             ],
             onPageChanged: (value) {
               ref

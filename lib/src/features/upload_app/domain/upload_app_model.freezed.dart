@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$UploadAppModel {
   int get currentPage => throw _privateConstructorUsedError;
   bool get nextPage => throw _privateConstructorUsedError;
+  bool get backPage => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UploadAppModelCopyWith<UploadAppModel> get copyWith =>
@@ -30,7 +31,7 @@ abstract class $UploadAppModelCopyWith<$Res> {
           UploadAppModel value, $Res Function(UploadAppModel) then) =
       _$UploadAppModelCopyWithImpl<$Res, UploadAppModel>;
   @useResult
-  $Res call({int currentPage, bool nextPage});
+  $Res call({int currentPage, bool nextPage, bool backPage});
 }
 
 /// @nodoc
@@ -48,6 +49,7 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
   $Res call({
     Object? currentPage = null,
     Object? nextPage = null,
+    Object? backPage = null,
   }) {
     return _then(_value.copyWith(
       currentPage: null == currentPage
@@ -57,6 +59,10 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
       nextPage: null == nextPage
           ? _value.nextPage
           : nextPage // ignore: cast_nullable_to_non_nullable
+              as bool,
+      backPage: null == backPage
+          ? _value.backPage
+          : backPage // ignore: cast_nullable_to_non_nullable
               as bool,
     ) as $Val);
   }
@@ -70,7 +76,7 @@ abstract class _$$UploadAppModelImplCopyWith<$Res>
       __$$UploadAppModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int currentPage, bool nextPage});
+  $Res call({int currentPage, bool nextPage, bool backPage});
 }
 
 /// @nodoc
@@ -86,6 +92,7 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
   $Res call({
     Object? currentPage = null,
     Object? nextPage = null,
+    Object? backPage = null,
   }) {
     return _then(_$UploadAppModelImpl(
       currentPage: null == currentPage
@@ -96,6 +103,10 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
           ? _value.nextPage
           : nextPage // ignore: cast_nullable_to_non_nullable
               as bool,
+      backPage: null == backPage
+          ? _value.backPage
+          : backPage // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -103,17 +114,22 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$UploadAppModelImpl extends _UploadAppModel {
-  _$UploadAppModelImpl({required this.currentPage, required this.nextPage})
+  _$UploadAppModelImpl(
+      {required this.currentPage,
+      required this.nextPage,
+      required this.backPage})
       : super._();
 
   @override
   final int currentPage;
   @override
   final bool nextPage;
+  @override
+  final bool backPage;
 
   @override
   String toString() {
-    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage)';
+    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage)';
   }
 
   @override
@@ -124,11 +140,13 @@ class _$UploadAppModelImpl extends _UploadAppModel {
             (identical(other.currentPage, currentPage) ||
                 other.currentPage == currentPage) &&
             (identical(other.nextPage, nextPage) ||
-                other.nextPage == nextPage));
+                other.nextPage == nextPage) &&
+            (identical(other.backPage, backPage) ||
+                other.backPage == backPage));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentPage, nextPage);
+  int get hashCode => Object.hash(runtimeType, currentPage, nextPage, backPage);
 
   @JsonKey(ignore: true)
   @override
@@ -141,13 +159,16 @@ class _$UploadAppModelImpl extends _UploadAppModel {
 abstract class _UploadAppModel extends UploadAppModel {
   factory _UploadAppModel(
       {required final int currentPage,
-      required final bool nextPage}) = _$UploadAppModelImpl;
+      required final bool nextPage,
+      required final bool backPage}) = _$UploadAppModelImpl;
   _UploadAppModel._() : super._();
 
   @override
   int get currentPage;
   @override
   bool get nextPage;
+  @override
+  bool get backPage;
   @override
   @JsonKey(ignore: true)
   _$$UploadAppModelImplCopyWith<_$UploadAppModelImpl> get copyWith =>

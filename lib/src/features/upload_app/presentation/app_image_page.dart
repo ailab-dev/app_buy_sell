@@ -2,7 +2,6 @@ import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/theme/app_style.dart';
-import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
@@ -158,7 +157,11 @@ class AppImagePage extends HookConsumerWidget {
                     width: 120,
                     height: 47,
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        ref
+                            .read(uploadAppControllerProvider.notifier)
+                            .backPage();
+                      },
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
