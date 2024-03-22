@@ -23,7 +23,7 @@ mixin _$AppModel {
   String get name => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get iconUrl => throw _privateConstructorUsedError;
-  double get price => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
   String? get iosId => throw _privateConstructorUsedError;
   String? get androidId => throw _privateConstructorUsedError;
@@ -48,7 +48,7 @@ abstract class $AppModelCopyWith<$Res> {
       {String name,
       String description,
       String iconUrl,
-      double price,
+      String price,
       String id,
       String? iosId,
       String? androidId,
@@ -99,7 +99,7 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -144,7 +144,7 @@ abstract class _$$AppModelImplCopyWith<$Res>
       {String name,
       String description,
       String iconUrl,
-      double price,
+      String price,
       String id,
       String? iosId,
       String? androidId,
@@ -193,7 +193,7 @@ class __$$AppModelImplCopyWithImpl<$Res>
       price: null == price
           ? _value.price
           : price // ignore: cast_nullable_to_non_nullable
-              as double,
+              as String,
       id: null == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
@@ -254,7 +254,7 @@ class _$AppModelImpl extends _AppModel {
   @override
   final String iconUrl;
   @override
-  final double price;
+  final String price;
   @override
   final String id;
   @override
@@ -339,7 +339,7 @@ abstract class _AppModel extends AppModel {
           {required final String name,
           required final String description,
           required final String iconUrl,
-          required final double price,
+          required final String price,
           required final String id,
           final String? iosId,
           final String? androidId,
@@ -360,7 +360,7 @@ abstract class _AppModel extends AppModel {
   @override
   String get iconUrl;
   @override
-  double get price;
+  String get price;
   @override
   String get id;
   @override

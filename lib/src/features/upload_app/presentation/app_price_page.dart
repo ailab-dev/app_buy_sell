@@ -1,14 +1,22 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:pattern_formatter/numeric_formatter.dart';
 
 class AppPricePage extends HookConsumerWidget {
   const AppPricePage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final uploadController = ref.watch(uploadAppControllerProvider);
+    final priceController = useTextEditingController();
+    priceController.text = uploadController.price;
+
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -73,13 +81,14 @@ class AppPricePage extends HookConsumerWidget {
               const SizedBox(
                 height: 10,
               ),
-              const Row(
+              Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   SizedBox(
                     width: 197,
                     child: TextField(
-                      decoration: InputDecoration(
+                      controller: priceController,
+                      decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintStyle: TextStyle(
                           fontSize: 12,
@@ -89,12 +98,21 @@ class AppPricePage extends HookConsumerWidget {
                         fillColor: ColorsConstant.gray,
                         filled: true,
                       ),
+                      inputFormatters: [
+                        ThousandsFormatter(),
+                      ],
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        ref
+                            .read(uploadAppControllerProvider.notifier)
+                            .setAppPrice(value);
+                      },
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
-                  Text(
+                  const Text(
                     '円',
                     style: TextStyle(
                       fontSize: 14,
@@ -147,21 +165,82 @@ class AppPricePage extends HookConsumerWidget {
                     width: 120,
                     height: 47,
                     child: TextButton(
-                      onPressed: () {
-                        Utils.dismissKeyboard(context);
-                        Utils.showAlert(context, message)
-                      },
+                      onPressed: uploadController.appPriceValidate
+                          ? () {
+                              Utils.dismissKeyboard(context);
+                              showDialog(
+                                context: context,
+                                barrierColor: Colors.transparent,
+                                barrierDismissible: false,
+                                builder: (BuildContext context) =>
+                                    CupertinoAlertDialog(
+                                  title: const Text(
+                                    'アプリを公開します',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  content: const Text(
+                                    '入力いただいた内容でアプリを公開してよろしいでしょうか？',
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                  actions: [
+                                    SizedBox(
+                                      width: double.maxFinite,
+                                      child: CupertinoDialogAction(
+                                        onPressed: () {
+                                          context.pop();
+                                        },
+                                        child: const Text(
+                                          '公開する',
+                                          style: TextStyle(
+                                            color:
+                                                ColorsConstant.defaultLinkBlue,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: double.maxFinite,
+                                      child: CupertinoDialogAction(
+                                        onPressed: () {
+                                          context.pop();
+                                        },
+                                        child: const Text(
+                                          'キャンセル',
+                                          style: TextStyle(
+                                            color: ColorsConstant.gray2,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              );
+                            }
+                          : null,
                       style: ButtonStyle(
                         shape: MaterialStateProperty.all(
                           RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(100.0),
                           ),
                         ),
-                        backgroundColor:
-                            MaterialStateProperty.all(ColorsConstant.text),
+                        backgroundColor: MaterialStateProperty.all(
+                          uploadController.appPriceValidate
+                              ? ColorsConstant.text
+                              : ColorsConstant.gray2,
+                        ),
                       ),
                       child: const Text(
-                        '登録する',
+                        '公開する',
                         style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.w500,

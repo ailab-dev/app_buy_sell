@@ -14,7 +14,7 @@ class AppModel with _$AppModel {
     required String name,
     required String description,
     required String iconUrl,
-    required double price,
+    required String price,
     required String id,
     String? iosId,
     String? androidId,
@@ -31,6 +31,6 @@ class AppModel with _$AppModel {
     final formatter = NumberFormat.decimalPatternDigits(
       locale: 'ja',
     );
-    return formatter.format(price);
+    return formatter.format(int.parse(price));
   }
 }

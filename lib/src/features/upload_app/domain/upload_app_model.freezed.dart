@@ -19,6 +19,22 @@ mixin _$UploadAppModel {
   int get currentPage => throw _privateConstructorUsedError;
   bool get nextPage => throw _privateConstructorUsedError;
   bool get backPage => throw _privateConstructorUsedError;
+  List<String> get screenshots => throw _privateConstructorUsedError;
+  String get avatartPath => throw _privateConstructorUsedError;
+  String get appName => throw _privateConstructorUsedError;
+  String get description => throw _privateConstructorUsedError;
+  String get category => throw _privateConstructorUsedError;
+  String get price => throw _privateConstructorUsedError;
+  String get appStoreUrl => throw _privateConstructorUsedError;
+  String get gPlayUrl => throw _privateConstructorUsedError;
+  bool get storeValidate => throw _privateConstructorUsedError;
+  bool get appInfoValidate => throw _privateConstructorUsedError;
+  bool get appImageValidate => throw _privateConstructorUsedError;
+  bool get appPriceValidate => throw _privateConstructorUsedError;
+  String get appCatchphrase => throw _privateConstructorUsedError;
+  int get nameLength => throw _privateConstructorUsedError;
+  int get catchphraseLength => throw _privateConstructorUsedError;
+  int get descriptionLength => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UploadAppModelCopyWith<UploadAppModel> get copyWith =>
@@ -31,7 +47,26 @@ abstract class $UploadAppModelCopyWith<$Res> {
           UploadAppModel value, $Res Function(UploadAppModel) then) =
       _$UploadAppModelCopyWithImpl<$Res, UploadAppModel>;
   @useResult
-  $Res call({int currentPage, bool nextPage, bool backPage});
+  $Res call(
+      {int currentPage,
+      bool nextPage,
+      bool backPage,
+      List<String> screenshots,
+      String avatartPath,
+      String appName,
+      String description,
+      String category,
+      String price,
+      String appStoreUrl,
+      String gPlayUrl,
+      bool storeValidate,
+      bool appInfoValidate,
+      bool appImageValidate,
+      bool appPriceValidate,
+      String appCatchphrase,
+      int nameLength,
+      int catchphraseLength,
+      int descriptionLength});
 }
 
 /// @nodoc
@@ -50,6 +85,22 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
     Object? currentPage = null,
     Object? nextPage = null,
     Object? backPage = null,
+    Object? screenshots = null,
+    Object? avatartPath = null,
+    Object? appName = null,
+    Object? description = null,
+    Object? category = null,
+    Object? price = null,
+    Object? appStoreUrl = null,
+    Object? gPlayUrl = null,
+    Object? storeValidate = null,
+    Object? appInfoValidate = null,
+    Object? appImageValidate = null,
+    Object? appPriceValidate = null,
+    Object? appCatchphrase = null,
+    Object? nameLength = null,
+    Object? catchphraseLength = null,
+    Object? descriptionLength = null,
   }) {
     return _then(_value.copyWith(
       currentPage: null == currentPage
@@ -64,6 +115,70 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
           ? _value.backPage
           : backPage // ignore: cast_nullable_to_non_nullable
               as bool,
+      screenshots: null == screenshots
+          ? _value.screenshots
+          : screenshots // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      avatartPath: null == avatartPath
+          ? _value.avatartPath
+          : avatartPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      appName: null == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String,
+      appStoreUrl: null == appStoreUrl
+          ? _value.appStoreUrl
+          : appStoreUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      gPlayUrl: null == gPlayUrl
+          ? _value.gPlayUrl
+          : gPlayUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      storeValidate: null == storeValidate
+          ? _value.storeValidate
+          : storeValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appInfoValidate: null == appInfoValidate
+          ? _value.appInfoValidate
+          : appInfoValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appImageValidate: null == appImageValidate
+          ? _value.appImageValidate
+          : appImageValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appPriceValidate: null == appPriceValidate
+          ? _value.appPriceValidate
+          : appPriceValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appCatchphrase: null == appCatchphrase
+          ? _value.appCatchphrase
+          : appCatchphrase // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameLength: null == nameLength
+          ? _value.nameLength
+          : nameLength // ignore: cast_nullable_to_non_nullable
+              as int,
+      catchphraseLength: null == catchphraseLength
+          ? _value.catchphraseLength
+          : catchphraseLength // ignore: cast_nullable_to_non_nullable
+              as int,
+      descriptionLength: null == descriptionLength
+          ? _value.descriptionLength
+          : descriptionLength // ignore: cast_nullable_to_non_nullable
+              as int,
     ) as $Val);
   }
 }
@@ -76,7 +191,26 @@ abstract class _$$UploadAppModelImplCopyWith<$Res>
       __$$UploadAppModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({int currentPage, bool nextPage, bool backPage});
+  $Res call(
+      {int currentPage,
+      bool nextPage,
+      bool backPage,
+      List<String> screenshots,
+      String avatartPath,
+      String appName,
+      String description,
+      String category,
+      String price,
+      String appStoreUrl,
+      String gPlayUrl,
+      bool storeValidate,
+      bool appInfoValidate,
+      bool appImageValidate,
+      bool appPriceValidate,
+      String appCatchphrase,
+      int nameLength,
+      int catchphraseLength,
+      int descriptionLength});
 }
 
 /// @nodoc
@@ -93,6 +227,22 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
     Object? currentPage = null,
     Object? nextPage = null,
     Object? backPage = null,
+    Object? screenshots = null,
+    Object? avatartPath = null,
+    Object? appName = null,
+    Object? description = null,
+    Object? category = null,
+    Object? price = null,
+    Object? appStoreUrl = null,
+    Object? gPlayUrl = null,
+    Object? storeValidate = null,
+    Object? appInfoValidate = null,
+    Object? appImageValidate = null,
+    Object? appPriceValidate = null,
+    Object? appCatchphrase = null,
+    Object? nameLength = null,
+    Object? catchphraseLength = null,
+    Object? descriptionLength = null,
   }) {
     return _then(_$UploadAppModelImpl(
       currentPage: null == currentPage
@@ -107,6 +257,70 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
           ? _value.backPage
           : backPage // ignore: cast_nullable_to_non_nullable
               as bool,
+      screenshots: null == screenshots
+          ? _value._screenshots
+          : screenshots // ignore: cast_nullable_to_non_nullable
+              as List<String>,
+      avatartPath: null == avatartPath
+          ? _value.avatartPath
+          : avatartPath // ignore: cast_nullable_to_non_nullable
+              as String,
+      appName: null == appName
+          ? _value.appName
+          : appName // ignore: cast_nullable_to_non_nullable
+              as String,
+      description: null == description
+          ? _value.description
+          : description // ignore: cast_nullable_to_non_nullable
+              as String,
+      category: null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as String,
+      price: null == price
+          ? _value.price
+          : price // ignore: cast_nullable_to_non_nullable
+              as String,
+      appStoreUrl: null == appStoreUrl
+          ? _value.appStoreUrl
+          : appStoreUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      gPlayUrl: null == gPlayUrl
+          ? _value.gPlayUrl
+          : gPlayUrl // ignore: cast_nullable_to_non_nullable
+              as String,
+      storeValidate: null == storeValidate
+          ? _value.storeValidate
+          : storeValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appInfoValidate: null == appInfoValidate
+          ? _value.appInfoValidate
+          : appInfoValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appImageValidate: null == appImageValidate
+          ? _value.appImageValidate
+          : appImageValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appPriceValidate: null == appPriceValidate
+          ? _value.appPriceValidate
+          : appPriceValidate // ignore: cast_nullable_to_non_nullable
+              as bool,
+      appCatchphrase: null == appCatchphrase
+          ? _value.appCatchphrase
+          : appCatchphrase // ignore: cast_nullable_to_non_nullable
+              as String,
+      nameLength: null == nameLength
+          ? _value.nameLength
+          : nameLength // ignore: cast_nullable_to_non_nullable
+              as int,
+      catchphraseLength: null == catchphraseLength
+          ? _value.catchphraseLength
+          : catchphraseLength // ignore: cast_nullable_to_non_nullable
+              as int,
+      descriptionLength: null == descriptionLength
+          ? _value.descriptionLength
+          : descriptionLength // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -117,8 +331,25 @@ class _$UploadAppModelImpl extends _UploadAppModel {
   _$UploadAppModelImpl(
       {required this.currentPage,
       required this.nextPage,
-      required this.backPage})
-      : super._();
+      required this.backPage,
+      required final List<String> screenshots,
+      required this.avatartPath,
+      required this.appName,
+      required this.description,
+      required this.category,
+      required this.price,
+      required this.appStoreUrl,
+      required this.gPlayUrl,
+      required this.storeValidate,
+      required this.appInfoValidate,
+      required this.appImageValidate,
+      required this.appPriceValidate,
+      required this.appCatchphrase,
+      required this.nameLength,
+      required this.catchphraseLength,
+      required this.descriptionLength})
+      : _screenshots = screenshots,
+        super._();
 
   @override
   final int currentPage;
@@ -126,10 +357,48 @@ class _$UploadAppModelImpl extends _UploadAppModel {
   final bool nextPage;
   @override
   final bool backPage;
+  final List<String> _screenshots;
+  @override
+  List<String> get screenshots {
+    if (_screenshots is EqualUnmodifiableListView) return _screenshots;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_screenshots);
+  }
+
+  @override
+  final String avatartPath;
+  @override
+  final String appName;
+  @override
+  final String description;
+  @override
+  final String category;
+  @override
+  final String price;
+  @override
+  final String appStoreUrl;
+  @override
+  final String gPlayUrl;
+  @override
+  final bool storeValidate;
+  @override
+  final bool appInfoValidate;
+  @override
+  final bool appImageValidate;
+  @override
+  final bool appPriceValidate;
+  @override
+  final String appCatchphrase;
+  @override
+  final int nameLength;
+  @override
+  final int catchphraseLength;
+  @override
+  final int descriptionLength;
 
   @override
   String toString() {
-    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage)';
+    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage, screenshots: $screenshots, avatartPath: $avatartPath, appName: $appName, description: $description, category: $category, price: $price, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, storeValidate: $storeValidate, appInfoValidate: $appInfoValidate, appImageValidate: $appImageValidate, appPriceValidate: $appPriceValidate, appCatchphrase: $appCatchphrase, nameLength: $nameLength, catchphraseLength: $catchphraseLength, descriptionLength: $descriptionLength)';
   }
 
   @override
@@ -142,11 +411,62 @@ class _$UploadAppModelImpl extends _UploadAppModel {
             (identical(other.nextPage, nextPage) ||
                 other.nextPage == nextPage) &&
             (identical(other.backPage, backPage) ||
-                other.backPage == backPage));
+                other.backPage == backPage) &&
+            const DeepCollectionEquality()
+                .equals(other._screenshots, _screenshots) &&
+            (identical(other.avatartPath, avatartPath) ||
+                other.avatartPath == avatartPath) &&
+            (identical(other.appName, appName) || other.appName == appName) &&
+            (identical(other.description, description) ||
+                other.description == description) &&
+            (identical(other.category, category) ||
+                other.category == category) &&
+            (identical(other.price, price) || other.price == price) &&
+            (identical(other.appStoreUrl, appStoreUrl) ||
+                other.appStoreUrl == appStoreUrl) &&
+            (identical(other.gPlayUrl, gPlayUrl) ||
+                other.gPlayUrl == gPlayUrl) &&
+            (identical(other.storeValidate, storeValidate) ||
+                other.storeValidate == storeValidate) &&
+            (identical(other.appInfoValidate, appInfoValidate) ||
+                other.appInfoValidate == appInfoValidate) &&
+            (identical(other.appImageValidate, appImageValidate) ||
+                other.appImageValidate == appImageValidate) &&
+            (identical(other.appPriceValidate, appPriceValidate) ||
+                other.appPriceValidate == appPriceValidate) &&
+            (identical(other.appCatchphrase, appCatchphrase) ||
+                other.appCatchphrase == appCatchphrase) &&
+            (identical(other.nameLength, nameLength) ||
+                other.nameLength == nameLength) &&
+            (identical(other.catchphraseLength, catchphraseLength) ||
+                other.catchphraseLength == catchphraseLength) &&
+            (identical(other.descriptionLength, descriptionLength) ||
+                other.descriptionLength == descriptionLength));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, currentPage, nextPage, backPage);
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        currentPage,
+        nextPage,
+        backPage,
+        const DeepCollectionEquality().hash(_screenshots),
+        avatartPath,
+        appName,
+        description,
+        category,
+        price,
+        appStoreUrl,
+        gPlayUrl,
+        storeValidate,
+        appInfoValidate,
+        appImageValidate,
+        appPriceValidate,
+        appCatchphrase,
+        nameLength,
+        catchphraseLength,
+        descriptionLength
+      ]);
 
   @JsonKey(ignore: true)
   @override
@@ -160,7 +480,23 @@ abstract class _UploadAppModel extends UploadAppModel {
   factory _UploadAppModel(
       {required final int currentPage,
       required final bool nextPage,
-      required final bool backPage}) = _$UploadAppModelImpl;
+      required final bool backPage,
+      required final List<String> screenshots,
+      required final String avatartPath,
+      required final String appName,
+      required final String description,
+      required final String category,
+      required final String price,
+      required final String appStoreUrl,
+      required final String gPlayUrl,
+      required final bool storeValidate,
+      required final bool appInfoValidate,
+      required final bool appImageValidate,
+      required final bool appPriceValidate,
+      required final String appCatchphrase,
+      required final int nameLength,
+      required final int catchphraseLength,
+      required final int descriptionLength}) = _$UploadAppModelImpl;
   _UploadAppModel._() : super._();
 
   @override
@@ -169,6 +505,38 @@ abstract class _UploadAppModel extends UploadAppModel {
   bool get nextPage;
   @override
   bool get backPage;
+  @override
+  List<String> get screenshots;
+  @override
+  String get avatartPath;
+  @override
+  String get appName;
+  @override
+  String get description;
+  @override
+  String get category;
+  @override
+  String get price;
+  @override
+  String get appStoreUrl;
+  @override
+  String get gPlayUrl;
+  @override
+  bool get storeValidate;
+  @override
+  bool get appInfoValidate;
+  @override
+  bool get appImageValidate;
+  @override
+  bool get appPriceValidate;
+  @override
+  String get appCatchphrase;
+  @override
+  int get nameLength;
+  @override
+  int get catchphraseLength;
+  @override
+  int get descriptionLength;
   @override
   @JsonKey(ignore: true)
   _$$UploadAppModelImplCopyWith<_$UploadAppModelImpl> get copyWith =>

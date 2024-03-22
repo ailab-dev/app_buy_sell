@@ -34,6 +34,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/app.png
   AssetGenImage get app => const AssetGenImage('assets/images/app.png');
 
+  /// File path: assets/images/delete.svg
+  SvgGenImage get delete => const SvgGenImage('assets/images/delete.svg');
+
   /// File path: assets/images/facebook.svg
   SvgGenImage get facebook => const SvgGenImage('assets/images/facebook.svg');
 
@@ -85,6 +88,7 @@ class $AssetsImagesGen {
         adGroup,
         addPhotoAlternate,
         app,
+        delete,
         facebook,
         github,
         imageDefault,

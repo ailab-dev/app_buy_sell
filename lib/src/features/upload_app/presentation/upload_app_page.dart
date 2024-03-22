@@ -29,6 +29,7 @@ class UploadAppPage extends HookConsumerWidget {
     });
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('アプリを掲載する'),
       ),

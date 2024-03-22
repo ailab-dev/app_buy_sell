@@ -11,7 +11,7 @@ _$AppModelImpl _$$AppModelImplFromJson(Map<String, dynamic> json) =>
       name: json['name'] as String,
       description: json['description'] as String,
       iconUrl: json['iconUrl'] as String,
-      price: (json['price'] as num).toDouble(),
+      price: json['price'] as String,
       id: json['id'] as String,
       iosId: json['iosId'] as String?,
       androidId: json['androidId'] as String?,

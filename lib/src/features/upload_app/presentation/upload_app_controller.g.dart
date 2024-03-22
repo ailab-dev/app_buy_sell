@@ -7,7 +7,7 @@ part of 'upload_app_controller.dart';
 // **************************************************************************
 
 String _$uploadAppControllerHash() =>
-    r'3142bfac9a0ec061f9c55b8e7fcbaa933743d8a2';
+    r'46dd8070fef2438be0fad628d3d5e4e64ced6c55';
 
 /// See also [UploadAppController].
 @ProviderFor(UploadAppController)

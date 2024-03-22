@@ -2,12 +2,15 @@ import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StoreUrlPage extends HookConsumerWidget {
   const StoreUrlPage({super.key});
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    final urlController = useTextEditingController();
+    final uploadController = ref.watch(uploadAppControllerProvider);
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -35,8 +38,9 @@ class StoreUrlPage extends HookConsumerWidget {
             const SizedBox(
               height: 8,
             ),
-            const TextField(
-              decoration: InputDecoration(
+            TextField(
+              controller: urlController,
+              decoration: const InputDecoration(
                 border: InputBorder.none,
                 hintText: 'https://apps.apple.com/jp/app/example',
                 hintStyle: TextStyle(
@@ -47,6 +51,11 @@ class StoreUrlPage extends HookConsumerWidget {
                 fillColor: ColorsConstant.gray,
                 filled: true,
               ),
+              onChanged: (value) {
+                ref
+                    .read(uploadAppControllerProvider.notifier)
+                    .setAppstoreUrl(value);
+              },
             ),
             const SizedBox(
               height: 8,
@@ -67,18 +76,25 @@ class StoreUrlPage extends HookConsumerWidget {
                 width: 300,
                 height: 54,
                 child: TextButton(
-                  onPressed: () {
-                    Utils.dismissKeyboard(context);
-                    ref.read(uploadAppControllerProvider.notifier).nextPage();
-                  },
+                  onPressed: uploadController.storeValidate
+                      ? () {
+                          Utils.dismissKeyboard(context);
+                          ref
+                              .read(uploadAppControllerProvider.notifier)
+                              .nextPage();
+                        }
+                      : null,
                   style: ButtonStyle(
                     shape: MaterialStateProperty.all(
                       RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(100.0),
                       ),
                     ),
-                    backgroundColor:
-                        MaterialStateProperty.all(ColorsConstant.text),
+                    backgroundColor: MaterialStateProperty.all(
+                      uploadController.storeValidate
+                          ? ColorsConstant.text
+                          : ColorsConstant.gray2,
+                    ),
                   ),
                   child: const Text(
                     'アプリ登録申請をする',

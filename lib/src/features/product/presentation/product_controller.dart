@@ -40,7 +40,7 @@ class ProductController extends _$ProductController {
     final paymentItems = [
       PaymentItem(
         label: '購入するアプリ',
-        amount: appModel.price.toString(),
+        amount: appModel.price,
         status: PaymentItemStatus.final_price,
       )
     ];
