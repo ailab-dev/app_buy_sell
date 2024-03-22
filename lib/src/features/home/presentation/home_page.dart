@@ -1,6 +1,5 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/home/app_list_provider.dart';
-import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -13,13 +12,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appProvider = ref.watch(appListProvider);
-    appProvider.when(
-      data: (data) {},
-      error: (Object error, StackTrace stackTrace) {
-        Utils.showAlertError(context: context, error: error);
-      },
-      loading: () {},
-    );
+    ref.read(appListProvider.notifier).updateFcmToken();
 
     return Scaffold(
       body: SafeArea(
@@ -48,7 +41,9 @@ class HomePage extends ConsumerWidget {
                       ),
                     ),
                     IconButton(
-                        onPressed: () {},
+                        onPressed: () {
+                          context.push('/notification');
+                        },
                         icon: const Icon(Icons.notifications_outlined))
                   ],
                 ),
@@ -59,73 +54,89 @@ class HomePage extends ConsumerWidget {
               height: 1,
             ),
             Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemBuilder: (context, index) {
-                  final item = appProvider.value?[index];
-                  return InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-                      child: Row(
-                        children: [
-                          Ink(
-                            width: 60,
-                            height: 60,
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: CachedNetworkImageProvider(
-                                      item?.iconUrl ?? ''),
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(10))),
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+              child: appProvider.when(
+                data: (data) {
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    itemBuilder: (context, index) {
+                      final item = data[index];
+                      return InkWell(
+                        onTap: () {
+                          context.push('/product', extra: item);
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
+                          child: Row(
                             children: [
-                              Text(
-                                item?.name ?? '',
-                                style: const TextStyle(
-                                  color: ColorsConstant.text,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              Ink(
+                                width: 60,
+                                height: 60,
+                                decoration: BoxDecoration(
+                                    image: DecorationImage(
+                                      image: CachedNetworkImageProvider(
+                                          item.iconUrl),
+                                      fit: BoxFit.cover,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(10))),
                               ),
                               const SizedBox(
-                                height: 4,
+                                width: 12,
                               ),
-                              Text(
-                                item?.description ?? '',
-                                style: const TextStyle(
-                                  color: ColorsConstant.text,
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
+                              Expanded(
+                                  child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    item.name,
+                                    style: const TextStyle(
+                                      color: ColorsConstant.text,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                  const SizedBox(
+                                    height: 4,
+                                  ),
+                                  Text(
+                                    item.description,
+                                    style: const TextStyle(
+                                      color: ColorsConstant.text,
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                  ),
+                                ],
+                              ))
                             ],
-                          ))
-                        ],
-                      ),
-                    ),
+                          ),
+                        ),
+                      );
+                    },
+                    itemCount: data.length,
                   );
                 },
-                itemCount: appProvider.value?.length ?? 0,
+                error: (error, stackTrace) {
+                  return Text('Error: $error');
+                },
+                loading: () {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                },
               ),
-            )
+            ),
           ],
         ),
       ),
       floatingActionButton: IconButton(
-        onPressed: () {},
+        onPressed: () {
+          context.push('/upload-app');
+        },
         icon: const Icon(
           Icons.add,
           color: Colors.white,

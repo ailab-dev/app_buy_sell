@@ -1,7 +1,6 @@
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/user_profile/provider/report_state_provider.dart';
-import 'package:app_buy_sell/src/features/user_profile/provider/report_user_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -26,7 +25,7 @@ class ReportUserView extends HookConsumerWidget {
       child: GestureDetector(
         behavior: HitTestBehavior.translucent,
         onTap: () {
-          Utils.dismisKeyboard(context);
+          Utils.dismissKeyboard(context);
         },
         child: Container(
           color: ColorsConstant.gray,
@@ -72,7 +71,7 @@ class ReportUserView extends HookConsumerWidget {
                 return GestureDetector(
                   behavior: HitTestBehavior.opaque,
                   onTap: () {
-                    Utils.dismisKeyboard(context);
+                    Utils.dismissKeyboard(context);
                     ref.read(reportStateProvider.notifier).clickReport(item);
                   },
                   child: Row(
@@ -176,7 +175,7 @@ class ReportUserView extends HookConsumerWidget {
                             return;
                           }
                           context.pop();
-                          ref.read(reportUserProvider.notifier).reportUser(
+                          ref.read(reportStateProvider.notifier).reportUser(
                                 userId,
                                 reportState,
                                 reportController.text.trim(),

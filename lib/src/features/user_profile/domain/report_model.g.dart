@@ -6,18 +6,23 @@ part of 'report_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-ReportModel _$ReportModelFromJson(Map<String, dynamic> json) => ReportModel(
-      json['user'] as String,
-      json['reportedUser'] as String,
-      (json['reportType'] as List<dynamic>).map((e) => e as String).toList(),
-      json['content'] as String,
-    )..createdAt = Utils.fromTimestamp(json['createdAt'] as Timestamp?);
+_$ReportModelImpl _$$ReportModelImplFromJson(Map<String, dynamic> json) =>
+    _$ReportModelImpl(
+      user: json['user'] as String,
+      targetUser: json['targetUser'] as String,
+      reportType: (json['reportType'] as List<dynamic>)
+          .map((e) => e as String)
+          .toList(),
+      content: json['content'] as String,
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+    );
 
-Map<String, dynamic> _$ReportModelToJson(ReportModel instance) =>
+Map<String, dynamic> _$$ReportModelImplToJson(_$ReportModelImpl instance) =>
     <String, dynamic>{
       'user': instance.user,
-      'reportedUser': instance.reportedUser,
+      'targetUser': instance.targetUser,
       'reportType': instance.reportType,
       'content': instance.content,
-      'createdAt': Utils.toTimestamp(instance.createdAt),
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };
