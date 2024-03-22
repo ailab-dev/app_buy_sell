@@ -30,9 +30,15 @@ class HomePage extends ConsumerWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(
-                          FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                    InkWell(
+                      onTap: () {
+                        context.push('/user-profile',
+                            extra: FirebaseAuth.instance.currentUser?.uid);
+                      },
+                      child: CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(
+                            FirebaseAuth.instance.currentUser?.photoURL ?? ''),
+                      ),
                     ),
                     IconButton(
                         onPressed: () {
