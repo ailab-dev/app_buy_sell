@@ -27,9 +27,37 @@ class EditProfile extends _$EditProfile {
 
   Future<void> editProfile() async {
     var uid = FirebaseAuth.instance.currentUser?.uid;
-    var user = state.value;
-    if (uid != null && user != null) {
-      await rootRef.doc(uid).set(user);
+    var userData = state.value;
+    if (uid != null && userData != null) {
+      await rootRef.doc(uid).set(userData);
     }
+  }
+
+  void setUserName(String value) {
+    state = AsyncValue.data(state.value?.copyWith(userName: value));
+  }
+
+  void setCountry(String value) {
+    state = AsyncValue.data(state.value?.copyWith(country: value));
+  }
+
+  void setDescription(String value) {
+    state = AsyncValue.data(state.value?.copyWith(description: value));
+  }
+
+  void setTwitter(String value) {
+    state = AsyncValue.data(state.value?.copyWith(twitter: value));
+  }
+
+  void setFacebook(String value) {
+    state = AsyncValue.data(state.value?.copyWith(facebook: value));
+  }
+
+  void setGithub(String value) {
+    state = AsyncValue.data(state.value?.copyWith(github: value));
+  }
+
+  void setPortfolio(String value) {
+    state = AsyncValue.data(state.value?.copyWith(portfolio: value));
   }
 }

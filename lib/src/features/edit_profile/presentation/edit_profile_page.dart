@@ -46,7 +46,7 @@ class EditProfilePage extends HookConsumerWidget {
             child: GestureDetector(
               behavior: HitTestBehavior.translucent,
               onTap: () {
-                Utils.dismisKeyboard(context);
+                Utils.dismissKeyboard(context);
               },
               child: Padding(
                 padding: const EdgeInsets.all(15.0),
@@ -91,7 +91,9 @@ class EditProfilePage extends HookConsumerWidget {
                         color: ColorsConstant.text,
                       ),
                       onChanged: (value) {
-                        myProfileProfile.value?.userName = value;
+                        ref
+                            .read(editProfileProvider.notifier)
+                            .setUserName(value);
                       },
                     ),
                     const SizedBox(
@@ -115,7 +117,9 @@ class EditProfilePage extends HookConsumerWidget {
                           context: context,
                           onSelect: (value) {
                             countryController.text = value.name;
-                            myProfileProfile.value?.country = value.name;
+                            ref
+                                .read(editProfileProvider.notifier)
+                                .setCountry(value.name);
                           },
                         );
                       },
@@ -195,7 +199,9 @@ class EditProfilePage extends HookConsumerWidget {
                       maxLines: 5,
                       keyboardType: TextInputType.multiline,
                       onChanged: (value) {
-                        myProfileProfile.value?.description = value;
+                        ref
+                            .read(editProfileProvider.notifier)
+                            .setDescription(value);
                       },
                     ),
                     const SizedBox(
@@ -245,7 +251,9 @@ class EditProfilePage extends HookConsumerWidget {
                               color: ColorsConstant.text,
                             ),
                             onChanged: (value) {
-                              myProfileProfile.value?.twitter = value;
+                              ref
+                                  .read(editProfileProvider.notifier)
+                                  .setTwitter(value);
                             },
                           ),
                         ),
@@ -298,7 +306,9 @@ class EditProfilePage extends HookConsumerWidget {
                               color: ColorsConstant.text,
                             ),
                             onChanged: (value) {
-                              myProfileProfile.value?.facebook = value;
+                              ref
+                                  .read(editProfileProvider.notifier)
+                                  .setFacebook(value);
                             },
                           ),
                         ),
@@ -351,7 +361,9 @@ class EditProfilePage extends HookConsumerWidget {
                               color: ColorsConstant.text,
                             ),
                             onChanged: (value) {
-                              myProfileProfile.value?.github = value;
+                              ref
+                                  .read(editProfileProvider.notifier)
+                                  .setGithub(value);
                             },
                           ),
                         ),
@@ -404,7 +416,9 @@ class EditProfilePage extends HookConsumerWidget {
                               color: ColorsConstant.text,
                             ),
                             onChanged: (value) {
-                              myProfileProfile.value?.portfolio = value;
+                              ref
+                                  .read(editProfileProvider.notifier)
+                                  .setPortfolio(value);
                             },
                           ),
                         ),
@@ -490,7 +504,7 @@ class EditProfilePage extends HookConsumerWidget {
           actions: [
             TextButton(
               onPressed: () async {
-                Utils.dismisKeyboard(context);
+                Utils.dismissKeyboard(context);
                 await ref.read(editProfileProvider.notifier).editProfile();
                 if (context.mounted) {
                   context.pop(true);

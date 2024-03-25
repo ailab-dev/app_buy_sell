@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'my_profile_privder.g.dart';
+part 'my_profile_provider.g.dart';
 
 @riverpod
 class MyProfile extends _$MyProfile {

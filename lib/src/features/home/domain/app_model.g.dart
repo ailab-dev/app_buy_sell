@@ -6,15 +6,34 @@ part of 'app_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AppModel _$AppModelFromJson(Map<String, dynamic> json) => AppModel(
-      json['name'] as String,
-      json['description'] as String,
-      json['iconUrl'] as String,
-    )..createdAt = Utils.fromTimestamp(json['createdAt'] as Timestamp?);
+_$AppModelImpl _$$AppModelImplFromJson(Map<String, dynamic> json) =>
+    _$AppModelImpl(
+      name: json['name'] as String,
+      description: json['description'] as String,
+      iconUrl: json['iconUrl'] as String,
+      price: (json['price'] as num).toDouble(),
+      id: json['id'] as String,
+      iosId: json['iosId'] as String?,
+      androidId: json['androidId'] as String?,
+      banner:
+          (json['banner'] as List<dynamic>).map((e) => e as String).toList(),
+      didPay: json['didPay'] as bool?,
+      paySuccess: json['paySuccess'] as bool?,
+      createdAt:
+          const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
+    );
 
-Map<String, dynamic> _$AppModelToJson(AppModel instance) => <String, dynamic>{
+Map<String, dynamic> _$$AppModelImplToJson(_$AppModelImpl instance) =>
+    <String, dynamic>{
       'name': instance.name,
       'description': instance.description,
       'iconUrl': instance.iconUrl,
-      'createdAt': Utils.toTimestamp(instance.createdAt),
+      'price': instance.price,
+      'id': instance.id,
+      'iosId': instance.iosId,
+      'androidId': instance.androidId,
+      'banner': instance.banner,
+      'didPay': instance.didPay,
+      'paySuccess': instance.paySuccess,
+      'createdAt': const TimestampConverter().toJson(instance.createdAt),
     };
