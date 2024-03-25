@@ -1,3 +1,4 @@
+import 'package:app_buy_sell/src/features/edit_profile/presentation/edit_profile_page.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
@@ -89,6 +90,12 @@ final router = GoRouter(
         return UserProfilePage(
           userId: state.extra as String,
         );
+      },
+    ),
+    GoRoute(
+      path: '/edit-profile',
+      builder: (BuildContext context, GoRouterState state) {
+        return const EditProfilePage();
       },
     ),
   ],

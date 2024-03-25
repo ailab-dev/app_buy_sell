@@ -1,7 +1,7 @@
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
-import 'package:app_buy_sell/src/features/my_profile/provider/my_profile_privder.dart';
+import 'package:app_buy_sell/src/features/my_profile/provider/my_profile_provider.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,12 @@ class MyProfilePage extends HookConsumerWidget {
                     )
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  final result = await context.push('/edit-profile');
+                  if (result is bool && result) {
+                    ref.read(myProfileProvider.notifier).loadInfo();
+                  }
+                },
               ),
               const Divider(
                 indent: 0,
@@ -142,7 +147,12 @@ class MyProfilePage extends HookConsumerWidget {
                           ),
                         ),
                         TextButton(
-                          onPressed: () {},
+                          onPressed: () async {
+                            final result = await context.push('/edit-profile');
+                            if (result is bool && result) {
+                              ref.read(myProfileProvider.notifier).loadInfo();
+                            }
+                          },
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all(
                               RoundedRectangleBorder(

@@ -53,6 +53,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/logout.svg
   SvgGenImage get logout => const SvgGenImage('assets/images/logout.svg');
 
+  /// File path: assets/images/pick.svg
+  SvgGenImage get pick => const SvgGenImage('assets/images/pick.svg');
+
   /// File path: assets/images/portfolio.svg
   SvgGenImage get portfolio => const SvgGenImage('assets/images/portfolio.svg');
 
@@ -86,6 +89,7 @@ class $AssetsImagesGen {
         logoPng,
         logoSvg,
         logout,
+        pick,
         portfolio,
         purchase,
         report,

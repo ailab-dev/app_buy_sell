@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'my_profile_privder.dart';
+part of 'my_profile_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$myProfileHash() => r'1dbc9ef995d5e6f8ccc3122b2a4b96ddf5415e52';
+String _$myProfileHash() => r'cc6e712de6ffd17f5d7ddc25754d7c8e74487795';
 
 /// See also [MyProfile].
 @ProviderFor(MyProfile)

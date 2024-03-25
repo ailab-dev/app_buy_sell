@@ -17,6 +17,7 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       github: json['github'] as String? ?? '',
       portfolio: json['portfolio'] as String? ?? '',
       instagram: json['instagram'] as String? ?? '',
+      country: json['country'] as String?,
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -30,4 +31,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'github': instance.github,
       'portfolio': instance.portfolio,
       'instagram': instance.instagram,
+      'country': instance.country,
     };
