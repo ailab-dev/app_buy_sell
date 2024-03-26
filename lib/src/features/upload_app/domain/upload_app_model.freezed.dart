@@ -35,6 +35,8 @@ mixin _$UploadAppModel {
   int get nameLength => throw _privateConstructorUsedError;
   int get catchphraseLength => throw _privateConstructorUsedError;
   int get descriptionLength => throw _privateConstructorUsedError;
+  bool get didUpload => throw _privateConstructorUsedError;
+  bool get isUploading => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UploadAppModelCopyWith<UploadAppModel> get copyWith =>
@@ -66,7 +68,9 @@ abstract class $UploadAppModelCopyWith<$Res> {
       String appCatchphrase,
       int nameLength,
       int catchphraseLength,
-      int descriptionLength});
+      int descriptionLength,
+      bool didUpload,
+      bool isUploading});
 }
 
 /// @nodoc
@@ -101,6 +105,8 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
     Object? nameLength = null,
     Object? catchphraseLength = null,
     Object? descriptionLength = null,
+    Object? didUpload = null,
+    Object? isUploading = null,
   }) {
     return _then(_value.copyWith(
       currentPage: null == currentPage
@@ -179,6 +185,14 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
           ? _value.descriptionLength
           : descriptionLength // ignore: cast_nullable_to_non_nullable
               as int,
+      didUpload: null == didUpload
+          ? _value.didUpload
+          : didUpload // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUploading: null == isUploading
+          ? _value.isUploading
+          : isUploading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 }
@@ -210,7 +224,9 @@ abstract class _$$UploadAppModelImplCopyWith<$Res>
       String appCatchphrase,
       int nameLength,
       int catchphraseLength,
-      int descriptionLength});
+      int descriptionLength,
+      bool didUpload,
+      bool isUploading});
 }
 
 /// @nodoc
@@ -243,6 +259,8 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
     Object? nameLength = null,
     Object? catchphraseLength = null,
     Object? descriptionLength = null,
+    Object? didUpload = null,
+    Object? isUploading = null,
   }) {
     return _then(_$UploadAppModelImpl(
       currentPage: null == currentPage
@@ -321,6 +339,14 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
           ? _value.descriptionLength
           : descriptionLength // ignore: cast_nullable_to_non_nullable
               as int,
+      didUpload: null == didUpload
+          ? _value.didUpload
+          : didUpload // ignore: cast_nullable_to_non_nullable
+              as bool,
+      isUploading: null == isUploading
+          ? _value.isUploading
+          : isUploading // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -347,7 +373,9 @@ class _$UploadAppModelImpl extends _UploadAppModel {
       required this.appCatchphrase,
       required this.nameLength,
       required this.catchphraseLength,
-      required this.descriptionLength})
+      required this.descriptionLength,
+      required this.didUpload,
+      required this.isUploading})
       : _screenshots = screenshots,
         super._();
 
@@ -395,10 +423,14 @@ class _$UploadAppModelImpl extends _UploadAppModel {
   final int catchphraseLength;
   @override
   final int descriptionLength;
+  @override
+  final bool didUpload;
+  @override
+  final bool isUploading;
 
   @override
   String toString() {
-    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage, screenshots: $screenshots, avatartPath: $avatartPath, appName: $appName, description: $description, category: $category, price: $price, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, storeValidate: $storeValidate, appInfoValidate: $appInfoValidate, appImageValidate: $appImageValidate, appPriceValidate: $appPriceValidate, appCatchphrase: $appCatchphrase, nameLength: $nameLength, catchphraseLength: $catchphraseLength, descriptionLength: $descriptionLength)';
+    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage, screenshots: $screenshots, avatartPath: $avatartPath, appName: $appName, description: $description, category: $category, price: $price, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, storeValidate: $storeValidate, appInfoValidate: $appInfoValidate, appImageValidate: $appImageValidate, appPriceValidate: $appPriceValidate, appCatchphrase: $appCatchphrase, nameLength: $nameLength, catchphraseLength: $catchphraseLength, descriptionLength: $descriptionLength, didUpload: $didUpload, isUploading: $isUploading)';
   }
 
   @override
@@ -441,7 +473,11 @@ class _$UploadAppModelImpl extends _UploadAppModel {
             (identical(other.catchphraseLength, catchphraseLength) ||
                 other.catchphraseLength == catchphraseLength) &&
             (identical(other.descriptionLength, descriptionLength) ||
-                other.descriptionLength == descriptionLength));
+                other.descriptionLength == descriptionLength) &&
+            (identical(other.didUpload, didUpload) ||
+                other.didUpload == didUpload) &&
+            (identical(other.isUploading, isUploading) ||
+                other.isUploading == isUploading));
   }
 
   @override
@@ -465,7 +501,9 @@ class _$UploadAppModelImpl extends _UploadAppModel {
         appCatchphrase,
         nameLength,
         catchphraseLength,
-        descriptionLength
+        descriptionLength,
+        didUpload,
+        isUploading
       ]);
 
   @JsonKey(ignore: true)
@@ -496,7 +534,9 @@ abstract class _UploadAppModel extends UploadAppModel {
       required final String appCatchphrase,
       required final int nameLength,
       required final int catchphraseLength,
-      required final int descriptionLength}) = _$UploadAppModelImpl;
+      required final int descriptionLength,
+      required final bool didUpload,
+      required final bool isUploading}) = _$UploadAppModelImpl;
   _UploadAppModel._() : super._();
 
   @override
@@ -537,6 +577,10 @@ abstract class _UploadAppModel extends UploadAppModel {
   int get catchphraseLength;
   @override
   int get descriptionLength;
+  @override
+  bool get didUpload;
+  @override
+  bool get isUploading;
   @override
   @JsonKey(ignore: true)
   _$$UploadAppModelImplCopyWith<_$UploadAppModelImpl> get copyWith =>

@@ -1,3 +1,4 @@
+import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_image_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_info_page.dart';
@@ -49,21 +50,25 @@ class UploadAppPage extends HookConsumerWidget {
             ),
           ),
           Expanded(
+            child: LoadingView(
+              isLoading: uploadController.isUploading,
               child: PageView(
-            controller: pageController,
-            physics: const NeverScrollableScrollPhysics(),
-            children: const [
-              StoreUrlPage(),
-              AppInfoPage(),
-              AppImagePage(),
-              AppPricePage(),
-            ],
-            onPageChanged: (value) {
-              ref
-                  .read(uploadAppControllerProvider.notifier)
-                  .setCurrentPage(value);
-            },
-          ))
+                controller: pageController,
+                physics: const NeverScrollableScrollPhysics(),
+                children: const [
+                  StoreUrlPage(),
+                  AppInfoPage(),
+                  AppImagePage(),
+                  AppPricePage(),
+                ],
+                onPageChanged: (value) {
+                  ref
+                      .read(uploadAppControllerProvider.notifier)
+                      .setCurrentPage(value);
+                },
+              ),
+            ),
+          )
         ],
       ),
     );

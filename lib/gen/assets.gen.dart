@@ -37,6 +37,10 @@ class $AssetsImagesGen {
   /// File path: assets/images/delete.svg
   SvgGenImage get delete => const SvgGenImage('assets/images/delete.svg');
 
+  /// File path: assets/images/edit_square.svg
+  SvgGenImage get editSquare =>
+      const SvgGenImage('assets/images/edit_square.svg');
+
   /// File path: assets/images/facebook.svg
   SvgGenImage get facebook => const SvgGenImage('assets/images/facebook.svg');
 
@@ -56,6 +60,9 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/logo.svg
   SvgGenImage get logoSvg => const SvgGenImage('assets/images/logo.svg');
+
+  /// File path: assets/images/logout.svg
+  SvgGenImage get logout => const SvgGenImage('assets/images/logout.svg');
 
   /// File path: assets/images/pick.svg
   SvgGenImage get pick => const SvgGenImage('assets/images/pick.svg');
@@ -77,6 +84,9 @@ class $AssetsImagesGen {
   SvgGenImage get selectImage =>
       const SvgGenImage('assets/images/selectImage.svg');
 
+  /// File path: assets/images/settings.svg
+  SvgGenImage get settings => const SvgGenImage('assets/images/settings.svg');
+
   /// File path: assets/images/x.svg
   SvgGenImage get x => const SvgGenImage('assets/images/x.svg');
 
@@ -89,18 +99,21 @@ class $AssetsImagesGen {
         addPhotoAlternate,
         app,
         delete,
+        editSquare,
         facebook,
         github,
         imageDefault,
         instagram,
         logoPng,
         logoSvg,
+        logout,
         pick,
         portfolio,
         purchase,
         report,
         reportFinish,
         selectImage,
+        settings,
         x
       ];
 }

@@ -25,9 +25,15 @@ class UploadAppModel with _$UploadAppModel {
     required int nameLength,
     required int catchphraseLength,
     required int descriptionLength,
+    required bool didUpload,
+    required bool isUploading,
   }) = _UploadAppModel;
 
   double get getProgress {
     return currentPage / 3;
+  }
+
+  String get priceValue {
+    return price.replaceAll(',', '');
   }
 }

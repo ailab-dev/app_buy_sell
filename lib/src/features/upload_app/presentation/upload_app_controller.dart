@@ -11,26 +11,27 @@ class UploadAppController extends _$UploadAppController {
   @override
   UploadAppModel build() {
     final model = UploadAppModel(
-      currentPage: 0,
-      nextPage: false,
-      backPage: false,
-      screenshots: [],
-      avatartPath: '',
-      appName: '',
-      description: '',
-      category: '',
-      price: '',
-      appStoreUrl: '',
-      gPlayUrl: '',
-      storeValidate: false,
-      appInfoValidate: false,
-      appImageValidate: true,
-      appPriceValidate: false,
-      appCatchphrase: '',
-      nameLength: 0,
-      catchphraseLength: 0,
-      descriptionLength: 0,
-    );
+        currentPage: 0,
+        nextPage: false,
+        backPage: false,
+        screenshots: [],
+        avatartPath: '',
+        appName: '',
+        description: '',
+        category: '',
+        price: '',
+        appStoreUrl: '',
+        gPlayUrl: '',
+        storeValidate: false,
+        appInfoValidate: false,
+        appImageValidate: true,
+        appPriceValidate: false,
+        appCatchphrase: '',
+        nameLength: 0,
+        catchphraseLength: 0,
+        descriptionLength: 0,
+        didUpload: false,
+        isUploading: false);
     return model;
   }
 
@@ -88,11 +89,10 @@ class UploadAppController extends _$UploadAppController {
   }
 
   void setAppPrice(String value) {
-    final price = value.replaceAll(',', '');
-    state = state.copyWith(price: price);
+    state = state.copyWith(price: value);
 
     try {
-      final priceValue = int.parse(price);
+      final priceValue = int.parse(state.priceValue);
       if (priceValue > 0) {
         state = state.copyWith(appPriceValidate: true);
       } else {
@@ -134,5 +134,9 @@ class UploadAppController extends _$UploadAppController {
     } else {
       state = state.copyWith(appImageValidate: false);
     }
+  }
+
+  Future<void> uploadApp() async {
+    state = state.copyWith(isUploading: true);
   }
 }

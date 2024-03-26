@@ -217,12 +217,12 @@ class AppImagePage extends HookConsumerWidget {
                         ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 10,
-                    ),
                   ],
                 ),
               ),
+            ),
+            const SizedBox(
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

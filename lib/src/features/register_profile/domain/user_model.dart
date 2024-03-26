@@ -18,6 +18,7 @@ class UserModel with _$UserModel {
     @Default('') String github,
     @Default('') String portfolio,
     @Default('') String instagram,
+    String? country,
   }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>

@@ -29,6 +29,7 @@ mixin _$UserModel {
   String get github => throw _privateConstructorUsedError;
   String get portfolio => throw _privateConstructorUsedError;
   String get instagram => throw _privateConstructorUsedError;
+  String? get country => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,7 +51,8 @@ abstract class $UserModelCopyWith<$Res> {
       String facebook,
       String github,
       String portfolio,
-      String instagram});
+      String instagram,
+      String? country});
 }
 
 /// @nodoc
@@ -75,6 +77,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? github = null,
     Object? portfolio = null,
     Object? instagram = null,
+    Object? country = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -113,6 +116,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.instagram
           : instagram // ignore: cast_nullable_to_non_nullable
               as String,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -134,7 +141,8 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String facebook,
       String github,
       String portfolio,
-      String instagram});
+      String instagram,
+      String? country});
 }
 
 /// @nodoc
@@ -157,6 +165,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? github = null,
     Object? portfolio = null,
     Object? instagram = null,
+    Object? country = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -195,6 +204,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.instagram
           : instagram // ignore: cast_nullable_to_non_nullable
               as String,
+      country: freezed == country
+          ? _value.country
+          : country // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -211,7 +224,8 @@ class _$UserModelImpl extends _UserModel {
       this.facebook = '',
       this.github = '',
       this.portfolio = '',
-      this.instagram = ''})
+      this.instagram = '',
+      this.country})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -242,10 +256,12 @@ class _$UserModelImpl extends _UserModel {
   @override
   @JsonKey()
   final String instagram;
+  @override
+  final String? country;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram)';
+    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram, country: $country)';
   }
 
   @override
@@ -267,13 +283,14 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.portfolio, portfolio) ||
                 other.portfolio == portfolio) &&
             (identical(other.instagram, instagram) ||
-                other.instagram == instagram));
+                other.instagram == instagram) &&
+            (identical(other.country, country) || other.country == country));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, id, userName, description,
-      nickName, twitter, facebook, github, portfolio, instagram);
+      nickName, twitter, facebook, github, portfolio, instagram, country);
 
   @JsonKey(ignore: true)
   @override
@@ -299,7 +316,8 @@ abstract class _UserModel extends UserModel {
       final String facebook,
       final String github,
       final String portfolio,
-      final String instagram}) = _$UserModelImpl;
+      final String instagram,
+      final String? country}) = _$UserModelImpl;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -323,6 +341,8 @@ abstract class _UserModel extends UserModel {
   String get portfolio;
   @override
   String get instagram;
+  @override
+  String? get country;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

@@ -194,6 +194,10 @@ class AppPricePage extends HookConsumerWidget {
                                       child: CupertinoDialogAction(
                                         onPressed: () {
                                           context.pop();
+                                          ref
+                                              .read(uploadAppControllerProvider
+                                                  .notifier)
+                                              .uploadApp();
                                         },
                                         child: const Text(
                                           '公開する',
