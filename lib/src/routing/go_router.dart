@@ -7,6 +7,7 @@ import 'package:app_buy_sell/src/features/product/presentation/product_page.dart
 import 'package:app_buy_sell/src/features/product/presentation/purchase_complete_page.dart';
 import 'package:app_buy_sell/src/features/register/presentation/register_page.dart';
 import 'package:app_buy_sell/src/features/register_profile/presentation/register_profile_page.dart';
+import 'package:app_buy_sell/src/features/setting/presentation/setting_page.dart';
 import 'package:app_buy_sell/src/features/splash/presentation/splash_page.dart';
 import 'package:app_buy_sell/src/features/start/start_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/upload_app_page.dart';
@@ -96,6 +97,12 @@ final router = GoRouter(
       path: '/edit-profile',
       builder: (BuildContext context, GoRouterState state) {
         return const EditProfilePage();
+      },
+    ),
+    GoRoute(
+      path: '/setting',
+      builder: (BuildContext context, GoRouterState state) {
+        return const SettingPage();
       },
     ),
   ],
