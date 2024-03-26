@@ -25,13 +25,16 @@ mixin _$AppModel {
   String get iconUrl => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get id => throw _privateConstructorUsedError;
-  String? get iosId => throw _privateConstructorUsedError;
-  String? get androidId => throw _privateConstructorUsedError;
+  String? get appStoreUrl => throw _privateConstructorUsedError;
+  String? get gPlayUrl => throw _privateConstructorUsedError;
   List<String> get banner => throw _privateConstructorUsedError;
   bool? get didPay => throw _privateConstructorUsedError;
   bool? get paySuccess => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
+  String get ownerId => throw _privateConstructorUsedError;
+  String get catchphrase => throw _privateConstructorUsedError;
+  CategoryType? get categoryType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -50,12 +53,15 @@ abstract class $AppModelCopyWith<$Res> {
       String iconUrl,
       String price,
       String id,
-      String? iosId,
-      String? androidId,
+      String? appStoreUrl,
+      String? gPlayUrl,
       List<String> banner,
       bool? didPay,
       bool? paySuccess,
-      @TimestampConverter() DateTime createdAt});
+      @TimestampConverter() DateTime createdAt,
+      String ownerId,
+      String catchphrase,
+      CategoryType? categoryType});
 }
 
 /// @nodoc
@@ -76,12 +82,15 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
     Object? iconUrl = null,
     Object? price = null,
     Object? id = null,
-    Object? iosId = freezed,
-    Object? androidId = freezed,
+    Object? appStoreUrl = freezed,
+    Object? gPlayUrl = freezed,
     Object? banner = null,
     Object? didPay = freezed,
     Object? paySuccess = freezed,
     Object? createdAt = null,
+    Object? ownerId = null,
+    Object? catchphrase = null,
+    Object? categoryType = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -104,13 +113,13 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      iosId: freezed == iosId
-          ? _value.iosId
-          : iosId // ignore: cast_nullable_to_non_nullable
+      appStoreUrl: freezed == appStoreUrl
+          ? _value.appStoreUrl
+          : appStoreUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      androidId: freezed == androidId
-          ? _value.androidId
-          : androidId // ignore: cast_nullable_to_non_nullable
+      gPlayUrl: freezed == gPlayUrl
+          ? _value.gPlayUrl
+          : gPlayUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       banner: null == banner
           ? _value.banner
@@ -128,6 +137,18 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      catchphrase: null == catchphrase
+          ? _value.catchphrase
+          : catchphrase // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryType: freezed == categoryType
+          ? _value.categoryType
+          : categoryType // ignore: cast_nullable_to_non_nullable
+              as CategoryType?,
     ) as $Val);
   }
 }
@@ -146,12 +167,15 @@ abstract class _$$AppModelImplCopyWith<$Res>
       String iconUrl,
       String price,
       String id,
-      String? iosId,
-      String? androidId,
+      String? appStoreUrl,
+      String? gPlayUrl,
       List<String> banner,
       bool? didPay,
       bool? paySuccess,
-      @TimestampConverter() DateTime createdAt});
+      @TimestampConverter() DateTime createdAt,
+      String ownerId,
+      String catchphrase,
+      CategoryType? categoryType});
 }
 
 /// @nodoc
@@ -170,12 +194,15 @@ class __$$AppModelImplCopyWithImpl<$Res>
     Object? iconUrl = null,
     Object? price = null,
     Object? id = null,
-    Object? iosId = freezed,
-    Object? androidId = freezed,
+    Object? appStoreUrl = freezed,
+    Object? gPlayUrl = freezed,
     Object? banner = null,
     Object? didPay = freezed,
     Object? paySuccess = freezed,
     Object? createdAt = null,
+    Object? ownerId = null,
+    Object? catchphrase = null,
+    Object? categoryType = freezed,
   }) {
     return _then(_$AppModelImpl(
       name: null == name
@@ -198,13 +225,13 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as String,
-      iosId: freezed == iosId
-          ? _value.iosId
-          : iosId // ignore: cast_nullable_to_non_nullable
+      appStoreUrl: freezed == appStoreUrl
+          ? _value.appStoreUrl
+          : appStoreUrl // ignore: cast_nullable_to_non_nullable
               as String?,
-      androidId: freezed == androidId
-          ? _value.androidId
-          : androidId // ignore: cast_nullable_to_non_nullable
+      gPlayUrl: freezed == gPlayUrl
+          ? _value.gPlayUrl
+          : gPlayUrl // ignore: cast_nullable_to_non_nullable
               as String?,
       banner: null == banner
           ? _value._banner
@@ -222,6 +249,18 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime,
+      ownerId: null == ownerId
+          ? _value.ownerId
+          : ownerId // ignore: cast_nullable_to_non_nullable
+              as String,
+      catchphrase: null == catchphrase
+          ? _value.catchphrase
+          : catchphrase // ignore: cast_nullable_to_non_nullable
+              as String,
+      categoryType: freezed == categoryType
+          ? _value.categoryType
+          : categoryType // ignore: cast_nullable_to_non_nullable
+              as CategoryType?,
     ));
   }
 }
@@ -235,12 +274,15 @@ class _$AppModelImpl extends _AppModel {
       required this.iconUrl,
       required this.price,
       required this.id,
-      this.iosId,
-      this.androidId,
+      this.appStoreUrl,
+      this.gPlayUrl,
       required final List<String> banner,
       this.didPay,
       this.paySuccess,
-      @TimestampConverter() required this.createdAt})
+      @TimestampConverter() required this.createdAt,
+      this.ownerId = '',
+      this.catchphrase = '',
+      this.categoryType})
       : _banner = banner,
         super._();
 
@@ -258,9 +300,9 @@ class _$AppModelImpl extends _AppModel {
   @override
   final String id;
   @override
-  final String? iosId;
+  final String? appStoreUrl;
   @override
-  final String? androidId;
+  final String? gPlayUrl;
   final List<String> _banner;
   @override
   List<String> get banner {
@@ -276,10 +318,18 @@ class _$AppModelImpl extends _AppModel {
   @override
   @TimestampConverter()
   final DateTime createdAt;
+  @override
+  @JsonKey()
+  final String ownerId;
+  @override
+  @JsonKey()
+  final String catchphrase;
+  @override
+  final CategoryType? categoryType;
 
   @override
   String toString() {
-    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, iosId: $iosId, androidId: $androidId, banner: $banner, didPay: $didPay, paySuccess: $paySuccess, createdAt: $createdAt)';
+    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, banner: $banner, didPay: $didPay, paySuccess: $paySuccess, createdAt: $createdAt, ownerId: $ownerId, catchphrase: $catchphrase, categoryType: $categoryType)';
   }
 
   @override
@@ -293,15 +343,21 @@ class _$AppModelImpl extends _AppModel {
             (identical(other.iconUrl, iconUrl) || other.iconUrl == iconUrl) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.id, id) || other.id == id) &&
-            (identical(other.iosId, iosId) || other.iosId == iosId) &&
-            (identical(other.androidId, androidId) ||
-                other.androidId == androidId) &&
+            (identical(other.appStoreUrl, appStoreUrl) ||
+                other.appStoreUrl == appStoreUrl) &&
+            (identical(other.gPlayUrl, gPlayUrl) ||
+                other.gPlayUrl == gPlayUrl) &&
             const DeepCollectionEquality().equals(other._banner, _banner) &&
             (identical(other.didPay, didPay) || other.didPay == didPay) &&
             (identical(other.paySuccess, paySuccess) ||
                 other.paySuccess == paySuccess) &&
             (identical(other.createdAt, createdAt) ||
-                other.createdAt == createdAt));
+                other.createdAt == createdAt) &&
+            (identical(other.ownerId, ownerId) || other.ownerId == ownerId) &&
+            (identical(other.catchphrase, catchphrase) ||
+                other.catchphrase == catchphrase) &&
+            (identical(other.categoryType, categoryType) ||
+                other.categoryType == categoryType));
   }
 
   @JsonKey(ignore: true)
@@ -313,12 +369,15 @@ class _$AppModelImpl extends _AppModel {
       iconUrl,
       price,
       id,
-      iosId,
-      androidId,
+      appStoreUrl,
+      gPlayUrl,
       const DeepCollectionEquality().hash(_banner),
       didPay,
       paySuccess,
-      createdAt);
+      createdAt,
+      ownerId,
+      catchphrase,
+      categoryType);
 
   @JsonKey(ignore: true)
   @override
@@ -336,18 +395,20 @@ class _$AppModelImpl extends _AppModel {
 
 abstract class _AppModel extends AppModel {
   factory _AppModel(
-          {required final String name,
-          required final String description,
-          required final String iconUrl,
-          required final String price,
-          required final String id,
-          final String? iosId,
-          final String? androidId,
-          required final List<String> banner,
-          final bool? didPay,
-          final bool? paySuccess,
-          @TimestampConverter() required final DateTime createdAt}) =
-      _$AppModelImpl;
+      {required final String name,
+      required final String description,
+      required final String iconUrl,
+      required final String price,
+      required final String id,
+      final String? appStoreUrl,
+      final String? gPlayUrl,
+      required final List<String> banner,
+      final bool? didPay,
+      final bool? paySuccess,
+      @TimestampConverter() required final DateTime createdAt,
+      final String ownerId,
+      final String catchphrase,
+      final CategoryType? categoryType}) = _$AppModelImpl;
   _AppModel._() : super._();
 
   factory _AppModel.fromJson(Map<String, dynamic> json) =
@@ -364,9 +425,9 @@ abstract class _AppModel extends AppModel {
   @override
   String get id;
   @override
-  String? get iosId;
+  String? get appStoreUrl;
   @override
-  String? get androidId;
+  String? get gPlayUrl;
   @override
   List<String> get banner;
   @override
@@ -376,6 +437,12 @@ abstract class _AppModel extends AppModel {
   @override
   @TimestampConverter()
   DateTime get createdAt;
+  @override
+  String get ownerId;
+  @override
+  String get catchphrase;
+  @override
+  CategoryType? get categoryType;
   @override
   @JsonKey(ignore: true)
   _$$AppModelImplCopyWith<_$AppModelImpl> get copyWith =>

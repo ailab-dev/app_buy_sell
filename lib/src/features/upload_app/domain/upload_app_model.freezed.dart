@@ -20,10 +20,9 @@ mixin _$UploadAppModel {
   bool get nextPage => throw _privateConstructorUsedError;
   bool get backPage => throw _privateConstructorUsedError;
   List<String> get screenshots => throw _privateConstructorUsedError;
-  String get avatartPath => throw _privateConstructorUsedError;
+  String get avatarPath => throw _privateConstructorUsedError;
   String get appName => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get category => throw _privateConstructorUsedError;
   String get price => throw _privateConstructorUsedError;
   String get appStoreUrl => throw _privateConstructorUsedError;
   String get gPlayUrl => throw _privateConstructorUsedError;
@@ -37,6 +36,7 @@ mixin _$UploadAppModel {
   int get descriptionLength => throw _privateConstructorUsedError;
   bool get didUpload => throw _privateConstructorUsedError;
   bool get isUploading => throw _privateConstructorUsedError;
+  CategoryType? get categoryType => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $UploadAppModelCopyWith<UploadAppModel> get copyWith =>
@@ -54,10 +54,9 @@ abstract class $UploadAppModelCopyWith<$Res> {
       bool nextPage,
       bool backPage,
       List<String> screenshots,
-      String avatartPath,
+      String avatarPath,
       String appName,
       String description,
-      String category,
       String price,
       String appStoreUrl,
       String gPlayUrl,
@@ -70,7 +69,8 @@ abstract class $UploadAppModelCopyWith<$Res> {
       int catchphraseLength,
       int descriptionLength,
       bool didUpload,
-      bool isUploading});
+      bool isUploading,
+      CategoryType? categoryType});
 }
 
 /// @nodoc
@@ -90,10 +90,9 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
     Object? nextPage = null,
     Object? backPage = null,
     Object? screenshots = null,
-    Object? avatartPath = null,
+    Object? avatarPath = null,
     Object? appName = null,
     Object? description = null,
-    Object? category = null,
     Object? price = null,
     Object? appStoreUrl = null,
     Object? gPlayUrl = null,
@@ -107,6 +106,7 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
     Object? descriptionLength = null,
     Object? didUpload = null,
     Object? isUploading = null,
+    Object? categoryType = freezed,
   }) {
     return _then(_value.copyWith(
       currentPage: null == currentPage
@@ -125,9 +125,9 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
           ? _value.screenshots
           : screenshots // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      avatartPath: null == avatartPath
-          ? _value.avatartPath
-          : avatartPath // ignore: cast_nullable_to_non_nullable
+      avatarPath: null == avatarPath
+          ? _value.avatarPath
+          : avatarPath // ignore: cast_nullable_to_non_nullable
               as String,
       appName: null == appName
           ? _value.appName
@@ -136,10 +136,6 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
               as String,
       price: null == price
           ? _value.price
@@ -193,6 +189,10 @@ class _$UploadAppModelCopyWithImpl<$Res, $Val extends UploadAppModel>
           ? _value.isUploading
           : isUploading // ignore: cast_nullable_to_non_nullable
               as bool,
+      categoryType: freezed == categoryType
+          ? _value.categoryType
+          : categoryType // ignore: cast_nullable_to_non_nullable
+              as CategoryType?,
     ) as $Val);
   }
 }
@@ -210,10 +210,9 @@ abstract class _$$UploadAppModelImplCopyWith<$Res>
       bool nextPage,
       bool backPage,
       List<String> screenshots,
-      String avatartPath,
+      String avatarPath,
       String appName,
       String description,
-      String category,
       String price,
       String appStoreUrl,
       String gPlayUrl,
@@ -226,7 +225,8 @@ abstract class _$$UploadAppModelImplCopyWith<$Res>
       int catchphraseLength,
       int descriptionLength,
       bool didUpload,
-      bool isUploading});
+      bool isUploading,
+      CategoryType? categoryType});
 }
 
 /// @nodoc
@@ -244,10 +244,9 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
     Object? nextPage = null,
     Object? backPage = null,
     Object? screenshots = null,
-    Object? avatartPath = null,
+    Object? avatarPath = null,
     Object? appName = null,
     Object? description = null,
-    Object? category = null,
     Object? price = null,
     Object? appStoreUrl = null,
     Object? gPlayUrl = null,
@@ -261,6 +260,7 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
     Object? descriptionLength = null,
     Object? didUpload = null,
     Object? isUploading = null,
+    Object? categoryType = freezed,
   }) {
     return _then(_$UploadAppModelImpl(
       currentPage: null == currentPage
@@ -279,9 +279,9 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
           ? _value._screenshots
           : screenshots // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      avatartPath: null == avatartPath
-          ? _value.avatartPath
-          : avatartPath // ignore: cast_nullable_to_non_nullable
+      avatarPath: null == avatarPath
+          ? _value.avatarPath
+          : avatarPath // ignore: cast_nullable_to_non_nullable
               as String,
       appName: null == appName
           ? _value.appName
@@ -290,10 +290,6 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
       description: null == description
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
-              as String,
-      category: null == category
-          ? _value.category
-          : category // ignore: cast_nullable_to_non_nullable
               as String,
       price: null == price
           ? _value.price
@@ -347,6 +343,10 @@ class __$$UploadAppModelImplCopyWithImpl<$Res>
           ? _value.isUploading
           : isUploading // ignore: cast_nullable_to_non_nullable
               as bool,
+      categoryType: freezed == categoryType
+          ? _value.categoryType
+          : categoryType // ignore: cast_nullable_to_non_nullable
+              as CategoryType?,
     ));
   }
 }
@@ -359,10 +359,9 @@ class _$UploadAppModelImpl extends _UploadAppModel {
       required this.nextPage,
       required this.backPage,
       required final List<String> screenshots,
-      required this.avatartPath,
+      required this.avatarPath,
       required this.appName,
       required this.description,
-      required this.category,
       required this.price,
       required this.appStoreUrl,
       required this.gPlayUrl,
@@ -375,7 +374,8 @@ class _$UploadAppModelImpl extends _UploadAppModel {
       required this.catchphraseLength,
       required this.descriptionLength,
       required this.didUpload,
-      required this.isUploading})
+      required this.isUploading,
+      this.categoryType})
       : _screenshots = screenshots,
         super._();
 
@@ -394,13 +394,11 @@ class _$UploadAppModelImpl extends _UploadAppModel {
   }
 
   @override
-  final String avatartPath;
+  final String avatarPath;
   @override
   final String appName;
   @override
   final String description;
-  @override
-  final String category;
   @override
   final String price;
   @override
@@ -427,10 +425,12 @@ class _$UploadAppModelImpl extends _UploadAppModel {
   final bool didUpload;
   @override
   final bool isUploading;
+  @override
+  final CategoryType? categoryType;
 
   @override
   String toString() {
-    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage, screenshots: $screenshots, avatartPath: $avatartPath, appName: $appName, description: $description, category: $category, price: $price, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, storeValidate: $storeValidate, appInfoValidate: $appInfoValidate, appImageValidate: $appImageValidate, appPriceValidate: $appPriceValidate, appCatchphrase: $appCatchphrase, nameLength: $nameLength, catchphraseLength: $catchphraseLength, descriptionLength: $descriptionLength, didUpload: $didUpload, isUploading: $isUploading)';
+    return 'UploadAppModel(currentPage: $currentPage, nextPage: $nextPage, backPage: $backPage, screenshots: $screenshots, avatarPath: $avatarPath, appName: $appName, description: $description, price: $price, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, storeValidate: $storeValidate, appInfoValidate: $appInfoValidate, appImageValidate: $appImageValidate, appPriceValidate: $appPriceValidate, appCatchphrase: $appCatchphrase, nameLength: $nameLength, catchphraseLength: $catchphraseLength, descriptionLength: $descriptionLength, didUpload: $didUpload, isUploading: $isUploading, categoryType: $categoryType)';
   }
 
   @override
@@ -446,13 +446,11 @@ class _$UploadAppModelImpl extends _UploadAppModel {
                 other.backPage == backPage) &&
             const DeepCollectionEquality()
                 .equals(other._screenshots, _screenshots) &&
-            (identical(other.avatartPath, avatartPath) ||
-                other.avatartPath == avatartPath) &&
+            (identical(other.avatarPath, avatarPath) ||
+                other.avatarPath == avatarPath) &&
             (identical(other.appName, appName) || other.appName == appName) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.category, category) ||
-                other.category == category) &&
             (identical(other.price, price) || other.price == price) &&
             (identical(other.appStoreUrl, appStoreUrl) ||
                 other.appStoreUrl == appStoreUrl) &&
@@ -477,7 +475,9 @@ class _$UploadAppModelImpl extends _UploadAppModel {
             (identical(other.didUpload, didUpload) ||
                 other.didUpload == didUpload) &&
             (identical(other.isUploading, isUploading) ||
-                other.isUploading == isUploading));
+                other.isUploading == isUploading) &&
+            (identical(other.categoryType, categoryType) ||
+                other.categoryType == categoryType));
   }
 
   @override
@@ -487,10 +487,9 @@ class _$UploadAppModelImpl extends _UploadAppModel {
         nextPage,
         backPage,
         const DeepCollectionEquality().hash(_screenshots),
-        avatartPath,
+        avatarPath,
         appName,
         description,
-        category,
         price,
         appStoreUrl,
         gPlayUrl,
@@ -503,7 +502,8 @@ class _$UploadAppModelImpl extends _UploadAppModel {
         catchphraseLength,
         descriptionLength,
         didUpload,
-        isUploading
+        isUploading,
+        categoryType
       ]);
 
   @JsonKey(ignore: true)
@@ -520,10 +520,9 @@ abstract class _UploadAppModel extends UploadAppModel {
       required final bool nextPage,
       required final bool backPage,
       required final List<String> screenshots,
-      required final String avatartPath,
+      required final String avatarPath,
       required final String appName,
       required final String description,
-      required final String category,
       required final String price,
       required final String appStoreUrl,
       required final String gPlayUrl,
@@ -536,7 +535,8 @@ abstract class _UploadAppModel extends UploadAppModel {
       required final int catchphraseLength,
       required final int descriptionLength,
       required final bool didUpload,
-      required final bool isUploading}) = _$UploadAppModelImpl;
+      required final bool isUploading,
+      final CategoryType? categoryType}) = _$UploadAppModelImpl;
   _UploadAppModel._() : super._();
 
   @override
@@ -548,13 +548,11 @@ abstract class _UploadAppModel extends UploadAppModel {
   @override
   List<String> get screenshots;
   @override
-  String get avatartPath;
+  String get avatarPath;
   @override
   String get appName;
   @override
   String get description;
-  @override
-  String get category;
   @override
   String get price;
   @override
@@ -581,6 +579,8 @@ abstract class _UploadAppModel extends UploadAppModel {
   bool get didUpload;
   @override
   bool get isUploading;
+  @override
+  CategoryType? get categoryType;
   @override
   @JsonKey(ignore: true)
   _$$UploadAppModelImplCopyWith<_$UploadAppModelImpl> get copyWith =>

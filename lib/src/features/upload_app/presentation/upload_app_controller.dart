@@ -1,4 +1,11 @@
+import 'dart:io';
+
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/upload_app/domain/upload_app_model.dart';
+import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -11,27 +18,27 @@ class UploadAppController extends _$UploadAppController {
   @override
   UploadAppModel build() {
     final model = UploadAppModel(
-        currentPage: 0,
-        nextPage: false,
-        backPage: false,
-        screenshots: [],
-        avatartPath: '',
-        appName: '',
-        description: '',
-        category: '',
-        price: '',
-        appStoreUrl: '',
-        gPlayUrl: '',
-        storeValidate: false,
-        appInfoValidate: false,
-        appImageValidate: true,
-        appPriceValidate: false,
-        appCatchphrase: '',
-        nameLength: 0,
-        catchphraseLength: 0,
-        descriptionLength: 0,
-        didUpload: false,
-        isUploading: false);
+      currentPage: 0,
+      nextPage: false,
+      backPage: false,
+      screenshots: [],
+      avatarPath: '',
+      appName: '',
+      description: '',
+      price: '',
+      appStoreUrl: '',
+      gPlayUrl: '',
+      storeValidate: false,
+      appInfoValidate: false,
+      appImageValidate: true,
+      appPriceValidate: false,
+      appCatchphrase: '',
+      nameLength: 0,
+      catchphraseLength: 0,
+      descriptionLength: 0,
+      didUpload: false,
+      isUploading: false,
+    );
     return model;
   }
 
@@ -73,15 +80,16 @@ class UploadAppController extends _$UploadAppController {
     _validateAppInfo();
   }
 
-  void setAppCategory(String value) {
-    state = state.copyWith(category: value);
+  void setAppCategory(CategoryType value) {
+    state = state.copyWith(categoryType: value);
     _validateAppInfo();
   }
 
   void _validateAppInfo() {
     if (state.appName.trim().isNotEmpty &&
         state.appCatchphrase.trim().isNotEmpty &&
-        state.description.trim().isNotEmpty) {
+        state.description.trim().isNotEmpty &&
+        state.categoryType != null) {
       state = state.copyWith(appInfoValidate: true);
     } else {
       state = state.copyWith(appInfoValidate: false);
@@ -106,7 +114,7 @@ class UploadAppController extends _$UploadAppController {
   void setAvatar() async {
     final xFile = await _imagePicker.pickImage(source: ImageSource.gallery);
     if (xFile != null) {
-      state = state.copyWith(avatartPath: xFile.path);
+      state = state.copyWith(avatarPath: xFile.path);
       _validateAppImage();
     }
   }
@@ -129,14 +137,60 @@ class UploadAppController extends _$UploadAppController {
   }
 
   void _validateAppImage() {
-    if (state.avatartPath.isNotEmpty && state.screenshots.length >= 3) {
+    if (state.avatarPath.isNotEmpty && state.screenshots.length >= 3) {
       state = state.copyWith(appImageValidate: true);
     } else {
       state = state.copyWith(appImageValidate: false);
     }
   }
 
+  CollectionReference<AppModel> get _appRef {
+    return FirebaseFirestore.instance.collection('apps').withConverter(
+          fromFirestore: (snapshot, _) => AppModel.fromJson(snapshot.data()!),
+          toFirestore: (model, _) => model.toJson(),
+        );
+  }
+
   Future<void> uploadApp() async {
     state = state.copyWith(isUploading: true);
+    final uid = FirebaseAuth.instance.currentUser?.uid ?? '';
+    final doc = _appRef.doc();
+    List<String> imageUrl = [];
+    final storageRef = FirebaseStorage.instance.ref();
+    await Future.forEach(state.screenshots, (imagePath) async {
+      final imageRef =
+          storageRef.child(uid).child(doc.id).child(Utils.random());
+      await imageRef.putFile(
+        File(imagePath),
+        SettableMetadata(
+          contentType: "image/jpeg",
+        ),
+      );
+      final downloadUrl = await imageRef.getDownloadURL();
+      imageUrl.add(downloadUrl);
+    });
+    final avatarRef = storageRef.child(uid).child(doc.id).child(Utils.random());
+    await avatarRef.putFile(
+      File(state.avatarPath),
+      SettableMetadata(
+        contentType: "image/jpeg",
+      ),
+    );
+    final avatarUrl = await avatarRef.getDownloadURL();
+    final appModel = AppModel(
+      name: state.appName,
+      description: state.description,
+      iconUrl: avatarUrl,
+      price: state.priceValue,
+      id: doc.id,
+      banner: imageUrl,
+      createdAt: DateTime.now(),
+      ownerId: uid,
+      appStoreUrl: state.appStoreUrl,
+      catchphrase: state.appCatchphrase,
+      categoryType: state.categoryType,
+    );
+    await _appRef.add(appModel);
+    state = state.copyWith(didUpload: true);
   }
 }

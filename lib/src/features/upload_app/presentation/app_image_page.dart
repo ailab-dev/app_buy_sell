@@ -56,11 +56,11 @@ class AppImagePage extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        uploadController.avatartPath.isEmpty
+                        uploadController.avatarPath.isEmpty
                             ? Assets.images.imageDefault.svg()
                             : Image.file(
                                 File(
-                                  uploadController.avatartPath,
+                                  uploadController.avatarPath,
                                 ),
                                 width: 80,
                                 height: 80,
@@ -140,12 +140,19 @@ class AppImagePage extends HookConsumerWidget {
                       height: 10,
                     ),
                     if (uploadController.screenshots.isEmpty)
-                      SizedBox(
-                        width: double.infinity,
-                        child: AspectRatio(
-                          aspectRatio: 345 / 200,
-                          child: Assets.images.selectImage.svg(
-                            fit: BoxFit.fitWidth,
+                      GestureDetector(
+                        onTap: () {
+                          ref
+                              .read(uploadAppControllerProvider.notifier)
+                              .addScreenShots();
+                        },
+                        child: SizedBox(
+                          width: double.infinity,
+                          child: AspectRatio(
+                            aspectRatio: 345 / 200,
+                            child: Assets.images.selectImage.svg(
+                              fit: BoxFit.fitWidth,
+                            ),
                           ),
                         ),
                       ),

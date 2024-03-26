@@ -1,9 +1,12 @@
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppInfoPage extends HookConsumerWidget {
@@ -17,6 +20,11 @@ class AppInfoPage extends HookConsumerWidget {
     catchphraseController.text = uploadController.appCatchphrase;
     final desciptionController = useTextEditingController();
     desciptionController.text = uploadController.description;
+
+    final categoryController = useTextEditingController();
+
+    categoryController.text =
+        uploadController.categoryType?.typeName ?? '選択してください';
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -32,6 +40,7 @@ class AppInfoPage extends HookConsumerWidget {
               Expanded(
                 child: SingleChildScrollView(
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
                         'STEP1/3',
@@ -98,6 +107,11 @@ class AppInfoPage extends HookConsumerWidget {
                               .setAppName(value);
                         },
                         maxLength: 30,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: ColorsConstant.text,
+                        ),
                       ),
                       const SizedBox(
                         height: 15,
@@ -146,6 +160,11 @@ class AppInfoPage extends HookConsumerWidget {
                               .setAppCatchphrase(value);
                         },
                         maxLength: 50,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: ColorsConstant.text,
+                        ),
                       ),
                       const SizedBox(
                         height: 15,
@@ -196,6 +215,11 @@ class AppInfoPage extends HookConsumerWidget {
                               .setAppDescription(value);
                         },
                         maxLength: 250,
+                        style: const TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: ColorsConstant.text,
+                        ),
                       ),
                       const SizedBox(
                         height: 15,
@@ -216,22 +240,65 @@ class AppInfoPage extends HookConsumerWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      IgnorePointer(
-                        child: TextField(
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            hintText: '',
-                            hintStyle: const TextStyle(
+                      GestureDetector(
+                        behavior: HitTestBehavior.translucent,
+                        onTap: () {
+                          Utils.dismissKeyboard(context);
+                          showCupertinoModalPopup(
+                            context: context,
+                            builder: (BuildContext context) =>
+                                CupertinoActionSheet(
+                              actions: CategoryType.values
+                                  .map(
+                                    (e) => CupertinoActionSheetAction(
+                                      onPressed: () {
+                                        context.pop();
+                                        ref
+                                            .read(uploadAppControllerProvider
+                                                .notifier)
+                                            .setAppCategory(e);
+                                      },
+                                      child: Text(e.typeName),
+                                    ),
+                                  )
+                                  .toList(),
+                              cancelButton: TextButton(
+                                onPressed: () {
+                                  context.pop();
+                                },
+                                child: const Text(
+                                  'キャンセル',
+                                  style: TextStyle(
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        child: IgnorePointer(
+                          child: TextField(
+                            controller: categoryController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: '',
+                              hintStyle: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.w400,
+                                color: ColorsConstant.gray2,
+                              ),
+                              fillColor: ColorsConstant.gray,
+                              filled: true,
+                              suffixIcon: Assets.images.pick.svg(),
+                              suffixIconConstraints: const BoxConstraints(
+                                minWidth: 30,
+                                minHeight: 8,
+                              ),
+                            ),
+                            style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
-                              color: ColorsConstant.gray2,
-                            ),
-                            fillColor: ColorsConstant.gray,
-                            filled: true,
-                            suffixIcon: Assets.images.pick.svg(),
-                            suffixIconConstraints: const BoxConstraints(
-                              minWidth: 30,
-                              minHeight: 8,
+                              color: ColorsConstant.text,
                             ),
                           ),
                         ),

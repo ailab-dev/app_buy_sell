@@ -134,8 +134,11 @@ class HomePage extends ConsumerWidget {
         ),
       ),
       floatingActionButton: IconButton(
-        onPressed: () {
-          context.push('/upload-app');
+        onPressed: () async {
+          final didUpload = await context.push('/upload-app');
+          if (didUpload is bool && didUpload && context.mounted) {
+            ref.read(appListProvider.notifier).getApps();
+          }
         },
         icon: const Icon(
           Icons.add,
