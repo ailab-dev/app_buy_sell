@@ -1,25 +1,25 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'report_user_provider.dart';
+part of 'my_profile_provider.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$reportUserHash() => r'e2a06976a2a036a9f38c7dca47741302bc4edb8f';
+String _$myProfileHash() => r'cc6e712de6ffd17f5d7ddc25754d7c8e74487795';
 
-/// See also [ReportUser].
-@ProviderFor(ReportUser)
-final reportUserProvider =
-    AutoDisposeAsyncNotifierProvider<ReportUser, bool>.internal(
-  ReportUser.new,
-  name: r'reportUserProvider',
+/// See also [MyProfile].
+@ProviderFor(MyProfile)
+final myProfileProvider =
+    AutoDisposeAsyncNotifierProvider<MyProfile, UserModel?>.internal(
+  MyProfile.new,
+  name: r'myProfileProvider',
   debugGetCreateSourceHash:
-      const bool.fromEnvironment('dart.vm.product') ? null : _$reportUserHash,
+      const bool.fromEnvironment('dart.vm.product') ? null : _$myProfileHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$ReportUser = AutoDisposeAsyncNotifier<bool>;
+typedef _$MyProfile = AutoDisposeAsyncNotifier<UserModel?>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

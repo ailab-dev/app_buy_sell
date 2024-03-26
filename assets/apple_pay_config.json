@@ -1,0 +1,23 @@
+{
+  "provider": "apple_pay",
+  "data": {
+    "merchantIdentifier": "merchant.com.ailab.appBuySell.app",
+    "displayName": "",
+    "merchantCapabilities": [
+      "3DS",
+      "debit",
+      "credit"
+    ],
+    "supportedNetworks": [
+      "amex",
+      "visa",
+      "discover",
+      "masterCard"
+    ],
+    "countryCode": "JP",
+    "currencyCode": "JPY",
+    "requiredBillingContactFields": [],
+    "requiredShippingContactFields": [],
+    "shippingMethods": []
+  }
+}

@@ -1,45 +1,30 @@
-import 'package:app_buy_sell/src/utils/utils.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:json_annotation/json_annotation.dart';
+import 'package:app_buy_sell/src/features/setting/domain/setting_model.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_model.g.dart';
 
-@JsonSerializable()
-class UserModel {
-  String id;
-  String userName;
+part 'user_model.freezed.dart';
 
-  @JsonKey(
-    fromJson: Utils.fromTimestamp,
-    toJson: Utils.toTimestamp,
-  )
-  DateTime? createdAt;
+@freezed
+class UserModel with _$UserModel {
+  const UserModel._();
+  // ignore: invalid_annotation_target
+  @JsonSerializable(explicitToJson: true)
+  factory UserModel({
+    required String id,
+    required String userName,
+    @Default('') String description,
+    @Default('') String nickName,
+    @Default('') String twitter,
+    @Default('') String facebook,
+    @Default('') String github,
+    @Default('') String portfolio,
+    @Default('') String instagram,
+    String? country,
+    SettingModel? setting,
 
-  @JsonKey(defaultValue: '')
-  String description = '';
-
-  @JsonKey(defaultValue: '')
-  String nickName = '';
-
-  @JsonKey(defaultValue: '')
-  String twitter = '';
-  @JsonKey(defaultValue: '')
-  String facebook = '';
-  @JsonKey(defaultValue: '')
-  String github = '';
-  @JsonKey(defaultValue: '')
-  String portfolio = '';
-
-  @JsonKey(defaultValue: '')
-  String instagram = '';
-
-  UserModel(
-    this.id,
-    this.userName,
-  );
+  }) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
-
-  Map<String, dynamic> toJson() => _$UserModelToJson(this);
 }

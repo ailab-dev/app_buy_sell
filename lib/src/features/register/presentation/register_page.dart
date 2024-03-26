@@ -1,5 +1,6 @@
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/constants/constant.dart';
 import 'package:app_buy_sell/src/features/login/email_validate_provider.dart';
 import 'package:app_buy_sell/src/features/login/pass_validate_provider.dart';
 import 'package:app_buy_sell/src/features/register/register_acc_provider.dart';
@@ -9,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class RegisterPage extends HookConsumerWidget {
   const RegisterPage({super.key});
@@ -44,7 +46,7 @@ class RegisterPage extends HookConsumerWidget {
         body: GestureDetector(
           behavior: HitTestBehavior.translucent,
           onTap: () {
-            Utils.dismisKeyboard(context);
+            Utils.dismissKeyboard(context);
           },
           child: SafeArea(
             child: Padding(
@@ -150,7 +152,9 @@ class RegisterPage extends HookConsumerWidget {
                             fontSize: 12,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () async {},
+                            ..onTap = () async {
+                              await launchUrlString(Constant.termUrl);
+                            },
                         ),
                         const TextSpan(
                           text: '及び',
@@ -167,7 +171,9 @@ class RegisterPage extends HookConsumerWidget {
                             fontSize: 12,
                           ),
                           recognizer: TapGestureRecognizer()
-                            ..onTap = () async {},
+                            ..onTap = () async {
+                              await launchUrlString(Constant.policyUrl);
+                            },
                         ),
                         const TextSpan(
                           text: 'に同意の上、ご登録へお進みください。',
@@ -187,7 +193,7 @@ class RegisterPage extends HookConsumerWidget {
                     height: 54,
                     child: TextButton(
                       onPressed: () async {
-                        Utils.dismisKeyboard(context);
+                        Utils.dismissKeyboard(context);
                         ref
                             .read(passValidateProvider.notifier)
                             .validate(passwordController.text);

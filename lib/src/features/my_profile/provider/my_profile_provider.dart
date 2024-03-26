@@ -3,7 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-part 'my_profile_privder.g.dart';
+part 'my_profile_provider.g.dart';
 
 @riverpod
 class MyProfile extends _$MyProfile {
@@ -23,5 +23,11 @@ class MyProfile extends _$MyProfile {
           fromFirestore: (snapshot, _) => UserModel.fromJson(snapshot.data()!),
           toFirestore: (model, _) => model.toJson(),
         );
+  }
+
+  Future<void> loadInfo() async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final ref = await rootRef.doc(uid).get();
+    state = AsyncData(ref.data());
   }
 }
