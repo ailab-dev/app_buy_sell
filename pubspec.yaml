@@ -13,6 +13,7 @@ dependencies:
   firebase_auth: ^4.14.1
   firebase_core: ^2.24.2
   firebase_messaging: ^14.7.17
+  firebase_storage: ^11.6.7
   flutter:
     sdk: flutter
   flutter_hooks: ^0.20.4
@@ -22,8 +23,10 @@ dependencies:
   freezed_annotation: ^2.4.1
   go_router: ^13.1.0
   hooks_riverpod: ^2.4.9
+  image_picker: ^1.0.7
   intl: ^0.18.1
   json_annotation: ^4.8.1
+  pattern_formatter: ^3.0.0
   pay: ^1.1.2
   riverpod_annotation: ^2.3.3
   url_launcher: ^6.2.1
