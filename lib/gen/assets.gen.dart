@@ -27,8 +27,15 @@ class $AssetsImagesGen {
   /// File path: assets/images/ad_group.svg
   SvgGenImage get adGroup => const SvgGenImage('assets/images/ad_group.svg');
 
+  /// File path: assets/images/add_photo_alternate.svg
+  SvgGenImage get addPhotoAlternate =>
+      const SvgGenImage('assets/images/add_photo_alternate.svg');
+
   /// File path: assets/images/app.png
   AssetGenImage get app => const AssetGenImage('assets/images/app.png');
+
+  /// File path: assets/images/delete.svg
+  SvgGenImage get delete => const SvgGenImage('assets/images/delete.svg');
 
   /// File path: assets/images/edit_square.svg
   SvgGenImage get editSquare =>
@@ -39,6 +46,10 @@ class $AssetsImagesGen {
 
   /// File path: assets/images/github.svg
   SvgGenImage get github => const SvgGenImage('assets/images/github.svg');
+
+  /// File path: assets/images/imageDefault.svg
+  SvgGenImage get imageDefault =>
+      const SvgGenImage('assets/images/imageDefault.svg');
 
   /// File path: assets/images/instagram.png
   AssetGenImage get instagram =>
@@ -69,6 +80,10 @@ class $AssetsImagesGen {
   SvgGenImage get reportFinish =>
       const SvgGenImage('assets/images/report_finish.svg');
 
+  /// File path: assets/images/selectImage.svg
+  SvgGenImage get selectImage =>
+      const SvgGenImage('assets/images/selectImage.svg');
+
   /// File path: assets/images/settings.svg
   SvgGenImage get settings => const SvgGenImage('assets/images/settings.svg');
 
@@ -81,10 +96,13 @@ class $AssetsImagesGen {
         gPay,
         googlePay,
         adGroup,
+        addPhotoAlternate,
         app,
+        delete,
         editSquare,
         facebook,
         github,
+        imageDefault,
         instagram,
         logoPng,
         logoSvg,
@@ -94,6 +112,7 @@ class $AssetsImagesGen {
         purchase,
         report,
         reportFinish,
+        selectImage,
         settings,
         x
       ];

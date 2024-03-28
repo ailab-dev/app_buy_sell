@@ -32,15 +32,10 @@ class AppList extends _$AppList {
   Future<(List<AppModel>, DocumentSnapshot<AppModel>?)> _requestApps({
     DocumentSnapshot<AppModel>? latestDoc,
     int limit = Constant.limit,
-    bool includeDelete = false,
   }) async {
     DocumentSnapshot<AppModel>? lateDocument;
 
     Query<AppModel> query = _rootRef.limit(limit);
-
-    if (!includeDelete) {
-      query = query.where('delete', isEqualTo: false);
-    }
     query = query.orderBy('createdAt', descending: true);
 
     if (latestDoc != null) {

@@ -105,7 +105,7 @@ class MyProfilePage extends HookConsumerWidget {
                 onPressed: () async {
                   await FirebaseAuth.instance.signOut();
                   if (context.mounted) {
-                    context.go('/login');
+                    context.go('/start');
                   }
                 },
               )
