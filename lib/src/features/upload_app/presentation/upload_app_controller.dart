@@ -190,7 +190,7 @@ class UploadAppController extends _$UploadAppController {
       catchphrase: state.appCatchphrase,
       categoryType: state.categoryType,
     );
-    await _appRef.add(appModel);
+    await doc.set(appModel);
     state = state.copyWith(didUpload: true);
   }
 }

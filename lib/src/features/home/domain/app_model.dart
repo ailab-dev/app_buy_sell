@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:app_buy_sell/src/utils/timestamp_converter.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -19,8 +21,8 @@ class AppModel with _$AppModel {
     String? appStoreUrl,
     String? gPlayUrl,
     required List<String> banner,
-    bool? didPay,
-    bool? paySuccess,
+    @JsonKey(includeFromJson: false, includeToJson: false) didPay,
+    @JsonKey(includeFromJson: false, includeToJson: false) bool? paySuccess,
     @TimestampConverter() required DateTime createdAt,
     @Default('') String ownerId,
     @Default('') String catchphrase,

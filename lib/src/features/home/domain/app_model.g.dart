@@ -17,8 +17,6 @@ _$AppModelImpl _$$AppModelImplFromJson(Map<String, dynamic> json) =>
       gPlayUrl: json['gPlayUrl'] as String?,
       banner:
           (json['banner'] as List<dynamic>).map((e) => e as String).toList(),
-      didPay: json['didPay'] as bool?,
-      paySuccess: json['paySuccess'] as bool?,
       createdAt:
           const TimestampConverter().fromJson(json['createdAt'] as Timestamp),
       ownerId: json['ownerId'] as String? ?? '',
@@ -37,8 +35,6 @@ Map<String, dynamic> _$$AppModelImplToJson(_$AppModelImpl instance) =>
       'appStoreUrl': instance.appStoreUrl,
       'gPlayUrl': instance.gPlayUrl,
       'banner': instance.banner,
-      'didPay': instance.didPay,
-      'paySuccess': instance.paySuccess,
       'createdAt': const TimestampConverter().toJson(instance.createdAt),
       'ownerId': instance.ownerId,
       'catchphrase': instance.catchphrase,
