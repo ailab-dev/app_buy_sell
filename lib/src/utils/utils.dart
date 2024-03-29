@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -51,17 +53,19 @@ class Utils {
     );
   }
 
-  static String appStoreUrl(String? appId) {
-    if (appId != null) {
-      return 'https://apps.apple.com/jp/app/id$appId';
-    }
-    return '';
-  }
+  static String random({int length = 10}) {
+    const chars =
+        'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+    Random rnd = Random();
 
-  static String googlePlayUrl(String? appId) {
-    if (appId != null) {
-      return 'https://play.google.com/store/apps/details?id=$appId';
-    }
-    return '';
+    final random = String.fromCharCodes(
+      Iterable.generate(
+        length,
+        (_) => chars.codeUnitAt(
+          rnd.nextInt(chars.length),
+        ),
+      ),
+    );
+    return random;
   }
 }
