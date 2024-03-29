@@ -29,7 +29,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.example.app_buy_sell"
+    namespace "com.ailab.appBuySell"
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
