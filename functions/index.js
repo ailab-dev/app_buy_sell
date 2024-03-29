@@ -68,3 +68,52 @@ async function pushNotification(user, newApp) {
 
     admin.messaging().send(payload);
 }
+
+exports.pushNewPurchase = onDocumentCreated('users/{userId}/app/{appId}', async (event) => {
+    const snapshot = event.data;
+    if (!snapshot) {
+        return;
+    }
+    const userId = event.params.userId;
+    const appId = event.params.appId;
+    const userQuery = admin.firestore().collection('users').doc(userId);
+    const user = (await userQuery.get()).data();
+
+    const appQuery = admin.firestore().collection('apps').doc(appId);
+    const app = (await appQuery.get()).data()
+
+    const ownerQuery = admin.firestore().collection('users').doc(app.ownerId);
+    const owner = (await ownerQuery.get()).data();
+
+    const docOwner = admin.firestore().collection('users').doc(owner.id).collection('notification').doc();
+    const notificationForOwner = {
+        'type': 'purchase',
+        'id': docOwner.id,
+        'content': `${user.userName}さんが購入しました。`,
+        'title': 'アプリを購入',
+        'iconUrl': app.iconUrl,
+        'appId': app.id,
+        'appName': app.name,
+        'userId': user.id,
+        'userName': user.userName,
+        'createdAt': FieldValue.serverTimestamp(),
+        'read': false,
+    };
+    await docOwner.set(notificationForOwner);
+
+    const docPurchaser = admin.firestore().collection('users').doc(user.id).collection('notification').doc();
+    const notificationForPurchaser = {
+        'type': 'purchase',
+        'id': docPurchaser.id,
+        'content': '購入完了しました。',
+        'title': 'アプリを購入',
+        'iconUrl': app.iconUrl,
+        'appId': app.id,
+        'appName': app.name,
+        'userId': owner.id,
+        'userName': owner.userName,
+        'createdAt': FieldValue.serverTimestamp(),
+        'read': false,
+    };
+    await docPurchaser.set(notificationForPurchaser);
+});
