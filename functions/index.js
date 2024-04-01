@@ -43,30 +43,32 @@ async function pushNotification(user, newApp) {
     };
     await doc.set(notification);
 
-    const body = {
-        'type': 'newApp',
-        'id': doc.id,
-        'content': '新しいアプリが登録されました',
-        'title': '新しいアプリ',
-        'iconUrl': newApp.iconUrl,
-        'appId': newApp.id,
-        'appName': newApp.name,
-        'userId': newApp.ownerId,
-        'userName': owner.userName,
-    };
+    if (user.fcmToken && user.fcmToken != '') {
+        const body = {
+            'type': 'newApp',
+            'id': doc.id,
+            'content': '新しいアプリが登録されました',
+            'title': '新しいアプリ',
+            'iconUrl': newApp.iconUrl,
+            'appId': newApp.id,
+            'appName': newApp.name,
+            'userId': newApp.ownerId,
+            'userName': owner.userName,
+        };
+        const payload = {
+            token: user.fcmToken,
+            notification: {
+                title: '新しいアプリ',
+                body: '新しいアプリが登録されました'
+            },
+            data: {
+                body: JSON.stringify(body),
+            }
+        };
 
-    const payload = {
-        token: user.fcmToken,
-        notification: {
-            title: '新しいアプリ',
-            body: '新しいアプリが登録されました'
-        },
-        data: {
-            body: JSON.stringify(body),
-        }
-    };
+        admin.messaging().send(payload);
+    }
 
-    admin.messaging().send(payload);
 }
 
 exports.pushNewPurchase = onDocumentCreated('users/{userId}/app/{appId}', async (event) => {
@@ -100,6 +102,33 @@ exports.pushNewPurchase = onDocumentCreated('users/{userId}/app/{appId}', async 
         'read': false,
     };
     await docOwner.set(notificationForOwner);
+
+    if (owner.fcmToken && owner.fcmToken != '') {
+        const body = {
+            'type': 'purchase',
+            'id': docOwner.id,
+            'content': `${user.userName}さんが購入しました。`,
+            'title': 'アプリを購入',
+            'iconUrl': app.iconUrl,
+            'appId': app.id,
+            'appName': app.name,
+            'userId': user.id,
+            'userName': user.userName,
+        };
+
+        const payload = {
+            token: owner.fcmToken,
+            notification: {
+                title: 'アプリを購入',
+                body: `${user.userName}さんが購入しました。`
+            },
+            data: {
+                body: JSON.stringify(body),
+            }
+        };
+
+        admin.messaging().send(payload);
+    }
 
     const docPurchaser = admin.firestore().collection('users').doc(user.id).collection('notification').doc();
     const notificationForPurchaser = {
