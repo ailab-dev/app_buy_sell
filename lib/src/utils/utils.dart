@@ -19,7 +19,7 @@ class Utils {
           error.code == 'wrong-password') {
         content = 'メールアドレスまたはパスワードが間違っています。';
       } else if (error.code == 'email-already-in-use') {
-        content = 'メールが使用されました。';
+        content = 'このメールアドレスはすでに登録されています。';
       } else if (error.code == 'invalid-email') {
         content = 'メール アドレスの形式が正しくありません。';
       }

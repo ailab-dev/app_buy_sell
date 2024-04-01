@@ -18,6 +18,9 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       portfolio: json['portfolio'] as String? ?? '',
       instagram: json['instagram'] as String? ?? '',
       country: json['country'] as String?,
+      setting: json['setting'] == null
+          ? null
+          : SettingModel.fromJson(json['setting'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -32,4 +35,5 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'portfolio': instance.portfolio,
       'instagram': instance.instagram,
       'country': instance.country,
+      'setting': instance.setting?.toJson(),
     };

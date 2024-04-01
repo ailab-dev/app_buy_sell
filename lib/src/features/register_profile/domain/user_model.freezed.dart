@@ -30,6 +30,7 @@ mixin _$UserModel {
   String get portfolio => throw _privateConstructorUsedError;
   String get instagram => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
+  SettingModel? get setting => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -52,7 +53,10 @@ abstract class $UserModelCopyWith<$Res> {
       String github,
       String portfolio,
       String instagram,
-      String? country});
+      String? country,
+      SettingModel? setting});
+
+  $SettingModelCopyWith<$Res>? get setting;
 }
 
 /// @nodoc
@@ -78,6 +82,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? portfolio = null,
     Object? instagram = null,
     Object? country = freezed,
+    Object? setting = freezed,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -120,7 +125,23 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String?,
+      setting: freezed == setting
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as SettingModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SettingModelCopyWith<$Res>? get setting {
+    if (_value.setting == null) {
+      return null;
+    }
+
+    return $SettingModelCopyWith<$Res>(_value.setting!, (value) {
+      return _then(_value.copyWith(setting: value) as $Val);
+    });
   }
 }
 
@@ -142,7 +163,11 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String github,
       String portfolio,
       String instagram,
-      String? country});
+      String? country,
+      SettingModel? setting});
+
+  @override
+  $SettingModelCopyWith<$Res>? get setting;
 }
 
 /// @nodoc
@@ -166,6 +191,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? portfolio = null,
     Object? instagram = null,
     Object? country = freezed,
+    Object? setting = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -208,12 +234,17 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String?,
+      setting: freezed == setting
+          ? _value.setting
+          : setting // ignore: cast_nullable_to_non_nullable
+              as SettingModel?,
     ));
   }
 }
 
 /// @nodoc
-@JsonSerializable()
+
+@JsonSerializable(explicitToJson: true)
 class _$UserModelImpl extends _UserModel {
   _$UserModelImpl(
       {required this.id,
@@ -225,7 +256,8 @@ class _$UserModelImpl extends _UserModel {
       this.github = '',
       this.portfolio = '',
       this.instagram = '',
-      this.country})
+      this.country,
+      this.setting})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -258,10 +290,12 @@ class _$UserModelImpl extends _UserModel {
   final String instagram;
   @override
   final String? country;
+  @override
+  final SettingModel? setting;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram, country: $country)';
+    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram, country: $country, setting: $setting)';
   }
 
   @override
@@ -284,13 +318,25 @@ class _$UserModelImpl extends _UserModel {
                 other.portfolio == portfolio) &&
             (identical(other.instagram, instagram) ||
                 other.instagram == instagram) &&
-            (identical(other.country, country) || other.country == country));
+            (identical(other.country, country) || other.country == country) &&
+            (identical(other.setting, setting) || other.setting == setting));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, userName, description,
-      nickName, twitter, facebook, github, portfolio, instagram, country);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      userName,
+      description,
+      nickName,
+      twitter,
+      facebook,
+      github,
+      portfolio,
+      instagram,
+      country,
+      setting);
 
   @JsonKey(ignore: true)
   @override
@@ -317,7 +363,8 @@ abstract class _UserModel extends UserModel {
       final String github,
       final String portfolio,
       final String instagram,
-      final String? country}) = _$UserModelImpl;
+      final String? country,
+      final SettingModel? setting}) = _$UserModelImpl;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -343,6 +390,8 @@ abstract class _UserModel extends UserModel {
   String get instagram;
   @override
   String? get country;
+  @override
+  SettingModel? get setting;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>

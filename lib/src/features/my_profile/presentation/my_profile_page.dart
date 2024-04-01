@@ -73,7 +73,9 @@ class MyProfilePage extends HookConsumerWidget {
                     )
                   ],
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  context.push('/setting');
+                },
               ),
               const Divider(
                 indent: 0,
