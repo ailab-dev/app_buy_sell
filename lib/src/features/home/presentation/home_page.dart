@@ -62,7 +62,7 @@ class HomePage extends ConsumerWidget {
                       final item = data[index];
                       return InkWell(
                         onTap: () {
-                          context.push('/product', extra: item);
+                          context.push('/product', extra: item.id);
                         },
                         child: Padding(
                           padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),

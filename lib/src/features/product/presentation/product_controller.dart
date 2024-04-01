@@ -15,43 +15,50 @@ part 'product_controller.g.dart';
 @riverpod
 class ProductController extends _$ProductController {
   @override
-  FutureOr<AppModel> build(AppModel appModel) async {
-    final didPay = await _loadPay(appModel);
-    final app = appModel.copyWith(didPay: didPay);
+  FutureOr<AppModel?> build(String appId) async {
+    final snapshot = await _rootAppRef.doc(appId).get();
+    var app = snapshot.data();
+    if (app?.ownerId == FirebaseAuth.instance.currentUser?.uid) {
+      app = app?.copyWith(didPay: true);
+    }
     return app;
   }
 
-  Future<bool> _loadPay(AppModel appModel) async {
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    final snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('app')
-        .doc(appModel.id)
-        .get();
-    if (snapshot.data() != null) {
-      return true;
-    } else {
-      return false;
+  CollectionReference<AppModel> get _rootAppRef {
+    return FirebaseFirestore.instance.collection('apps').withConverter(
+          fromFirestore: (snapshot, _) => AppModel.fromJson(snapshot.data()!),
+          toFirestore: (model, _) => model.toJson(),
+        );
+  }
+
+  Future<void> pay() async {
+    final appModel = state.value;
+    if (appModel != null) {
+      final paymentItems = [
+        PaymentItem(
+          label: '購入するアプリ',
+          amount: appModel.price,
+          status: PaymentItemStatus.final_price,
+        )
+      ];
+      if (Platform.isIOS) {
+        final result = await PayService(ApplePayImpl()).pay(paymentItems);
+        final applePayment = ApplePaymentModel.fromJson(result);
+        await saveApplePayment(applePayment, appModel);
+      } else {
+        final result = await PayService(GoolePayImpl()).pay(paymentItems);
+        final goolePayment = GooglePaymentModel.fromJson(result);
+        await saveGooglePayment(goolePayment, appModel);
+      }
+      await _updateAppOwner();
     }
   }
 
-  Future<void> pay(AppModel appModel) async {
-    final paymentItems = [
-      PaymentItem(
-        label: '購入するアプリ',
-        amount: appModel.price,
-        status: PaymentItemStatus.final_price,
-      )
-    ];
-    if (Platform.isIOS) {
-      final result = await PayService(ApplePayImpl()).pay(paymentItems);
-      final applePayment = ApplePaymentModel.fromJson(result);
-      await saveApplePayment(applePayment, appModel);
-    } else {
-      final result = await PayService(GoolePayImpl()).pay(paymentItems);
-      final goolePayment = GooglePaymentModel.fromJson(result);
-      await saveGooglePayment(goolePayment, appModel);
+  Future<void> _updateAppOwner() async {
+    final appId = state.value?.id;
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    if (appId != null) {
+      await _rootAppRef.doc(appId).update({'ownerId': uid});
     }
   }
 

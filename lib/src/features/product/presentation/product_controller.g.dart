@@ -6,7 +6,7 @@ part of 'product_controller.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$productControllerHash() => r'8b9a1aff368a388c1373a91dd2e39095f42f790f';
+String _$productControllerHash() => r'010caac8d063aab47e8299d974e73750ae92cf5c';
 
 /// Copied from Dart SDK
 class _SystemHash {
@@ -30,11 +30,11 @@ class _SystemHash {
 }
 
 abstract class _$ProductController
-    extends BuildlessAutoDisposeAsyncNotifier<AppModel> {
-  late final AppModel appModel;
+    extends BuildlessAutoDisposeAsyncNotifier<AppModel?> {
+  late final String appId;
 
-  FutureOr<AppModel> build(
-    AppModel appModel,
+  FutureOr<AppModel?> build(
+    String appId,
   );
 }
 
@@ -43,16 +43,16 @@ abstract class _$ProductController
 const productControllerProvider = ProductControllerFamily();
 
 /// See also [ProductController].
-class ProductControllerFamily extends Family<AsyncValue<AppModel>> {
+class ProductControllerFamily extends Family<AsyncValue<AppModel?>> {
   /// See also [ProductController].
   const ProductControllerFamily();
 
   /// See also [ProductController].
   ProductControllerProvider call(
-    AppModel appModel,
+    String appId,
   ) {
     return ProductControllerProvider(
-      appModel,
+      appId,
     );
   }
 
@@ -61,7 +61,7 @@ class ProductControllerFamily extends Family<AsyncValue<AppModel>> {
     covariant ProductControllerProvider provider,
   ) {
     return call(
-      provider.appModel,
+      provider.appId,
     );
   }
 
@@ -82,12 +82,12 @@ class ProductControllerFamily extends Family<AsyncValue<AppModel>> {
 
 /// See also [ProductController].
 class ProductControllerProvider
-    extends AutoDisposeAsyncNotifierProviderImpl<ProductController, AppModel> {
+    extends AutoDisposeAsyncNotifierProviderImpl<ProductController, AppModel?> {
   /// See also [ProductController].
   ProductControllerProvider(
-    AppModel appModel,
+    String appId,
   ) : this._internal(
-          () => ProductController()..appModel = appModel,
+          () => ProductController()..appId = appId,
           from: productControllerProvider,
           name: r'productControllerProvider',
           debugGetCreateSourceHash:
@@ -97,7 +97,7 @@ class ProductControllerProvider
           dependencies: ProductControllerFamily._dependencies,
           allTransitiveDependencies:
               ProductControllerFamily._allTransitiveDependencies,
-          appModel: appModel,
+          appId: appId,
         );
 
   ProductControllerProvider._internal(
@@ -107,17 +107,17 @@ class ProductControllerProvider
     required super.allTransitiveDependencies,
     required super.debugGetCreateSourceHash,
     required super.from,
-    required this.appModel,
+    required this.appId,
   }) : super.internal();
 
-  final AppModel appModel;
+  final String appId;
 
   @override
-  FutureOr<AppModel> runNotifierBuild(
+  FutureOr<AppModel?> runNotifierBuild(
     covariant ProductController notifier,
   ) {
     return notifier.build(
-      appModel,
+      appId,
     );
   }
 
@@ -126,49 +126,49 @@ class ProductControllerProvider
     return ProviderOverride(
       origin: this,
       override: ProductControllerProvider._internal(
-        () => create()..appModel = appModel,
+        () => create()..appId = appId,
         from: from,
         name: null,
         dependencies: null,
         allTransitiveDependencies: null,
         debugGetCreateSourceHash: null,
-        appModel: appModel,
+        appId: appId,
       ),
     );
   }
 
   @override
-  AutoDisposeAsyncNotifierProviderElement<ProductController, AppModel>
+  AutoDisposeAsyncNotifierProviderElement<ProductController, AppModel?>
       createElement() {
     return _ProductControllerProviderElement(this);
   }
 
   @override
   bool operator ==(Object other) {
-    return other is ProductControllerProvider && other.appModel == appModel;
+    return other is ProductControllerProvider && other.appId == appId;
   }
 
   @override
   int get hashCode {
     var hash = _SystemHash.combine(0, runtimeType.hashCode);
-    hash = _SystemHash.combine(hash, appModel.hashCode);
+    hash = _SystemHash.combine(hash, appId.hashCode);
 
     return _SystemHash.finish(hash);
   }
 }
 
-mixin ProductControllerRef on AutoDisposeAsyncNotifierProviderRef<AppModel> {
-  /// The parameter `appModel` of this provider.
-  AppModel get appModel;
+mixin ProductControllerRef on AutoDisposeAsyncNotifierProviderRef<AppModel?> {
+  /// The parameter `appId` of this provider.
+  String get appId;
 }
 
 class _ProductControllerProviderElement
-    extends AutoDisposeAsyncNotifierProviderElement<ProductController, AppModel>
-    with ProductControllerRef {
+    extends AutoDisposeAsyncNotifierProviderElement<ProductController,
+        AppModel?> with ProductControllerRef {
   _ProductControllerProviderElement(super.provider);
 
   @override
-  AppModel get appModel => (origin as ProductControllerProvider).appModel;
+  String get appId => (origin as ProductControllerProvider).appId;
 }
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member, invalid_use_of_visible_for_testing_member

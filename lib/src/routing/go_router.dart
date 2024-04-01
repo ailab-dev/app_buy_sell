@@ -1,5 +1,4 @@
 import 'package:app_buy_sell/src/features/edit_profile/presentation/edit_profile_page.dart';
-import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/home/presentation/home_page.dart';
 import 'package:app_buy_sell/src/features/login/presentation/login_page.dart';
 import 'package:app_buy_sell/src/features/notification/presentation/notification_page.dart';
@@ -79,9 +78,9 @@ final router = GoRouter(
     GoRoute(
       path: '/product',
       builder: (BuildContext context, GoRouterState state) {
-        final appModel = state.extra as AppModel;
+        final appId = state.extra as String;
         return ProductPage(
-          appModel: appModel,
+          appId: appId,
         );
       },
     ),
