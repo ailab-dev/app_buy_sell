@@ -1,4 +1,4 @@
-package com.example.app_buy_sell
+package com.app_buy_sell.release
 
 import io.flutter.embedding.android.FlutterActivity
 
