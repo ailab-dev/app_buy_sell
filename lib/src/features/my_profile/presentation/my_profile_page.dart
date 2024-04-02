@@ -140,13 +140,18 @@ class MyProfilePage extends HookConsumerWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          userProvider.value?.userName ?? '',
-                          style: const TextStyle(
-                            color: ColorsConstant.text,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
+                        Expanded(
+                          child: Text(
+                            userProvider.value?.userName ?? '',
+                            style: const TextStyle(
+                              color: ColorsConstant.text,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
                           ),
+                        ),
+                        const SizedBox(
+                          width: 8,
                         ),
                         TextButton(
                           onPressed: () async {

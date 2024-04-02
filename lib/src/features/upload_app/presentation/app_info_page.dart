@@ -15,11 +15,18 @@ class AppInfoPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final uploadController = ref.watch(uploadAppControllerProvider);
     final nameController = useTextEditingController();
-    nameController.text = uploadController.appName;
+
+    if (nameController.text != uploadController.appName) {
+      nameController.text = uploadController.appName;
+    }
     final catchphraseController = useTextEditingController();
-    catchphraseController.text = uploadController.appCatchphrase;
+    if (catchphraseController.text != uploadController.appCatchphrase) {
+      catchphraseController.text = uploadController.appCatchphrase;
+    }
     final desciptionController = useTextEditingController();
-    desciptionController.text = uploadController.description;
+    if (desciptionController.text != uploadController.description) {
+      desciptionController.text = uploadController.description;
+    }
 
     final categoryController = useTextEditingController();
 

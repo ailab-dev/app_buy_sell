@@ -15,7 +15,9 @@ class AppPricePage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final uploadController = ref.watch(uploadAppControllerProvider);
     final priceController = useTextEditingController();
-    priceController.text = uploadController.price;
+    if (priceController.text != uploadController.price) {
+      priceController.text = uploadController.price;
+    }
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
