@@ -21,7 +21,9 @@ class AppModel with _$AppModel {
     String? appStoreUrl,
     String? gPlayUrl,
     required List<String> banner,
-    @JsonKey(includeFromJson: false, includeToJson: false) didPay,
+    @JsonKey(includeFromJson: false, includeToJson: false)
+    @Default(false)
+    bool didPay,
     @JsonKey(includeFromJson: false, includeToJson: false) bool? paySuccess,
     @TimestampConverter() required DateTime createdAt,
     @Default('') String ownerId,

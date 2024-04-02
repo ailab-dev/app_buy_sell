@@ -29,7 +29,7 @@ mixin _$AppModel {
   String? get gPlayUrl => throw _privateConstructorUsedError;
   List<String> get banner => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  dynamic get didPay => throw _privateConstructorUsedError;
+  bool get didPay => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool? get paySuccess => throw _privateConstructorUsedError;
   @TimestampConverter()
@@ -58,7 +58,7 @@ abstract class $AppModelCopyWith<$Res> {
       String? appStoreUrl,
       String? gPlayUrl,
       List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false) dynamic didPay,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool didPay,
       @JsonKey(includeFromJson: false, includeToJson: false) bool? paySuccess,
       @TimestampConverter() DateTime createdAt,
       String ownerId,
@@ -87,7 +87,7 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
     Object? appStoreUrl = freezed,
     Object? gPlayUrl = freezed,
     Object? banner = null,
-    Object? didPay = freezed,
+    Object? didPay = null,
     Object? paySuccess = freezed,
     Object? createdAt = null,
     Object? ownerId = null,
@@ -127,10 +127,10 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.banner
           : banner // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      didPay: freezed == didPay
+      didPay: null == didPay
           ? _value.didPay
           : didPay // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as bool,
       paySuccess: freezed == paySuccess
           ? _value.paySuccess
           : paySuccess // ignore: cast_nullable_to_non_nullable
@@ -172,7 +172,7 @@ abstract class _$$AppModelImplCopyWith<$Res>
       String? appStoreUrl,
       String? gPlayUrl,
       List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false) dynamic didPay,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool didPay,
       @JsonKey(includeFromJson: false, includeToJson: false) bool? paySuccess,
       @TimestampConverter() DateTime createdAt,
       String ownerId,
@@ -199,7 +199,7 @@ class __$$AppModelImplCopyWithImpl<$Res>
     Object? appStoreUrl = freezed,
     Object? gPlayUrl = freezed,
     Object? banner = null,
-    Object? didPay = freezed,
+    Object? didPay = null,
     Object? paySuccess = freezed,
     Object? createdAt = null,
     Object? ownerId = null,
@@ -239,7 +239,10 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value._banner
           : banner // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      didPay: freezed == didPay ? _value.didPay! : didPay,
+      didPay: null == didPay
+          ? _value.didPay
+          : didPay // ignore: cast_nullable_to_non_nullable
+              as bool,
       paySuccess: freezed == paySuccess
           ? _value.paySuccess
           : paySuccess // ignore: cast_nullable_to_non_nullable
@@ -276,7 +279,8 @@ class _$AppModelImpl extends _AppModel {
       this.appStoreUrl,
       this.gPlayUrl,
       required final List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false) this.didPay,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.didPay = false,
       @JsonKey(includeFromJson: false, includeToJson: false) this.paySuccess,
       @TimestampConverter() required this.createdAt,
       this.ownerId = '',
@@ -312,7 +316,7 @@ class _$AppModelImpl extends _AppModel {
 
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final dynamic didPay;
+  final bool didPay;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   final bool? paySuccess;
@@ -349,7 +353,7 @@ class _$AppModelImpl extends _AppModel {
             (identical(other.gPlayUrl, gPlayUrl) ||
                 other.gPlayUrl == gPlayUrl) &&
             const DeepCollectionEquality().equals(other._banner, _banner) &&
-            const DeepCollectionEquality().equals(other.didPay, didPay) &&
+            (identical(other.didPay, didPay) || other.didPay == didPay) &&
             (identical(other.paySuccess, paySuccess) ||
                 other.paySuccess == paySuccess) &&
             (identical(other.createdAt, createdAt) ||
@@ -373,7 +377,7 @@ class _$AppModelImpl extends _AppModel {
       appStoreUrl,
       gPlayUrl,
       const DeepCollectionEquality().hash(_banner),
-      const DeepCollectionEquality().hash(didPay),
+      didPay,
       paySuccess,
       createdAt,
       ownerId,
@@ -404,8 +408,7 @@ abstract class _AppModel extends AppModel {
       final String? appStoreUrl,
       final String? gPlayUrl,
       required final List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      final dynamic didPay,
+      @JsonKey(includeFromJson: false, includeToJson: false) final bool didPay,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final bool? paySuccess,
       @TimestampConverter() required final DateTime createdAt,
@@ -435,7 +438,7 @@ abstract class _AppModel extends AppModel {
   List<String> get banner;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  dynamic get didPay;
+  bool get didPay;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   bool? get paySuccess;
