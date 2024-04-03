@@ -29,14 +29,14 @@ mixin _$AppModel {
   String? get gPlayUrl => throw _privateConstructorUsedError;
   List<String> get banner => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
-  bool get didPay => throw _privateConstructorUsedError;
-  @JsonKey(includeFromJson: false, includeToJson: false)
   bool? get paySuccess => throw _privateConstructorUsedError;
   @TimestampConverter()
   DateTime get createdAt => throw _privateConstructorUsedError;
   String get ownerId => throw _privateConstructorUsedError;
   String get catchphrase => throw _privateConstructorUsedError;
   CategoryType? get categoryType => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  AppOwnerType get appOwnerType => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -58,12 +58,13 @@ abstract class $AppModelCopyWith<$Res> {
       String? appStoreUrl,
       String? gPlayUrl,
       List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false) bool didPay,
       @JsonKey(includeFromJson: false, includeToJson: false) bool? paySuccess,
       @TimestampConverter() DateTime createdAt,
       String ownerId,
       String catchphrase,
-      CategoryType? categoryType});
+      CategoryType? categoryType,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      AppOwnerType appOwnerType});
 }
 
 /// @nodoc
@@ -87,12 +88,12 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
     Object? appStoreUrl = freezed,
     Object? gPlayUrl = freezed,
     Object? banner = null,
-    Object? didPay = null,
     Object? paySuccess = freezed,
     Object? createdAt = null,
     Object? ownerId = null,
     Object? catchphrase = null,
     Object? categoryType = freezed,
+    Object? appOwnerType = null,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -127,10 +128,6 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.banner
           : banner // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      didPay: null == didPay
-          ? _value.didPay
-          : didPay // ignore: cast_nullable_to_non_nullable
-              as bool,
       paySuccess: freezed == paySuccess
           ? _value.paySuccess
           : paySuccess // ignore: cast_nullable_to_non_nullable
@@ -151,6 +148,10 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.categoryType
           : categoryType // ignore: cast_nullable_to_non_nullable
               as CategoryType?,
+      appOwnerType: null == appOwnerType
+          ? _value.appOwnerType
+          : appOwnerType // ignore: cast_nullable_to_non_nullable
+              as AppOwnerType,
     ) as $Val);
   }
 }
@@ -172,12 +173,13 @@ abstract class _$$AppModelImplCopyWith<$Res>
       String? appStoreUrl,
       String? gPlayUrl,
       List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false) bool didPay,
       @JsonKey(includeFromJson: false, includeToJson: false) bool? paySuccess,
       @TimestampConverter() DateTime createdAt,
       String ownerId,
       String catchphrase,
-      CategoryType? categoryType});
+      CategoryType? categoryType,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      AppOwnerType appOwnerType});
 }
 
 /// @nodoc
@@ -199,12 +201,12 @@ class __$$AppModelImplCopyWithImpl<$Res>
     Object? appStoreUrl = freezed,
     Object? gPlayUrl = freezed,
     Object? banner = null,
-    Object? didPay = null,
     Object? paySuccess = freezed,
     Object? createdAt = null,
     Object? ownerId = null,
     Object? catchphrase = null,
     Object? categoryType = freezed,
+    Object? appOwnerType = null,
   }) {
     return _then(_$AppModelImpl(
       name: null == name
@@ -239,10 +241,6 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value._banner
           : banner // ignore: cast_nullable_to_non_nullable
               as List<String>,
-      didPay: null == didPay
-          ? _value.didPay
-          : didPay // ignore: cast_nullable_to_non_nullable
-              as bool,
       paySuccess: freezed == paySuccess
           ? _value.paySuccess
           : paySuccess // ignore: cast_nullable_to_non_nullable
@@ -263,6 +261,10 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value.categoryType
           : categoryType // ignore: cast_nullable_to_non_nullable
               as CategoryType?,
+      appOwnerType: null == appOwnerType
+          ? _value.appOwnerType
+          : appOwnerType // ignore: cast_nullable_to_non_nullable
+              as AppOwnerType,
     ));
   }
 }
@@ -279,13 +281,13 @@ class _$AppModelImpl extends _AppModel {
       this.appStoreUrl,
       this.gPlayUrl,
       required final List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false)
-      this.didPay = false,
       @JsonKey(includeFromJson: false, includeToJson: false) this.paySuccess,
       @TimestampConverter() required this.createdAt,
       this.ownerId = '',
       this.catchphrase = '',
-      this.categoryType})
+      this.categoryType,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.appOwnerType = AppOwnerType.customer})
       : _banner = banner,
         super._();
 
@@ -316,9 +318,6 @@ class _$AppModelImpl extends _AppModel {
 
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  final bool didPay;
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
   final bool? paySuccess;
   @override
   @TimestampConverter()
@@ -331,10 +330,13 @@ class _$AppModelImpl extends _AppModel {
   final String catchphrase;
   @override
   final CategoryType? categoryType;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final AppOwnerType appOwnerType;
 
   @override
   String toString() {
-    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, banner: $banner, didPay: $didPay, paySuccess: $paySuccess, createdAt: $createdAt, ownerId: $ownerId, catchphrase: $catchphrase, categoryType: $categoryType)';
+    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, banner: $banner, paySuccess: $paySuccess, createdAt: $createdAt, ownerId: $ownerId, catchphrase: $catchphrase, categoryType: $categoryType, appOwnerType: $appOwnerType)';
   }
 
   @override
@@ -353,7 +355,6 @@ class _$AppModelImpl extends _AppModel {
             (identical(other.gPlayUrl, gPlayUrl) ||
                 other.gPlayUrl == gPlayUrl) &&
             const DeepCollectionEquality().equals(other._banner, _banner) &&
-            (identical(other.didPay, didPay) || other.didPay == didPay) &&
             (identical(other.paySuccess, paySuccess) ||
                 other.paySuccess == paySuccess) &&
             (identical(other.createdAt, createdAt) ||
@@ -362,7 +363,9 @@ class _$AppModelImpl extends _AppModel {
             (identical(other.catchphrase, catchphrase) ||
                 other.catchphrase == catchphrase) &&
             (identical(other.categoryType, categoryType) ||
-                other.categoryType == categoryType));
+                other.categoryType == categoryType) &&
+            (identical(other.appOwnerType, appOwnerType) ||
+                other.appOwnerType == appOwnerType));
   }
 
   @JsonKey(ignore: true)
@@ -377,12 +380,12 @@ class _$AppModelImpl extends _AppModel {
       appStoreUrl,
       gPlayUrl,
       const DeepCollectionEquality().hash(_banner),
-      didPay,
       paySuccess,
       createdAt,
       ownerId,
       catchphrase,
-      categoryType);
+      categoryType,
+      appOwnerType);
 
   @JsonKey(ignore: true)
   @override
@@ -408,13 +411,14 @@ abstract class _AppModel extends AppModel {
       final String? appStoreUrl,
       final String? gPlayUrl,
       required final List<String> banner,
-      @JsonKey(includeFromJson: false, includeToJson: false) final bool didPay,
       @JsonKey(includeFromJson: false, includeToJson: false)
       final bool? paySuccess,
       @TimestampConverter() required final DateTime createdAt,
       final String ownerId,
       final String catchphrase,
-      final CategoryType? categoryType}) = _$AppModelImpl;
+      final CategoryType? categoryType,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final AppOwnerType appOwnerType}) = _$AppModelImpl;
   _AppModel._() : super._();
 
   factory _AppModel.fromJson(Map<String, dynamic> json) =
@@ -438,9 +442,6 @@ abstract class _AppModel extends AppModel {
   List<String> get banner;
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
-  bool get didPay;
-  @override
-  @JsonKey(includeFromJson: false, includeToJson: false)
   bool? get paySuccess;
   @override
   @TimestampConverter()
@@ -451,6 +452,9 @@ abstract class _AppModel extends AppModel {
   String get catchphrase;
   @override
   CategoryType? get categoryType;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  AppOwnerType get appOwnerType;
   @override
   @JsonKey(ignore: true)
   _$$AppModelImplCopyWith<_$AppModelImpl> get copyWith =>

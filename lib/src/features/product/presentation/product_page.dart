@@ -3,6 +3,7 @@ import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/common_widgets/rating_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/product/presentation/product_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -20,7 +21,8 @@ class ProductPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final productController = ref.watch(productControllerProvider(appId));
-    final didPay = productController.value?.didPay ?? false;
+    final appOwnerType =
+        productController.value?.appOwnerType ?? AppOwnerType.customer;
 
     ref.listen(ProductControllerProvider(appId), (previous, next) {
       next.when(
@@ -45,7 +47,79 @@ class ProductPage extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.menu)),
+          if (appOwnerType == AppOwnerType.onwer)
+            MenuAnchor(
+              alignmentOffset: const Offset(-80, 0),
+              style: const MenuStyle(
+                  backgroundColor: MaterialStatePropertyAll(Colors.white),
+                  padding: MaterialStatePropertyAll(EdgeInsets.zero)),
+              menuChildren: [
+                MenuItemButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  child: Row(
+                    children: [
+                      Assets.images.editSquare.svg(),
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      const Text(
+                        '編集する',
+                        style: TextStyle(
+                          color: ColorsConstant.text,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
+                    ],
+                  ),
+                  onPressed: () {
+                    context.push('/upload-app');
+                  },
+                ),
+                const Divider(
+                  indent: 0,
+                  endIndent: 0,
+                  height: 0,
+                  thickness: 0.5,
+                ),
+                MenuItemButton(
+                  style: const ButtonStyle(
+                      backgroundColor: MaterialStatePropertyAll(Colors.white)),
+                  child: Row(
+                    children: [
+                      Assets.images.delete2.svg(),
+                      const SizedBox(
+                        width: 7,
+                      ),
+                      const Text(
+                        '削除する',
+                        style: TextStyle(
+                          color: ColorsConstant.redStrong,
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      )
+                    ],
+                  ),
+                  onPressed: () {},
+                )
+              ],
+              builder: (context, controller, child) {
+                return IconButton(
+                  onPressed: () {
+                    if (controller.isOpen) {
+                      controller.close();
+                    } else {
+                      controller.open();
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.more_horiz,
+                  ),
+                );
+              },
+            )
         ],
       ),
       body: productController.when(
@@ -179,379 +253,22 @@ class ProductPage extends ConsumerWidget {
                     SizedBox(
                       width: double.infinity,
                       child: TextButton(
-                        onPressed: !didPay
-                            ? () {
-                                showModalBottomSheet(
-                                  useSafeArea: true,
-                                  shape: const RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.vertical(
-                                      top: Radius.circular(10),
-                                    ),
-                                  ),
-                                  clipBehavior: Clip.antiAlias,
-                                  context: context,
-                                  builder: (context) {
-                                    return Container(
-                                      color: Colors.white,
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          AppBar(
-                                            leading: IconButton(
-                                                onPressed: () {
-                                                  context.pop();
-                                                },
-                                                icon: const Icon(Icons.close)),
-                                            title: const Text(
-                                              '購入する',
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                                color: ColorsConstant.text,
-                                              ),
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Column(
-                                              children: [
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 70,
-                                                      child: Center(
-                                                        child: Container(
-                                                          width: 45,
-                                                          height: 45,
-                                                          decoration:
-                                                              BoxDecoration(
-                                                                  image:
-                                                                      DecorationImage(
-                                                                    image: CachedNetworkImageProvider(
-                                                                        data?.iconUrl ??
-                                                                            ''),
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                  ),
-                                                                  borderRadius:
-                                                                      const BorderRadius
-                                                                          .all(
-                                                                          Radius.circular(
-                                                                              5))),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          const Text(
-                                                            '購入するアプリ',
-                                                            style: TextStyle(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  ColorsConstant
-                                                                      .gray3,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Text(
-                                                            data?.name ?? '',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  ColorsConstant
-                                                                      .text,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            color:
-                                                                ColorsConstant
-                                                                    .gray,
-                                                            height: 1,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    const SizedBox(
-                                                      width: 70,
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          const Text(
-                                                            '支払い金額',
-                                                            style: TextStyle(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  ColorsConstant
-                                                                      .gray3,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Text(
-                                                                data?.priceText ??
-                                                                    '',
-                                                                style:
-                                                                    const TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      ColorsConstant
-                                                                          .text,
-                                                                ),
-                                                              ),
-                                                              const Text(
-                                                                '円',
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 14,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      ColorsConstant
-                                                                          .text,
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                          Container(
-                                                            color:
-                                                                ColorsConstant
-                                                                    .gray,
-                                                            height: 1,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                                const SizedBox(
-                                                  height: 10,
-                                                ),
-                                                Row(
-                                                  children: [
-                                                    SizedBox(
-                                                      width: 70,
-                                                      child: Center(
-                                                        child: Platform.isIOS
-                                                            ? Assets
-                                                                .images.applePay
-                                                                .svg(
-                                                                    width: 40,
-                                                                    height: 28,
-                                                                    fit: BoxFit
-                                                                        .contain)
-                                                            : Assets.images.gPay
-                                                                .image(
-                                                                    width: 40,
-                                                                    height: 28,
-                                                                    fit: BoxFit
-                                                                        .contain),
-                                                      ),
-                                                    ),
-                                                    Expanded(
-                                                      child: Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          const Text(
-                                                            '支払い方法',
-                                                            style: TextStyle(
-                                                              fontSize: 13,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  ColorsConstant
-                                                                      .gray3,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 5,
-                                                          ),
-                                                          Text(
-                                                            Platform.isIOS
-                                                                ? 'Apple Pay'
-                                                                : 'Google Pay',
-                                                            style:
-                                                                const TextStyle(
-                                                              fontSize: 16,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w500,
-                                                              color:
-                                                                  ColorsConstant
-                                                                      .text,
-                                                            ),
-                                                          ),
-                                                          const SizedBox(
-                                                            height: 10,
-                                                          ),
-                                                          Container(
-                                                            color:
-                                                                ColorsConstant
-                                                                    .gray,
-                                                            height: 1,
-                                                          )
-                                                        ],
-                                                      ),
-                                                    )
-                                                  ],
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Padding(
-                                            padding: const EdgeInsets.fromLTRB(
-                                                15, 10, 15, 40),
-                                            child: Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment
-                                                      .spaceBetween,
-                                              children: [
-                                                SizedBox(
-                                                  width: 121,
-                                                  child: TextButton(
-                                                    onPressed: () async {
-                                                      context.pop();
-                                                    },
-                                                    style: ButtonStyle(
-                                                      shape:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                        RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        100.0),
-                                                            side: const BorderSide(
-                                                                color:
-                                                                    ColorsConstant
-                                                                        .text)),
-                                                      ),
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                                  Colors.white),
-                                                    ),
-                                                    child: const Text(
-                                                      'キャンセル',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color:
-                                                            ColorsConstant.text,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                                SizedBox(
-                                                  width: 121,
-                                                  child: TextButton(
-                                                    onPressed: () async {
-                                                      ref
-                                                          .read(
-                                                              productControllerProvider(
-                                                                      appId)
-                                                                  .notifier)
-                                                          .pay();
-                                                    },
-                                                    style: ButtonStyle(
-                                                      shape:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                        RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      100.0),
-                                                        ),
-                                                      ),
-                                                      backgroundColor:
-                                                          MaterialStateProperty
-                                                              .all(
-                                                                  ColorsConstant
-                                                                      .text),
-                                                    ),
-                                                    child: const Text(
-                                                      '購入する',
-                                                      style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontWeight:
-                                                            FontWeight.w500,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    );
-                                  },
-                                );
-                              }
-                            : null,
+                        onPressed:
+                            _clickAppButton(context, data, ref, appOwnerType),
                         style: ButtonStyle(
                           shape: MaterialStateProperty.all(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(100.0),
                             ),
                           ),
-                          backgroundColor: MaterialStateProperty.all(!didPay
-                              ? ColorsConstant.purple
-                              : ColorsConstant.gray),
+                          backgroundColor: MaterialStateProperty.all(
+                              appOwnerType == AppOwnerType.purchased
+                                  ? ColorsConstant.gray
+                                  : ColorsConstant.purple),
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 5),
-                          child: Text(
-                            !didPay ? '購入する' : '販売は終了しています',
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontWeight: FontWeight.w500,
-                              color:
-                                  !didPay ? Colors.white : ColorsConstant.gray2,
-                            ),
-                          ),
+                          child: _appActionButton(appOwnerType),
                         ),
                       ),
                     ),
@@ -630,5 +347,335 @@ class ProductPage extends ConsumerWidget {
         },
       ),
     );
+  }
+
+  Widget _appActionButton(AppOwnerType appOwnerType) {
+    switch (appOwnerType) {
+      case AppOwnerType.onwer:
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Assets.images.editSquare.svg(
+              colorFilter: const ColorFilter.mode(
+                Colors.white,
+                BlendMode.srcIn,
+              ),
+              width: 18,
+              height: 18,
+            ),
+            const SizedBox(
+              width: 8,
+            ),
+            const Text(
+              '編集する',
+              style: TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Colors.white,
+              ),
+            )
+          ],
+        );
+      case AppOwnerType.purchased:
+        return const Text(
+          '販売は終了しています',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: ColorsConstant.gray2,
+          ),
+        );
+      case AppOwnerType.customer:
+        return const Text(
+          '購入する',
+          style: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w500,
+            color: Colors.white,
+          ),
+        );
+    }
+  }
+
+  VoidCallback? _clickAppButton(BuildContext context, AppModel? data,
+      WidgetRef ref, AppOwnerType appOwnerType) {
+    switch (appOwnerType) {
+      case AppOwnerType.customer:
+        return () {
+          showModalBottomSheet(
+            useSafeArea: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(10),
+              ),
+            ),
+            clipBehavior: Clip.antiAlias,
+            context: context,
+            builder: (context) {
+              return Container(
+                color: Colors.white,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    AppBar(
+                      leading: IconButton(
+                          onPressed: () {
+                            context.pop();
+                          },
+                          icon: const Icon(Icons.close)),
+                      title: const Text(
+                        '購入する',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500,
+                          color: ColorsConstant.text,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 70,
+                                child: Center(
+                                  child: Container(
+                                    width: 45,
+                                    height: 45,
+                                    decoration: BoxDecoration(
+                                        image: DecorationImage(
+                                          image: CachedNetworkImageProvider(
+                                              data?.iconUrl ?? ''),
+                                          fit: BoxFit.cover,
+                                        ),
+                                        borderRadius: const BorderRadius.all(
+                                            Radius.circular(5))),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      '購入するアプリ',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorsConstant.gray3,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      data?.name ?? '',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorsConstant.text,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      color: ColorsConstant.gray,
+                                      height: 1,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              const SizedBox(
+                                width: 70,
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      '支払い金額',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorsConstant.gray3,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          data?.priceText ?? '',
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorsConstant.text,
+                                          ),
+                                        ),
+                                        const Text(
+                                          '円',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: ColorsConstant.text,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Container(
+                                      color: ColorsConstant.gray,
+                                      height: 1,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Row(
+                            children: [
+                              SizedBox(
+                                width: 70,
+                                child: Center(
+                                  child: Platform.isIOS
+                                      ? Assets.images.applePay.svg(
+                                          width: 40,
+                                          height: 28,
+                                          fit: BoxFit.contain)
+                                      : Assets.images.gPay.image(
+                                          width: 40,
+                                          height: 28,
+                                          fit: BoxFit.contain),
+                                ),
+                              ),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const Text(
+                                      '支払い方法',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorsConstant.gray3,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      Platform.isIOS
+                                          ? 'Apple Pay'
+                                          : 'Google Pay',
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w500,
+                                        color: ColorsConstant.text,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    Container(
+                                      color: ColorsConstant.gray,
+                                      height: 1,
+                                    )
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(15, 10, 15, 40),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          SizedBox(
+                            width: 121,
+                            child: TextButton(
+                              onPressed: () async {
+                                context.pop();
+                              },
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(100.0),
+                                      side: const BorderSide(
+                                          color: ColorsConstant.text)),
+                                ),
+                                backgroundColor:
+                                    MaterialStateProperty.all(Colors.white),
+                              ),
+                              child: const Text(
+                                'キャンセル',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: ColorsConstant.text,
+                                ),
+                              ),
+                            ),
+                          ),
+                          SizedBox(
+                            width: 121,
+                            child: TextButton(
+                              onPressed: () async {
+                                ref
+                                    .read(productControllerProvider(appId)
+                                        .notifier)
+                                    .pay();
+                              },
+                              style: ButtonStyle(
+                                shape: MaterialStateProperty.all(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(100.0),
+                                  ),
+                                ),
+                                backgroundColor: MaterialStateProperty.all(
+                                    ColorsConstant.text),
+                              ),
+                              child: const Text(
+                                '購入する',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            },
+          );
+        };
+      case AppOwnerType.onwer:
+        return () {
+          context.push('/upload-app');
+        };
+      case AppOwnerType.purchased:
+        return null;
+    }
   }
 }

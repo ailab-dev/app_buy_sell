@@ -19,9 +19,31 @@ class ProductController extends _$ProductController {
     final snapshot = await _rootAppRef.doc(appId).get();
     var app = snapshot.data();
     if (app?.ownerId == FirebaseAuth.instance.currentUser?.uid) {
-      app = app?.copyWith(didPay: true);
+      app = app?.copyWith(appOwnerType: AppOwnerType.onwer);
+    } else {
+      final didPay = await _loadPay(appId);
+      if (didPay) {
+        app = app?.copyWith(appOwnerType: AppOwnerType.purchased);
+      } else {
+        app = app?.copyWith(appOwnerType: AppOwnerType.customer);
+      }
     }
     return app;
+  }
+
+  Future<bool> _loadPay(String appId) async {
+    final uid = FirebaseAuth.instance.currentUser?.uid;
+    final snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(uid)
+        .collection('app')
+        .doc(appId)
+        .get();
+    if (snapshot.data() != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   CollectionReference<AppModel> get _rootAppRef {
@@ -50,15 +72,6 @@ class ProductController extends _$ProductController {
         final goolePayment = GooglePaymentModel.fromJson(result);
         await saveGooglePayment(goolePayment, appModel);
       }
-      await _updateAppOwner();
-    }
-  }
-
-  Future<void> _updateAppOwner() async {
-    final appId = state.value?.id;
-    final uid = FirebaseAuth.instance.currentUser?.uid;
-    if (appId != null) {
-      await _rootAppRef.doc(appId).update({'ownerId': uid});
     }
   }
 
@@ -71,7 +84,12 @@ class ProductController extends _$ProductController {
         .collection('app')
         .doc(appModel.id)
         .set(payment.toJson());
-    state = AsyncData(appModel.copyWith(paySuccess: true, didPay: true));
+    state = AsyncData(
+      appModel.copyWith(
+        paySuccess: true,
+        appOwnerType: AppOwnerType.purchased,
+      ),
+    );
   }
 
   Future<void> saveApplePayment(
@@ -83,6 +101,11 @@ class ProductController extends _$ProductController {
         .collection('app')
         .doc(appModel.id)
         .set(payment.toJson());
-    state = AsyncData(appModel.copyWith(paySuccess: true, didPay: true));
+    state = AsyncData(
+      appModel.copyWith(
+        paySuccess: true,
+        appOwnerType: AppOwnerType.purchased,
+      ),
+    );
   }
 }
