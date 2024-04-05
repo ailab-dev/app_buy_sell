@@ -16,30 +16,63 @@ class UploadAppController extends _$UploadAppController {
   final ImagePicker _imagePicker = ImagePicker();
 
   @override
-  UploadAppModel build() {
-    final model = UploadAppModel(
-      currentPage: 0,
-      nextPage: false,
-      backPage: false,
-      screenshots: [],
-      avatarPath: '',
-      appName: '',
-      description: '',
-      price: '',
-      appStoreUrl: '',
-      gPlayUrl: '',
-      storeValidate: false,
-      appInfoValidate: false,
-      appImageValidate: true,
-      appPriceValidate: false,
-      appCatchphrase: '',
-      nameLength: 0,
-      catchphraseLength: 0,
-      descriptionLength: 0,
-      didUpload: false,
-      isUploading: false,
-    );
-    return model;
+  UploadAppModel build(AppModel? appModel) {
+    if (appModel == null) {
+      final model = UploadAppModel(
+        currentPage: 0,
+        nextPage: false,
+        backPage: false,
+        screenshots: [],
+        avatarPath: '',
+        appName: '',
+        description: '',
+        price: '',
+        appStoreUrl: '',
+        gPlayUrl: '',
+        storeValidate: false,
+        appInfoValidate: false,
+        appImageValidate: false,
+        appPriceValidate: false,
+        appCatchphrase: '',
+        nameLength: 0,
+        catchphraseLength: 0,
+        descriptionLength: 0,
+        didUpload: false,
+        isUploading: false,
+      );
+      return model;
+    } else {
+      final infoValidate = _validateAppInfo(appModel.name, appModel.catchphrase,
+          appModel.description, appModel.categoryType);
+      final imagesValidate =
+          _validateAppImage(appModel.iconUrl, appModel.banner);
+      final priceValidate = _validatePrice(appModel.price);
+
+      final model = UploadAppModel(
+        currentPage: 0,
+        nextPage: false,
+        backPage: false,
+        screenshots: appModel.banner,
+        avatarPath: appModel.iconUrl,
+        appName: appModel.name,
+        description: appModel.description,
+        price: appModel.price,
+        appStoreUrl: appModel.appStoreUrl ?? '',
+        gPlayUrl: appModel.gPlayUrl ?? '',
+        storeValidate: false,
+        appInfoValidate: infoValidate,
+        appImageValidate: imagesValidate,
+        appPriceValidate: priceValidate,
+        appCatchphrase: appModel.catchphrase,
+        nameLength: appModel.name.length,
+        catchphraseLength: appModel.catchphrase.length,
+        descriptionLength: appModel.description.length,
+        didUpload: false,
+        isUploading: false,
+        categoryType: appModel.categoryType,
+      );
+      return model;
+    }
   }
 
   void setCurrentPage(int index) {
@@ -57,65 +90,76 @@ class UploadAppController extends _$UploadAppController {
   }
 
   void setAppstoreUrl(String url) {
-    if (url.trim().isEmpty) {
-      state = state.copyWith(appStoreUrl: url, storeValidate: false);
-    } else {
+    if (Utils.isUrl(url)) {
       state = state.copyWith(appStoreUrl: url, storeValidate: true);
+    } else {
+      state = state.copyWith(appStoreUrl: url, storeValidate: false);
     }
   }
 
   void setAppName(String value) {
     state = state.copyWith(appName: value, nameLength: value.length);
-    _validateAppInfo();
+    state = state.copyWith(
+        appInfoValidate: _validateAppInfo(state.appName, state.appCatchphrase,
+            state.description, state.categoryType));
   }
 
   void setAppCatchphrase(String value) {
     state =
         state.copyWith(appCatchphrase: value, catchphraseLength: value.length);
-    _validateAppInfo();
+    state = state.copyWith(
+        appInfoValidate: _validateAppInfo(state.appName, state.appCatchphrase,
+            state.description, state.categoryType));
   }
 
   void setAppDescription(String value) {
     state = state.copyWith(description: value, descriptionLength: value.length);
-    _validateAppInfo();
+    state = state.copyWith(
+        appInfoValidate: _validateAppInfo(state.appName, state.appCatchphrase,
+            state.description, state.categoryType));
   }
 
   void setAppCategory(CategoryType value) {
     state = state.copyWith(categoryType: value);
-    _validateAppInfo();
+    state = state.copyWith(
+        appInfoValidate: _validateAppInfo(state.appName, state.appCatchphrase,
+            state.description, state.categoryType));
   }
 
-  void _validateAppInfo() {
-    if (state.appName.trim().isNotEmpty &&
-        state.appCatchphrase.trim().isNotEmpty &&
-        state.description.trim().isNotEmpty &&
-        state.categoryType != null) {
-      state = state.copyWith(appInfoValidate: true);
+  bool _validateAppInfo(String appName, String appCatchphrase,
+      String description, CategoryType? categoryType) {
+    if (appName.trim().isNotEmpty &&
+        appCatchphrase.trim().isNotEmpty &&
+        description.trim().isNotEmpty &&
+        categoryType != null) {
+      return true;
     } else {
-      state = state.copyWith(appInfoValidate: false);
+      return false;
     }
   }
 
   void setAppPrice(String value) {
     state = state.copyWith(price: value);
+    state = state.copyWith(appPriceValidate: _validatePrice(state.price));
+  }
 
+  bool _validatePrice(String price) {
     try {
-      final priceValue = int.parse(state.priceValue);
+      final priceValue = int.parse(price.replaceAll(',', ''));
       if (priceValue > 0) {
-        state = state.copyWith(appPriceValidate: true);
-      } else {
-        state = state.copyWith(appPriceValidate: false);
+        return true;
       }
-    } catch (_) {
-      state = state.copyWith(appPriceValidate: false);
-    }
+    } catch (_) {}
+    return false;
   }
 
   void setAvatar() async {
     final xFile = await _imagePicker.pickImage(source: ImageSource.gallery);
     if (xFile != null) {
       state = state.copyWith(avatarPath: xFile.path);
-      _validateAppImage();
+      state = state.copyWith(
+          appImageValidate:
+              _validateAppImage(state.avatarPath, state.screenshots));
     }
   }
 
@@ -126,21 +170,25 @@ class UploadAppController extends _$UploadAppController {
       screenshots.add(e.path);
     }
     state = state.copyWith(screenshots: screenshots);
-    _validateAppImage();
+    state = state.copyWith(
+        appImageValidate:
+            _validateAppImage(state.avatarPath, state.screenshots));
   }
 
   void removeScreenshot(int index) {
     List<String> screenshots = List.from(state.screenshots).cast();
     screenshots.removeAt(index);
     state = state.copyWith(screenshots: screenshots);
-    _validateAppImage();
+    state = state.copyWith(
+        appImageValidate:
+            _validateAppImage(state.avatarPath, state.screenshots));
   }
 
-  void _validateAppImage() {
-    if (state.avatarPath.isNotEmpty && state.screenshots.length >= 3) {
-      state = state.copyWith(appImageValidate: true);
+  bool _validateAppImage(String avatarPath, List<String> screenshots) {
+    if (avatarPath.isNotEmpty && screenshots.length >= 3) {
+      return true;
     } else {
-      state = state.copyWith(appImageValidate: false);
+      return false;
     }
   }
 

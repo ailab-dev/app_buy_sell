@@ -2,16 +2,20 @@ import 'dart:io';
 
 import 'package:app_buy_sell/gen/assets.gen.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/theme/app_style.dart';
+import 'package:app_buy_sell/src/utils/utils.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppImagePage extends HookConsumerWidget {
-  const AppImagePage({super.key});
+  const AppImagePage({super.key, this.appModel});
+  final AppModel? appModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uploadController = ref.watch(uploadAppControllerProvider);
+    final uploadController = ref.watch(UploadAppControllerProvider(appModel));
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.all(15.0),
@@ -56,16 +60,7 @@ class AppImagePage extends HookConsumerWidget {
                     ),
                     Row(
                       children: [
-                        uploadController.avatarPath.isEmpty
-                            ? Assets.images.imageDefault.svg()
-                            : Image.file(
-                                File(
-                                  uploadController.avatarPath,
-                                ),
-                                width: 80,
-                                height: 80,
-                                fit: BoxFit.cover,
-                              ),
+                        _avatarImage(uploadController.avatarPath),
                         const SizedBox(
                           width: 20,
                         ),
@@ -77,7 +72,8 @@ class AppImagePage extends HookConsumerWidget {
                                 onPressed: () {
                                   ref
                                       .read(
-                                          uploadAppControllerProvider.notifier)
+                                          uploadAppControllerProvider(appModel)
+                                              .notifier)
                                       .setAvatar();
                                 },
                                 style: ButtonStyle(
@@ -143,7 +139,8 @@ class AppImagePage extends HookConsumerWidget {
                       GestureDetector(
                         onTap: () {
                           ref
-                              .read(uploadAppControllerProvider.notifier)
+                              .read(uploadAppControllerProvider(appModel)
+                                  .notifier)
                               .addScreenShots();
                         },
                         child: SizedBox(
@@ -167,18 +164,26 @@ class AppImagePage extends HookConsumerWidget {
                               child: Stack(
                                 alignment: Alignment.topRight,
                                 children: [
-                                  Image.file(
-                                    File(
-                                      imagePath,
-                                    ),
-                                    fit: BoxFit.cover,
-                                    width: double.infinity,
-                                    height: double.infinity,
-                                  ),
+                                  Utils.isUrl(imagePath)
+                                      ? CachedNetworkImage(
+                                          imageUrl: imagePath,
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                        )
+                                      : Image.file(
+                                          File(
+                                            imagePath,
+                                          ),
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
+                                          height: double.infinity,
+                                        ),
                                   TextButton(
                                     onPressed: () {
                                       ref
-                                          .read(uploadAppControllerProvider
+                                          .read(uploadAppControllerProvider(
+                                                  appModel)
                                               .notifier)
                                           .removeScreenshot(index);
                                     },
@@ -199,7 +204,8 @@ class AppImagePage extends HookConsumerWidget {
                     TextButton(
                       onPressed: () {
                         ref
-                            .read(uploadAppControllerProvider.notifier)
+                            .read(
+                                uploadAppControllerProvider(appModel).notifier)
                             .addScreenShots();
                       },
                       style: AppStyle.buttonStyleZero(),
@@ -239,7 +245,9 @@ class AppImagePage extends HookConsumerWidget {
                   height: 47,
                   child: TextButton(
                     onPressed: () {
-                      ref.read(uploadAppControllerProvider.notifier).backPage();
+                      ref
+                          .read(uploadAppControllerProvider(appModel).notifier)
+                          .backPage();
                     },
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
@@ -273,7 +281,8 @@ class AppImagePage extends HookConsumerWidget {
                     onPressed: uploadController.appImageValidate
                         ? () {
                             ref
-                                .read(uploadAppControllerProvider.notifier)
+                                .read(uploadAppControllerProvider(appModel)
+                                    .notifier)
                                 .nextPage();
                           }
                         : null,
@@ -305,5 +314,29 @@ class AppImagePage extends HookConsumerWidget {
         ),
       ),
     );
+  }
+
+  Widget _avatarImage(String url) {
+    if (url.isEmpty) {
+      return Assets.images.imageDefault.svg();
+    } else {
+      if (Utils.isUrl(url)) {
+        return CachedNetworkImage(
+          imageUrl: url,
+          width: 80,
+          height: 80,
+          fit: BoxFit.cover,
+        );
+      } else {
+        return Image.file(
+          File(
+            url,
+          ),
+          width: 80,
+          height: 80,
+          fit: BoxFit.cover,
+        );
+      }
+    }
   }
 }

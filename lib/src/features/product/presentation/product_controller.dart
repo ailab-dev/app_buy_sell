@@ -16,8 +16,7 @@ part 'product_controller.g.dart';
 class ProductController extends _$ProductController {
   @override
   FutureOr<AppModel?> build(String appId) async {
-    final snapshot = await _rootAppRef.doc(appId).get();
-    var app = snapshot.data();
+    var app = await loadApp(appId);
     if (app?.ownerId == FirebaseAuth.instance.currentUser?.uid) {
       app = app?.copyWith(appOwnerType: AppOwnerType.onwer);
     } else {
@@ -29,6 +28,11 @@ class ProductController extends _$ProductController {
       }
     }
     return app;
+  }
+
+  Future<AppModel?> loadApp(String appId) async {
+    final snapshot = await _rootAppRef.doc(appId).get();
+    return snapshot.data();
   }
 
   Future<bool> _loadPay(String appId) async {

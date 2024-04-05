@@ -1,4 +1,5 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/material.dart';
@@ -6,11 +7,13 @@ import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class StoreUrlPage extends HookConsumerWidget {
-  const StoreUrlPage({super.key});
+  const StoreUrlPage({super.key, this.appModel});
+
+  final AppModel? appModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final urlController = useTextEditingController();
-    final uploadController = ref.watch(uploadAppControllerProvider);
+    final uploadController = ref.watch(uploadAppControllerProvider(appModel));
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
       onTap: () {
@@ -53,7 +56,7 @@ class StoreUrlPage extends HookConsumerWidget {
               ),
               onChanged: (value) {
                 ref
-                    .read(uploadAppControllerProvider.notifier)
+                    .read(uploadAppControllerProvider(appModel).notifier)
                     .setAppstoreUrl(value);
               },
             ),
@@ -80,7 +83,8 @@ class StoreUrlPage extends HookConsumerWidget {
                       ? () {
                           Utils.dismissKeyboard(context);
                           ref
-                              .read(uploadAppControllerProvider.notifier)
+                              .read(uploadAppControllerProvider(appModel)
+                                  .notifier)
                               .nextPage();
                         }
                       : null,

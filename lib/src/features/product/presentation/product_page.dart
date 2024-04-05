@@ -24,7 +24,7 @@ class ProductPage extends ConsumerWidget {
     final appOwnerType =
         productController.value?.appOwnerType ?? AppOwnerType.customer;
 
-    ref.listen(ProductControllerProvider(appId), (previous, next) {
+    ref.listen(productControllerProvider(appId), (previous, next) {
       next.when(
         data: (result) {
           if (result?.paySuccess == true) {
@@ -74,7 +74,9 @@ class ProductPage extends ConsumerWidget {
                     ],
                   ),
                   onPressed: () {
-                    context.push('/upload-app');
+                    context.push('/upload-app',
+                        extra:
+                            ref.read(productControllerProvider(appId)).value);
                   },
                 ),
                 const Divider(
@@ -672,7 +674,8 @@ class ProductPage extends ConsumerWidget {
         };
       case AppOwnerType.onwer:
         return () {
-          context.push('/upload-app');
+          context.push('/upload-app',
+              extra: ref.read(productControllerProvider(appId)).value);
         };
       case AppOwnerType.purchased:
         return null;
