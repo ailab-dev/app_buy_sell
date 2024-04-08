@@ -14,7 +14,7 @@ class AppInfoPage extends HookConsumerWidget {
   final AppModel? appModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uploadController = ref.watch(UploadAppControllerProvider(appModel));
+    final uploadController = ref.watch(uploadAppControllerProvider(appModel));
     final nameController = useTextEditingController();
     nameController.text = uploadController.appName;
     final catchphraseController = useTextEditingController();

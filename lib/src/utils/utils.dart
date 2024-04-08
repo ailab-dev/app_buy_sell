@@ -69,7 +69,7 @@ class Utils {
     return random;
   }
 
-  static bool isUrl(String url) {
-    return Uri.parse(url).isAbsolute;
+  static bool isUrl(String? url) {
+    return Uri.parse(url ?? '').isAbsolute;
   }
 }

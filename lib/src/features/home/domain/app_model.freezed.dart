@@ -37,6 +37,8 @@ mixin _$AppModel {
   CategoryType? get categoryType => throw _privateConstructorUsedError;
   @JsonKey(includeFromJson: false, includeToJson: false)
   AppOwnerType get appOwnerType => throw _privateConstructorUsedError;
+  @TimestampOrNullConverter()
+  DateTime? get editedAt => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -64,7 +66,8 @@ abstract class $AppModelCopyWith<$Res> {
       String catchphrase,
       CategoryType? categoryType,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      AppOwnerType appOwnerType});
+      AppOwnerType appOwnerType,
+      @TimestampOrNullConverter() DateTime? editedAt});
 }
 
 /// @nodoc
@@ -94,6 +97,7 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
     Object? catchphrase = null,
     Object? categoryType = freezed,
     Object? appOwnerType = null,
+    Object? editedAt = freezed,
   }) {
     return _then(_value.copyWith(
       name: null == name
@@ -152,6 +156,10 @@ class _$AppModelCopyWithImpl<$Res, $Val extends AppModel>
           ? _value.appOwnerType
           : appOwnerType // ignore: cast_nullable_to_non_nullable
               as AppOwnerType,
+      editedAt: freezed == editedAt
+          ? _value.editedAt
+          : editedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -179,7 +187,8 @@ abstract class _$$AppModelImplCopyWith<$Res>
       String catchphrase,
       CategoryType? categoryType,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      AppOwnerType appOwnerType});
+      AppOwnerType appOwnerType,
+      @TimestampOrNullConverter() DateTime? editedAt});
 }
 
 /// @nodoc
@@ -207,6 +216,7 @@ class __$$AppModelImplCopyWithImpl<$Res>
     Object? catchphrase = null,
     Object? categoryType = freezed,
     Object? appOwnerType = null,
+    Object? editedAt = freezed,
   }) {
     return _then(_$AppModelImpl(
       name: null == name
@@ -265,6 +275,10 @@ class __$$AppModelImplCopyWithImpl<$Res>
           ? _value.appOwnerType
           : appOwnerType // ignore: cast_nullable_to_non_nullable
               as AppOwnerType,
+      editedAt: freezed == editedAt
+          ? _value.editedAt
+          : editedAt // ignore: cast_nullable_to_non_nullable
+              as DateTime?,
     ));
   }
 }
@@ -287,7 +301,8 @@ class _$AppModelImpl extends _AppModel {
       this.catchphrase = '',
       this.categoryType,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      this.appOwnerType = AppOwnerType.customer})
+      this.appOwnerType = AppOwnerType.customer,
+      @TimestampOrNullConverter() this.editedAt})
       : _banner = banner,
         super._();
 
@@ -333,10 +348,13 @@ class _$AppModelImpl extends _AppModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   final AppOwnerType appOwnerType;
+  @override
+  @TimestampOrNullConverter()
+  final DateTime? editedAt;
 
   @override
   String toString() {
-    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, banner: $banner, paySuccess: $paySuccess, createdAt: $createdAt, ownerId: $ownerId, catchphrase: $catchphrase, categoryType: $categoryType, appOwnerType: $appOwnerType)';
+    return 'AppModel(name: $name, description: $description, iconUrl: $iconUrl, price: $price, id: $id, appStoreUrl: $appStoreUrl, gPlayUrl: $gPlayUrl, banner: $banner, paySuccess: $paySuccess, createdAt: $createdAt, ownerId: $ownerId, catchphrase: $catchphrase, categoryType: $categoryType, appOwnerType: $appOwnerType, editedAt: $editedAt)';
   }
 
   @override
@@ -365,7 +383,9 @@ class _$AppModelImpl extends _AppModel {
             (identical(other.categoryType, categoryType) ||
                 other.categoryType == categoryType) &&
             (identical(other.appOwnerType, appOwnerType) ||
-                other.appOwnerType == appOwnerType));
+                other.appOwnerType == appOwnerType) &&
+            (identical(other.editedAt, editedAt) ||
+                other.editedAt == editedAt));
   }
 
   @JsonKey(ignore: true)
@@ -385,7 +405,8 @@ class _$AppModelImpl extends _AppModel {
       ownerId,
       catchphrase,
       categoryType,
-      appOwnerType);
+      appOwnerType,
+      editedAt);
 
   @JsonKey(ignore: true)
   @override
@@ -418,7 +439,8 @@ abstract class _AppModel extends AppModel {
       final String catchphrase,
       final CategoryType? categoryType,
       @JsonKey(includeFromJson: false, includeToJson: false)
-      final AppOwnerType appOwnerType}) = _$AppModelImpl;
+      final AppOwnerType appOwnerType,
+      @TimestampOrNullConverter() final DateTime? editedAt}) = _$AppModelImpl;
   _AppModel._() : super._();
 
   factory _AppModel.fromJson(Map<String, dynamic> json) =
@@ -455,6 +477,9 @@ abstract class _AppModel extends AppModel {
   @override
   @JsonKey(includeFromJson: false, includeToJson: false)
   AppOwnerType get appOwnerType;
+  @override
+  @TimestampOrNullConverter()
+  DateTime? get editedAt;
   @override
   @JsonKey(ignore: true)
   _$$AppModelImplCopyWith<_$AppModelImpl> get copyWith =>

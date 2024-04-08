@@ -7,7 +7,7 @@ part of 'upload_app_controller.dart';
 // **************************************************************************
 
 String _$uploadAppControllerHash() =>
-    r'857516fce4da4a2e1b0a538b68194f9edf128b3e';
+    r'077c51357821020ce7009ab7795d54d844ca2cd1';
 
 /// Copied from Dart SDK
 class _SystemHash {

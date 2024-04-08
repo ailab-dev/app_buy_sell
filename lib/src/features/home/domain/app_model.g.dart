@@ -23,6 +23,8 @@ _$AppModelImpl _$$AppModelImplFromJson(Map<String, dynamic> json) =>
       catchphrase: json['catchphrase'] as String? ?? '',
       categoryType:
           $enumDecodeNullable(_$CategoryTypeEnumMap, json['categoryType']),
+      editedAt: const TimestampOrNullConverter()
+          .fromJson(json['editedAt'] as Timestamp?),
     );
 
 Map<String, dynamic> _$$AppModelImplToJson(_$AppModelImpl instance) =>
@@ -39,6 +41,7 @@ Map<String, dynamic> _$$AppModelImplToJson(_$AppModelImpl instance) =>
       'ownerId': instance.ownerId,
       'catchphrase': instance.catchphrase,
       'categoryType': _$CategoryTypeEnumMap[instance.categoryType],
+      'editedAt': const TimestampOrNullConverter().toJson(instance.editedAt),
     };
 
 const _$CategoryTypeEnumMap = {

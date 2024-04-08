@@ -1,6 +1,8 @@
 import 'dart:io';
 
+import 'package:app_buy_sell/src/features/home/app_list_provider.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
+import 'package:app_buy_sell/src/features/product/presentation/product_controller.dart';
 import 'package:app_buy_sell/src/features/upload_app/domain/upload_app_model.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,8 +17,11 @@ part 'upload_app_controller.g.dart';
 class UploadAppController extends _$UploadAppController {
   final ImagePicker _imagePicker = ImagePicker();
 
+  AppModel? _currentApp;
+
   @override
   UploadAppModel build(AppModel? appModel) {
+    _currentApp = appModel;
     if (appModel == null) {
       final model = UploadAppModel(
         currentPage: 0,
@@ -202,43 +207,99 @@ class UploadAppController extends _$UploadAppController {
   Future<void> uploadApp() async {
     state = state.copyWith(isUploading: true);
     final uid = FirebaseAuth.instance.currentUser?.uid ?? '';
-    final doc = _appRef.doc();
-    List<String> imageUrl = [];
-    final storageRef = FirebaseStorage.instance.ref();
-    await Future.forEach(state.screenshots, (imagePath) async {
-      final imageRef =
+    if (_currentApp != null) {
+      final doc = _appRef.doc(_currentApp?.id);
+      List<String> imageUrl = [];
+      final storageRef = FirebaseStorage.instance.ref();
+      await Future.forEach(state.screenshots, (imagePath) async {
+        if (Utils.isUrl(imagePath)) {
+          imageUrl.add(imagePath);
+        } else {
+          final imageRef =
+              storageRef.child(uid).child(doc.id).child(Utils.random());
+          await imageRef.putFile(
+            File(imagePath),
+            SettableMetadata(
+              contentType: "image/jpeg",
+            ),
+          );
+          final downloadUrl = await imageRef.getDownloadURL();
+          imageUrl.add(downloadUrl);
+        }
+      });
+      var avatarUrl = _currentApp?.iconUrl;
+      if (!Utils.isUrl(state.avatarPath)) {
+        final avatarRef =
+            storageRef.child(uid).child(doc.id).child(Utils.random());
+        await avatarRef.putFile(
+          File(state.avatarPath),
+          SettableMetadata(
+            contentType: "image/jpeg",
+          ),
+        );
+        avatarUrl = await avatarRef.getDownloadURL();
+      }
+
+      final appModel = AppModel(
+        name: state.appName,
+        description: state.description,
+        iconUrl: avatarUrl ?? '',
+        price: state.priceValue,
+        id: doc.id,
+        banner: imageUrl,
+        createdAt: _currentApp!.createdAt,
+        ownerId: uid,
+        appStoreUrl: state.appStoreUrl,
+        catchphrase: state.appCatchphrase,
+        categoryType: state.categoryType,
+        editedAt: DateTime.now(),
+      );
+      await doc.set(appModel);
+      ref
+          .read(productControllerProvider(appModel.id).notifier)
+          .loadApp(appModel.id);
+      ref.read(appListProvider.notifier).getApps();
+      state = state.copyWith(didUpload: true);
+    } else {
+      final doc = _appRef.doc();
+      List<String> imageUrl = [];
+      final storageRef = FirebaseStorage.instance.ref();
+      await Future.forEach(state.screenshots, (imagePath) async {
+        final imageRef =
+            storageRef.child(uid).child(doc.id).child(Utils.random());
+        await imageRef.putFile(
+          File(imagePath),
+          SettableMetadata(
+            contentType: "image/jpeg",
+          ),
+        );
+        final downloadUrl = await imageRef.getDownloadURL();
+        imageUrl.add(downloadUrl);
+      });
+      final avatarRef =
           storageRef.child(uid).child(doc.id).child(Utils.random());
-      await imageRef.putFile(
-        File(imagePath),
+      await avatarRef.putFile(
+        File(state.avatarPath),
         SettableMetadata(
           contentType: "image/jpeg",
         ),
       );
-      final downloadUrl = await imageRef.getDownloadURL();
-      imageUrl.add(downloadUrl);
-    });
-    final avatarRef = storageRef.child(uid).child(doc.id).child(Utils.random());
-    await avatarRef.putFile(
-      File(state.avatarPath),
-      SettableMetadata(
-        contentType: "image/jpeg",
-      ),
-    );
-    final avatarUrl = await avatarRef.getDownloadURL();
-    final appModel = AppModel(
-      name: state.appName,
-      description: state.description,
-      iconUrl: avatarUrl,
-      price: state.priceValue,
-      id: doc.id,
-      banner: imageUrl,
-      createdAt: DateTime.now(),
-      ownerId: uid,
-      appStoreUrl: state.appStoreUrl,
-      catchphrase: state.appCatchphrase,
-      categoryType: state.categoryType,
-    );
-    await doc.set(appModel);
-    state = state.copyWith(didUpload: true);
+      final avatarUrl = await avatarRef.getDownloadURL();
+      final appModel = AppModel(
+        name: state.appName,
+        description: state.description,
+        iconUrl: avatarUrl,
+        price: state.priceValue,
+        id: doc.id,
+        banner: imageUrl,
+        createdAt: DateTime.now(),
+        ownerId: uid,
+        appStoreUrl: state.appStoreUrl,
+        catchphrase: state.appCatchphrase,
+        categoryType: state.categoryType,
+      );
+      await doc.set(appModel);
+      state = state.copyWith(didUpload: true);
+    }
   }
 }

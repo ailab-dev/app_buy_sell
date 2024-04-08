@@ -29,6 +29,7 @@ class AppModel with _$AppModel {
     @JsonKey(includeFromJson: false, includeToJson: false)
     @Default(AppOwnerType.customer)
     AppOwnerType appOwnerType,
+    @TimestampOrNullConverter() DateTime? editedAt,
   }) = _AppModel;
 
   factory AppModel.fromJson(Map<String, dynamic> json) =>
