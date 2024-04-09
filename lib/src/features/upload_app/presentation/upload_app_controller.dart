@@ -17,11 +17,8 @@ part 'upload_app_controller.g.dart';
 class UploadAppController extends _$UploadAppController {
   final ImagePicker _imagePicker = ImagePicker();
 
-  AppModel? _currentApp;
-
   @override
   UploadAppModel build(AppModel? appModel) {
-    _currentApp = appModel;
     if (appModel == null) {
       final model = UploadAppModel(
         currentPage: 0,
@@ -207,8 +204,8 @@ class UploadAppController extends _$UploadAppController {
   Future<void> uploadApp() async {
     state = state.copyWith(isUploading: true);
     final uid = FirebaseAuth.instance.currentUser?.uid ?? '';
-    if (_currentApp != null) {
-      final doc = _appRef.doc(_currentApp?.id);
+    if (appModel != null) {
+      final doc = _appRef.doc(appModel!.id);
       List<String> imageUrl = [];
       final storageRef = FirebaseStorage.instance.ref();
       await Future.forEach(state.screenshots, (imagePath) async {
@@ -227,7 +224,7 @@ class UploadAppController extends _$UploadAppController {
           imageUrl.add(downloadUrl);
         }
       });
-      var avatarUrl = _currentApp?.iconUrl;
+      var avatarUrl = appModel?.iconUrl;
       if (!Utils.isUrl(state.avatarPath)) {
         final avatarRef =
             storageRef.child(uid).child(doc.id).child(Utils.random());
@@ -240,24 +237,24 @@ class UploadAppController extends _$UploadAppController {
         avatarUrl = await avatarRef.getDownloadURL();
       }
 
-      final appModel = AppModel(
+      final model = AppModel(
         name: state.appName,
         description: state.description,
         iconUrl: avatarUrl ?? '',
         price: state.priceValue,
         id: doc.id,
         banner: imageUrl,
-        createdAt: _currentApp!.createdAt,
+        createdAt: appModel!.createdAt,
         ownerId: uid,
         appStoreUrl: state.appStoreUrl,
         catchphrase: state.appCatchphrase,
         categoryType: state.categoryType,
         editedAt: DateTime.now(),
       );
-      await doc.set(appModel);
+      await doc.update(model.toJson());
       ref
-          .read(productControllerProvider(appModel.id).notifier)
-          .loadApp(appModel.id);
+          .read(productControllerProvider(model.id).notifier)
+          .loadApp(model.id);
       ref.read(appListProvider.notifier).getApps();
       state = state.copyWith(didUpload: true);
     } else {
@@ -285,7 +282,7 @@ class UploadAppController extends _$UploadAppController {
         ),
       );
       final avatarUrl = await avatarRef.getDownloadURL();
-      final appModel = AppModel(
+      final model = AppModel(
         name: state.appName,
         description: state.description,
         iconUrl: avatarUrl,
@@ -298,7 +295,7 @@ class UploadAppController extends _$UploadAppController {
         catchphrase: state.appCatchphrase,
         categoryType: state.categoryType,
       );
-      await doc.set(appModel);
+      await doc.set(model);
       state = state.copyWith(didUpload: true);
     }
   }

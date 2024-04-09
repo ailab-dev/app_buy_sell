@@ -7,6 +7,7 @@ import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/product/presentation/product_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -104,7 +105,44 @@ class ProductPage extends ConsumerWidget {
                       )
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.transparent,
+                      barrierDismissible: false,
+                      builder: (BuildContext context) => CupertinoAlertDialog(
+                        title: const Text(
+                          '削除しますか?',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        actions: [
+                          CupertinoDialogAction(
+                            onPressed: () {
+                              context.pop();
+                            },
+                            child: const Text('キャンセル'),
+                          ),
+                          CupertinoDialogAction(
+                            isDefaultAction: true,
+                            onPressed: () async {
+                              context.pop();
+                              await ref
+                                  .read(
+                                      productControllerProvider(appId).notifier)
+                                  .deleteApp();
+                              if (context.mounted) {
+                                context.pop();
+                              }
+                            },
+                            child: const Text('削除'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 )
               ],
               builder: (context, controller, child) {

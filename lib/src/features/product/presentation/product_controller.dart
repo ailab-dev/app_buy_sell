@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_buy_sell/src/features/home/app_list_provider.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/product/data/pay_repository.dart';
 import 'package:app_buy_sell/src/features/product/data/pay_service.dart';
@@ -116,5 +117,11 @@ class ProductController extends _$ProductController {
         appOwnerType: AppOwnerType.purchased,
       ),
     );
+  }
+
+  Future<void> deleteApp() async {
+    state = const AsyncLoading();
+    await _rootAppRef.doc(appId).delete();
+    ref.read(appListProvider.notifier).getApps();
   }
 }
