@@ -70,6 +70,11 @@ class Utils {
   }
 
   static bool isUrl(String? url) {
-    return Uri.parse(url ?? '').isAbsolute;
+    try {
+      final uri = Uri.parse(url ?? '');
+      return uri.isAbsolute && uri.host.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
   }
 }
