@@ -26,12 +26,24 @@ class EditProfilePage extends HookConsumerWidget {
 
     final myProfileProfile = ref.watch(editProfileProvider);
     myProfileProfile.whenData((value) {
-      userNameController.text = value?.userName ?? '';
-      descriptionController.text = value?.description ?? '';
-      twitterController.text = value?.twitter ?? '';
-      facebookController.text = value?.facebook ?? '';
-      githubController.text = value?.github ?? '';
-      portfolioController.text = value?.portfolio ?? '';
+      if (userNameController.text != value?.userName) {
+        userNameController.text = value?.userName ?? '';
+      }
+      if (descriptionController.text != value?.description) {
+        descriptionController.text = value?.description ?? '';
+      }
+      if (twitterController.text != value?.twitter) {
+        twitterController.text = value?.twitter ?? '';
+      }
+      if (facebookController.text != value?.facebook) {
+        facebookController.text = value?.facebook ?? '';
+      }
+      if (githubController.text != value?.github) {
+        githubController.text = value?.github ?? '';
+      }
+      if (portfolioController.text != value?.portfolio) {
+        portfolioController.text = value?.portfolio ?? '';
+      }
       countryController.text = value?.country ?? '選択してください';
     });
 
