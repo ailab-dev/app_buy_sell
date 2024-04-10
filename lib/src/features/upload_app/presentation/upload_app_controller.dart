@@ -112,7 +112,8 @@ class UploadAppController extends _$UploadAppController {
   }
 
   void setAvatar() async {
-    final xFile = await _imagePicker.pickImage(source: ImageSource.gallery);
+    final xFile = await _imagePicker.pickImage(
+        source: ImageSource.gallery, imageQuality: 50);
     if (xFile != null) {
       state = state.copyWith(avatarPath: xFile.path);
       _validateAppImage();
@@ -121,7 +122,7 @@ class UploadAppController extends _$UploadAppController {
 
   void addScreenShots() async {
     List<String> screenshots = List.from(state.screenshots).cast();
-    final files = await _imagePicker.pickMultiImage();
+    final files = await _imagePicker.pickMultiImage(imageQuality: 50);
     for (final e in files) {
       screenshots.add(e.path);
     }
