@@ -238,24 +238,12 @@ class EditProfilePage extends HookConsumerWidget {
                         Expanded(
                           child: TextField(
                             controller: twitterController,
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
+                            decoration: _inputDecoration(
                               hintText: 'https://twitter.com/userid',
-                              hintStyle: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConstant.gray2,
-                              ),
-                              contentPadding: EdgeInsets.all(12),
+                              errorText:
+                                  (myProfileProfile.value?.xValid ?? true)
+                                      ? null
+                                      : 'X（twitter）無効',
                             ),
                             style: const TextStyle(
                               fontSize: 12,
@@ -293,24 +281,13 @@ class EditProfilePage extends HookConsumerWidget {
                         Expanded(
                           child: TextField(
                             controller: facebookController,
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
+                            decoration: _inputDecoration(
                               hintText: 'https://www.facebook.com/userid',
-                              hintStyle: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConstant.gray2,
-                              ),
-                              contentPadding: EdgeInsets.all(12),
+                              errorText:
+                                  (myProfileProfile.value?.facebookValid ??
+                                          true)
+                                      ? null
+                                      : 'Facebook無効',
                             ),
                             style: const TextStyle(
                               fontSize: 12,
@@ -348,24 +325,12 @@ class EditProfilePage extends HookConsumerWidget {
                         Expanded(
                           child: TextField(
                             controller: githubController,
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
+                            decoration: _inputDecoration(
                               hintText: 'https://github.com/userid',
-                              hintStyle: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConstant.gray2,
-                              ),
-                              contentPadding: EdgeInsets.all(12),
+                              errorText:
+                                  (myProfileProfile.value?.githubValid ?? true)
+                                      ? null
+                                      : 'Github無効',
                             ),
                             style: const TextStyle(
                               fontSize: 12,
@@ -403,25 +368,13 @@ class EditProfilePage extends HookConsumerWidget {
                         Expanded(
                           child: TextField(
                             controller: portfolioController,
-                            decoration: const InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                borderSide: BorderSide(
-                                  color: ColorsConstant.gray,
-                                ),
-                              ),
-                              hintText: 'https://exsample.com',
-                              hintStyle: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w400,
-                                color: ColorsConstant.gray2,
-                              ),
-                              contentPadding: EdgeInsets.all(12),
-                            ),
+                            decoration: _inputDecoration(
+                                hintText: 'https://exsample.com',
+                                errorText:
+                                    (myProfileProfile.value?.portfolioValid ??
+                                            true)
+                                        ? null
+                                        : 'ポートフォリオ無効'),
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -535,6 +488,39 @@ class EditProfilePage extends HookConsumerWidget {
         ),
         body: body,
       ),
+    );
+  }
+
+  InputDecoration _inputDecoration({String? hintText, String? errorText}) {
+    return InputDecoration(
+      enabledBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorsConstant.gray,
+        ),
+      ),
+      focusedBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorsConstant.gray,
+        ),
+      ),
+      errorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorsConstant.gray,
+        ),
+      ),
+      focusedErrorBorder: const OutlineInputBorder(
+        borderSide: BorderSide(
+          color: ColorsConstant.gray,
+        ),
+      ),
+      hintText: hintText,
+      hintStyle: const TextStyle(
+        fontSize: 12,
+        fontWeight: FontWeight.w400,
+        color: ColorsConstant.gray2,
+      ),
+      contentPadding: const EdgeInsets.all(12),
+      errorText: errorText,
     );
   }
 }

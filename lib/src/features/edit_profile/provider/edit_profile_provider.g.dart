@@ -6,7 +6,7 @@ part of 'edit_profile_provider.dart';
 // RiverpodGenerator
 // **************************************************************************
 
-String _$editProfileHash() => r'75957519aa79944d999eef9c66247c1e2b2290d5';
+String _$editProfileHash() => r'cd405fd1a3cbe061473b17ffc61eb9c422bc5326';
 
 /// See also [EditProfile].
 @ProviderFor(EditProfile)

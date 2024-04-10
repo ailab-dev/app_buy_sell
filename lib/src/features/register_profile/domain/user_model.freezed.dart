@@ -31,6 +31,14 @@ mixin _$UserModel {
   String get instagram => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
   SettingModel? get setting => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get xValid => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get facebookValid => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get githubValid => throw _privateConstructorUsedError;
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get portfolioValid => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -54,7 +62,12 @@ abstract class $UserModelCopyWith<$Res> {
       String portfolio,
       String instagram,
       String? country,
-      SettingModel? setting});
+      SettingModel? setting,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool xValid,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool facebookValid,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool githubValid,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      bool portfolioValid});
 
   $SettingModelCopyWith<$Res>? get setting;
 }
@@ -83,6 +96,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? instagram = null,
     Object? country = freezed,
     Object? setting = freezed,
+    Object? xValid = null,
+    Object? facebookValid = null,
+    Object? githubValid = null,
+    Object? portfolioValid = null,
   }) {
     return _then(_value.copyWith(
       id: null == id
@@ -129,6 +146,22 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as SettingModel?,
+      xValid: null == xValid
+          ? _value.xValid
+          : xValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      facebookValid: null == facebookValid
+          ? _value.facebookValid
+          : facebookValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      githubValid: null == githubValid
+          ? _value.githubValid
+          : githubValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      portfolioValid: null == portfolioValid
+          ? _value.portfolioValid
+          : portfolioValid // ignore: cast_nullable_to_non_nullable
+              as bool,
     ) as $Val);
   }
 
@@ -164,7 +197,12 @@ abstract class _$$UserModelImplCopyWith<$Res>
       String portfolio,
       String instagram,
       String? country,
-      SettingModel? setting});
+      SettingModel? setting,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool xValid,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool facebookValid,
+      @JsonKey(includeFromJson: false, includeToJson: false) bool githubValid,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      bool portfolioValid});
 
   @override
   $SettingModelCopyWith<$Res>? get setting;
@@ -192,6 +230,10 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? instagram = null,
     Object? country = freezed,
     Object? setting = freezed,
+    Object? xValid = null,
+    Object? facebookValid = null,
+    Object? githubValid = null,
+    Object? portfolioValid = null,
   }) {
     return _then(_$UserModelImpl(
       id: null == id
@@ -238,6 +280,22 @@ class __$$UserModelImplCopyWithImpl<$Res>
           ? _value.setting
           : setting // ignore: cast_nullable_to_non_nullable
               as SettingModel?,
+      xValid: null == xValid
+          ? _value.xValid
+          : xValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      facebookValid: null == facebookValid
+          ? _value.facebookValid
+          : facebookValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      githubValid: null == githubValid
+          ? _value.githubValid
+          : githubValid // ignore: cast_nullable_to_non_nullable
+              as bool,
+      portfolioValid: null == portfolioValid
+          ? _value.portfolioValid
+          : portfolioValid // ignore: cast_nullable_to_non_nullable
+              as bool,
     ));
   }
 }
@@ -257,7 +315,15 @@ class _$UserModelImpl extends _UserModel {
       this.portfolio = '',
       this.instagram = '',
       this.country,
-      this.setting})
+      this.setting,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.xValid = false,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.facebookValid = false,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.githubValid = false,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      this.portfolioValid = false})
       : super._();
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
@@ -292,10 +358,22 @@ class _$UserModelImpl extends _UserModel {
   final String? country;
   @override
   final SettingModel? setting;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool xValid;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool facebookValid;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool githubValid;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  final bool portfolioValid;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram, country: $country, setting: $setting)';
+    return 'UserModel(id: $id, userName: $userName, description: $description, nickName: $nickName, twitter: $twitter, facebook: $facebook, github: $github, portfolio: $portfolio, instagram: $instagram, country: $country, setting: $setting, xValid: $xValid, facebookValid: $facebookValid, githubValid: $githubValid, portfolioValid: $portfolioValid)';
   }
 
   @override
@@ -319,7 +397,14 @@ class _$UserModelImpl extends _UserModel {
             (identical(other.instagram, instagram) ||
                 other.instagram == instagram) &&
             (identical(other.country, country) || other.country == country) &&
-            (identical(other.setting, setting) || other.setting == setting));
+            (identical(other.setting, setting) || other.setting == setting) &&
+            (identical(other.xValid, xValid) || other.xValid == xValid) &&
+            (identical(other.facebookValid, facebookValid) ||
+                other.facebookValid == facebookValid) &&
+            (identical(other.githubValid, githubValid) ||
+                other.githubValid == githubValid) &&
+            (identical(other.portfolioValid, portfolioValid) ||
+                other.portfolioValid == portfolioValid));
   }
 
   @JsonKey(ignore: true)
@@ -336,7 +421,11 @@ class _$UserModelImpl extends _UserModel {
       portfolio,
       instagram,
       country,
-      setting);
+      setting,
+      xValid,
+      facebookValid,
+      githubValid,
+      portfolioValid);
 
   @JsonKey(ignore: true)
   @override
@@ -364,7 +453,14 @@ abstract class _UserModel extends UserModel {
       final String portfolio,
       final String instagram,
       final String? country,
-      final SettingModel? setting}) = _$UserModelImpl;
+      final SettingModel? setting,
+      @JsonKey(includeFromJson: false, includeToJson: false) final bool xValid,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final bool facebookValid,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final bool githubValid,
+      @JsonKey(includeFromJson: false, includeToJson: false)
+      final bool portfolioValid}) = _$UserModelImpl;
   _UserModel._() : super._();
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
@@ -392,6 +488,18 @@ abstract class _UserModel extends UserModel {
   String? get country;
   @override
   SettingModel? get setting;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get xValid;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get facebookValid;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get githubValid;
+  @override
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  bool get portfolioValid;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
