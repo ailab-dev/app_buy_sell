@@ -170,9 +170,9 @@ class UserProfilePage extends HookConsumerWidget {
                             width: 8,
                           ),
                           Text(
-                            _checkEmpty(userProvider.value?.twitter)
+                            _checkEmpty(userProvider.value?.twitterId)
                                 ? ''
-                                : '@${userProvider.value?.twitter ?? ''}',
+                                : '@${userProvider.value?.twitterId ?? ''}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -194,9 +194,9 @@ class UserProfilePage extends HookConsumerWidget {
                             width: 8,
                           ),
                           Text(
-                            _checkEmpty(userProvider.value?.facebook)
+                            _checkEmpty(userProvider.value?.facebookId)
                                 ? ''
-                                : '@${userProvider.value?.facebook ?? ''}',
+                                : '@${userProvider.value?.facebookId ?? ''}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -218,9 +218,9 @@ class UserProfilePage extends HookConsumerWidget {
                             width: 8,
                           ),
                           Text(
-                            _checkEmpty(userProvider.value?.instagram)
+                            _checkEmpty(userProvider.value?.instagramId)
                                 ? ''
-                                : '@${userProvider.value?.instagram ?? ''}',
+                                : '@${userProvider.value?.instagramId ?? ''}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
@@ -242,9 +242,9 @@ class UserProfilePage extends HookConsumerWidget {
                             width: 8,
                           ),
                           Text(
-                            _checkEmpty(userProvider.value?.github)
+                            _checkEmpty(userProvider.value?.githubId)
                                 ? ''
-                                : '@${userProvider.value?.github ?? ''}',
+                                : '@${userProvider.value?.githubId ?? ''}',
                             style: const TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w400,
