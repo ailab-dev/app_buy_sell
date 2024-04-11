@@ -39,4 +39,32 @@ class UserModel with _$UserModel {
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
+
+  String get twitterId {
+    return getSnsid(twitter);
+  }
+
+  String get facebookId {
+    return getSnsid(facebook);
+  }
+
+  String get githubId {
+    return getSnsid(github);
+  }
+
+  String get instagramId {
+    return getSnsid(instagram);
+  }
+
+  String getSnsid(String url) {
+    try {
+      final uri = Uri.parse(url);
+      if (uri.pathSegments.isNotEmpty) {
+        return uri.pathSegments[0];
+      }
+    } catch (_) {
+      return '';
+    }
+    return '';
+  }
 }

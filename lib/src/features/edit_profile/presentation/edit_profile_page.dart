@@ -468,19 +468,25 @@ class EditProfilePage extends HookConsumerWidget {
           ),
           actions: [
             TextButton(
-              onPressed: () async {
-                Utils.dismissKeyboard(context);
-                await ref.read(editProfileProvider.notifier).editProfile();
-                if (context.mounted) {
-                  context.pop(true);
-                }
-              },
-              child: const Text(
+              onPressed: ref.read(editProfileProvider.notifier).canSave
+                  ? () async {
+                      Utils.dismissKeyboard(context);
+                      await ref
+                          .read(editProfileProvider.notifier)
+                          .editProfile();
+                      if (context.mounted) {
+                        context.pop(true);
+                      }
+                    }
+                  : null,
+              child: Text(
                 '保存',
                 style: TextStyle(
                   fontSize: 14,
                   fontWeight: FontWeight.w500,
-                  color: ColorsConstant.purple,
+                  color: ref.read(editProfileProvider.notifier).canSave
+                      ? ColorsConstant.purple
+                      : ColorsConstant.gray2,
                 ),
               ),
             )

@@ -21,7 +21,7 @@ class EditProfile extends _$EditProfile {
     final ref = await rootRef.doc(uid).get();
     var userModel = ref.data();
     final xValid = _validateSnsUrl(userModel?.twitter ?? '', _twitterHost);
-    final githubValid = _validateSnsUrl(userModel?.facebook ?? '', _githubHost);
+    final githubValid = _validateSnsUrl(userModel?.github ?? '', _githubHost);
     final facebookValid =
         _validateSnsUrl(userModel?.facebook ?? '', _facebookHost);
     final portfolioValid = _validateSnsUrl(userModel?.portfolio ?? '', '');
@@ -119,5 +119,15 @@ class EditProfile extends _$EditProfile {
       state = AsyncValue.data(
           state.value?.copyWith(portfolio: value, portfolioValid: false));
     }
+  }
+
+  bool get canSave {
+    if (state.value?.xValid == true &&
+        state.value?.facebookValid == true &&
+        state.value?.githubValid == true &&
+        state.value?.portfolioValid == true) {
+      return true;
+    }
+    return false;
   }
 }
