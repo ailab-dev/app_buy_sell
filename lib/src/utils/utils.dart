@@ -68,4 +68,13 @@ class Utils {
     );
     return random;
   }
+
+  static bool isUrl(String? url) {
+    try {
+      final uri = Uri.parse(url ?? '');
+      return uri.isAbsolute && uri.host.isNotEmpty;
+    } catch (_) {
+      return false;
+    }
+  }
 }

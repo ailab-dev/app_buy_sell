@@ -1,5 +1,6 @@
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:intl/intl.dart';
 
 part 'upload_app_model.freezed.dart';
 
@@ -36,5 +37,16 @@ class UploadAppModel with _$UploadAppModel {
 
   String get priceValue {
     return price.replaceAll(',', '');
+  }
+
+  String get priceFormat {
+    try {
+      final formatter = NumberFormat.decimalPatternDigits(
+        locale: 'ja_JP',
+      );
+      return formatter.format(int.parse(priceValue));
+    } catch (_) {
+      return '';
+    }
   }
 }

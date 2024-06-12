@@ -58,8 +58,9 @@ class SettingPage extends HookConsumerWidget {
                         ),
                       ),
                       Switch(
-                        value:
-                            settingProvider.value?.setting?.enableNotification ?? true,
+                        value: settingProvider
+                                .value?.setting?.enableNotification ??
+                            true,
                         onChanged: (value) {
                           ref
                               .read(settingControllerProvider.notifier)
@@ -204,7 +205,7 @@ class SettingPage extends HookConsumerWidget {
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
                       if (context.mounted) {
-                        context.go('/login');
+                        context.go('/start');
                       }
                     },
                     child: Row(

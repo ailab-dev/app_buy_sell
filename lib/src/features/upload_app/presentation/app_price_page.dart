@@ -1,4 +1,5 @@
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/upload_app_controller.dart';
 import 'package:app_buy_sell/src/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
@@ -10,14 +11,17 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'package:pattern_formatter/numeric_formatter.dart';
 
 class AppPricePage extends HookConsumerWidget {
-  const AppPricePage({super.key});
+  const AppPricePage({super.key, this.appModel});
+  final AppModel? appModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uploadController = ref.watch(uploadAppControllerProvider);
+    final uploadController = ref.watch(uploadAppControllerProvider(appModel));
     final priceController = useTextEditingController();
-    if (priceController.text != uploadController.price) {
-      priceController.text = uploadController.price;
-    }
+    
+    useEffect(() {
+      priceController.text = uploadController.priceFormat;
+      return null;
+    }, []);
 
     return GestureDetector(
       behavior: HitTestBehavior.translucent,
@@ -106,7 +110,8 @@ class AppPricePage extends HookConsumerWidget {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         ref
-                            .read(uploadAppControllerProvider.notifier)
+                            .read(
+                                uploadAppControllerProvider(appModel).notifier)
                             .setAppPrice(value);
                       },
                     ),
@@ -134,7 +139,8 @@ class AppPricePage extends HookConsumerWidget {
                     child: TextButton(
                       onPressed: () {
                         ref
-                            .read(uploadAppControllerProvider.notifier)
+                            .read(
+                                uploadAppControllerProvider(appModel).notifier)
                             .backPage();
                       },
                       style: ButtonStyle(
@@ -197,7 +203,8 @@ class AppPricePage extends HookConsumerWidget {
                                         onPressed: () {
                                           context.pop();
                                           ref
-                                              .read(uploadAppControllerProvider
+                                              .read(uploadAppControllerProvider(
+                                                      appModel)
                                                   .notifier)
                                               .uploadApp();
                                         },

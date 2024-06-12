@@ -37,6 +37,9 @@ class $AssetsImagesGen {
   /// File path: assets/images/delete.svg
   SvgGenImage get delete => const SvgGenImage('assets/images/delete.svg');
 
+  /// File path: assets/images/delete2.svg
+  SvgGenImage get delete2 => const SvgGenImage('assets/images/delete2.svg');
+
   /// File path: assets/images/edit_square.svg
   SvgGenImage get editSquare =>
       const SvgGenImage('assets/images/edit_square.svg');
@@ -99,6 +102,7 @@ class $AssetsImagesGen {
         addPhotoAlternate,
         app,
         delete,
+        delete2,
         editSquare,
         facebook,
         github,

@@ -62,7 +62,13 @@ final router = GoRouter(
     GoRoute(
         path: '/upload-app',
         builder: (BuildContext context, GoRouterState state) {
-          return const UploadAppPage();
+          AppModel? appModel;
+          if (state.extra is AppModel) {
+            appModel = state.extra as AppModel;
+          }
+          return UploadAppPage(
+            appModel: appModel,
+          );
         }),
     GoRoute(
       path: '/notification',
@@ -79,9 +85,9 @@ final router = GoRouter(
     GoRoute(
       path: '/product',
       builder: (BuildContext context, GoRouterState state) {
-        final appModel = state.extra as AppModel;
+        final appId = state.extra as String;
         return ProductPage(
-          appModel: appModel,
+          appId: appId,
         );
       },
     ),

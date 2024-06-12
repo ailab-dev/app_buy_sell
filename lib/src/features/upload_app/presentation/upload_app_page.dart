@@ -1,5 +1,6 @@
 import 'package:app_buy_sell/src/common_widgets/loading_view.dart';
 import 'package:app_buy_sell/src/constants/color_constant.dart';
+import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_image_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_info_page.dart';
 import 'package:app_buy_sell/src/features/upload_app/presentation/app_price_page.dart';
@@ -11,14 +12,16 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class UploadAppPage extends HookConsumerWidget {
-  const UploadAppPage({super.key});
+  const UploadAppPage({super.key, this.appModel});
+
+  final AppModel? appModel;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final pageController = usePageController();
-    final uploadController = ref.watch(uploadAppControllerProvider);
+    final uploadController = ref.watch(uploadAppControllerProvider(appModel));
 
-    ref.listen(uploadAppControllerProvider, (previous, next) async {
+    ref.listen(uploadAppControllerProvider(appModel), (previous, next) async {
       if (next.nextPage) {
         await pageController.nextPage(
             duration: const Duration(milliseconds: 200), curve: Curves.linear);
@@ -60,15 +63,24 @@ class UploadAppPage extends HookConsumerWidget {
               child: PageView(
                 controller: pageController,
                 physics: const NeverScrollableScrollPhysics(),
-                children: const [
-                  StoreUrlPage(),
-                  AppInfoPage(),
-                  AppImagePage(),
-                  AppPricePage(),
+                children: [
+                  if (appModel == null)
+                    StoreUrlPage(
+                      appModel: appModel,
+                    ),
+                  AppInfoPage(
+                    appModel: appModel,
+                  ),
+                  AppImagePage(
+                    appModel: appModel,
+                  ),
+                  AppPricePage(
+                    appModel: appModel,
+                  ),
                 ],
                 onPageChanged: (value) {
                   ref
-                      .read(uploadAppControllerProvider.notifier)
+                      .read(uploadAppControllerProvider(appModel).notifier)
                       .setCurrentPage(value);
                 },
               ),

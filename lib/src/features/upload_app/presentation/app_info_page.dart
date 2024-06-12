@@ -10,10 +10,11 @@ import 'package:go_router/go_router.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
 
 class AppInfoPage extends HookConsumerWidget {
-  const AppInfoPage({super.key});
+  const AppInfoPage({super.key, this.appModel});
+  final AppModel? appModel;
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final uploadController = ref.watch(uploadAppControllerProvider);
+    final uploadController = ref.watch(uploadAppControllerProvider(appModel));
     final nameController = useTextEditingController();
 
     if (nameController.text != uploadController.appName) {
@@ -110,7 +111,8 @@ class AppInfoPage extends HookConsumerWidget {
                         ),
                         onChanged: (value) {
                           ref
-                              .read(uploadAppControllerProvider.notifier)
+                              .read(uploadAppControllerProvider(appModel)
+                                  .notifier)
                               .setAppName(value);
                         },
                         maxLength: 30,
@@ -163,7 +165,8 @@ class AppInfoPage extends HookConsumerWidget {
                         ),
                         onChanged: (value) {
                           ref
-                              .read(uploadAppControllerProvider.notifier)
+                              .read(uploadAppControllerProvider(appModel)
+                                  .notifier)
                               .setAppCatchphrase(value);
                         },
                         maxLength: 50,
@@ -218,7 +221,8 @@ class AppInfoPage extends HookConsumerWidget {
                         keyboardType: TextInputType.multiline,
                         onChanged: (value) {
                           ref
-                              .read(uploadAppControllerProvider.notifier)
+                              .read(uploadAppControllerProvider(appModel)
+                                  .notifier)
                               .setAppDescription(value);
                         },
                         maxLength: 250,
@@ -261,7 +265,8 @@ class AppInfoPage extends HookConsumerWidget {
                                       onPressed: () {
                                         context.pop();
                                         ref
-                                            .read(uploadAppControllerProvider
+                                            .read(uploadAppControllerProvider(
+                                                    appModel)
                                                 .notifier)
                                             .setAppCategory(e);
                                       },
@@ -327,7 +332,8 @@ class AppInfoPage extends HookConsumerWidget {
                         ? () {
                             Utils.dismissKeyboard(context);
                             ref
-                                .read(uploadAppControllerProvider.notifier)
+                                .read(uploadAppControllerProvider(appModel)
+                                    .notifier)
                                 .nextPage();
                           }
                         : null,

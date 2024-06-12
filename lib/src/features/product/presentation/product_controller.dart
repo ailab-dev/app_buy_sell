@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:app_buy_sell/src/features/home/app_list_provider.dart';
 import 'package:app_buy_sell/src/features/home/domain/app_model.dart';
 import 'package:app_buy_sell/src/features/product/data/pay_repository.dart';
 import 'package:app_buy_sell/src/features/product/data/pay_service.dart';
@@ -15,19 +16,38 @@ part 'product_controller.g.dart';
 @riverpod
 class ProductController extends _$ProductController {
   @override
-  FutureOr<AppModel> build(AppModel appModel) async {
-    final didPay = await _loadPay(appModel);
-    final app = appModel.copyWith(didPay: didPay);
+  FutureOr<AppModel?> build(String appId) async {
+    final snapshot = await _rootAppRef.doc(appId).get();
+    var app = snapshot.data();
+    if (app?.ownerId == FirebaseAuth.instance.currentUser?.uid) {
+      app = app?.copyWith(appOwnerType: AppOwnerType.onwer);
+    } else {
+      final didPay = await _loadPay(appId);
+      if (didPay) {
+        app = app?.copyWith(appOwnerType: AppOwnerType.purchased);
+      } else {
+        app = app?.copyWith(appOwnerType: AppOwnerType.customer);
+      }
+    }
     return app;
   }
 
-  Future<bool> _loadPay(AppModel appModel) async {
+  Future<void> loadApp(String appId) async {
+    state = const AsyncLoading();
+    final snapshot = await _rootAppRef.doc(appId).get();
+    var app = snapshot.data();
+    app = app?.copyWith(
+        appOwnerType: state.value?.appOwnerType ?? AppOwnerType.onwer);
+    state = AsyncData(app);
+  }
+
+  Future<bool> _loadPay(String appId) async {
     final uid = FirebaseAuth.instance.currentUser?.uid;
     final snapshot = await FirebaseFirestore.instance
         .collection('users')
         .doc(uid)
         .collection('app')
-        .doc(appModel.id)
+        .doc(appId)
         .get();
     if (snapshot.data() != null) {
       return true;
@@ -36,22 +56,32 @@ class ProductController extends _$ProductController {
     }
   }
 
-  Future<void> pay(AppModel appModel) async {
-    final paymentItems = [
-      PaymentItem(
-        label: '購入するアプリ',
-        amount: appModel.price,
-        status: PaymentItemStatus.final_price,
-      )
-    ];
-    if (Platform.isIOS) {
-      final result = await PayService(ApplePayImpl()).pay(paymentItems);
-      final applePayment = ApplePaymentModel.fromJson(result);
-      await saveApplePayment(applePayment, appModel);
-    } else {
-      final result = await PayService(GoolePayImpl()).pay(paymentItems);
-      final goolePayment = GooglePaymentModel.fromJson(result);
-      await saveGooglePayment(goolePayment, appModel);
+  CollectionReference<AppModel> get _rootAppRef {
+    return FirebaseFirestore.instance.collection('apps').withConverter(
+          fromFirestore: (snapshot, _) => AppModel.fromJson(snapshot.data()!),
+          toFirestore: (model, _) => model.toJson(),
+        );
+  }
+
+  Future<void> pay() async {
+    final appModel = state.value;
+    if (appModel != null) {
+      final paymentItems = [
+        PaymentItem(
+          label: '購入するアプリ',
+          amount: appModel.price,
+          status: PaymentItemStatus.final_price,
+        )
+      ];
+      if (Platform.isIOS) {
+        final result = await PayService(ApplePayImpl()).pay(paymentItems);
+        final applePayment = ApplePaymentModel.fromJson(result);
+        await saveApplePayment(applePayment, appModel);
+      } else {
+        final result = await PayService(GoolePayImpl()).pay(paymentItems);
+        final goolePayment = GooglePaymentModel.fromJson(result);
+        await saveGooglePayment(goolePayment, appModel);
+      }
     }
   }
 
@@ -64,7 +94,12 @@ class ProductController extends _$ProductController {
         .collection('app')
         .doc(appModel.id)
         .set(payment.toJson());
-    state = AsyncData(appModel.copyWith(paySuccess: true, didPay: true));
+    state = AsyncData(
+      appModel.copyWith(
+        paySuccess: true,
+        appOwnerType: AppOwnerType.purchased,
+      ),
+    );
   }
 
   Future<void> saveApplePayment(
@@ -76,6 +111,17 @@ class ProductController extends _$ProductController {
         .collection('app')
         .doc(appModel.id)
         .set(payment.toJson());
-    state = AsyncData(appModel.copyWith(paySuccess: true, didPay: true));
+    state = AsyncData(
+      appModel.copyWith(
+        paySuccess: true,
+        appOwnerType: AppOwnerType.purchased,
+      ),
+    );
+  }
+
+  Future<void> deleteApp() async {
+    state = const AsyncLoading();
+    await _rootAppRef.doc(appId).delete();
+    ref.read(appListProvider.notifier).getApps();
   }
 }
